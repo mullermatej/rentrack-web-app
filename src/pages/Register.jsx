@@ -1,22 +1,27 @@
 import Button from '@mui/material/Button';
 import InputField from '../components/InputField';
-import Select from '../components/Select';
 
 function Register() {
 	return (
 		<>
 			<h1>This is a Register page</h1>
-			<InputField value="Username" />
+			<InputField value="Ime vlasnika" />
+			<InputField value="Prezime vlasnika" />
+			<InputField value="Naziv obrta" />
+			<InputField value="OIB broj obrta" />
+			<InputField value="Adresa obrta" />
 			<InputField
 				value="Email"
 				type="email"
 			/>
 			<InputField
-				value="Password"
+				value="Lozinka"
 				type="password"
 			/>
-
-			<Select />
+			<InputField
+				value="Potvrdi lozinku"
+				type="password"
+			/>
 
 			<Button variant="outlined">Hello world</Button>
 		</>
