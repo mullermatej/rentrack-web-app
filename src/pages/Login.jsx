@@ -1,5 +1,6 @@
 import Button from '@mui/material/Button';
 import InputField from '../components/InputField';
+import LoginDialog from '../components/LoginDialog';
 
 function Login() {
 	return (
@@ -16,6 +17,7 @@ function Login() {
 			/>
 
 			<Button variant="outlined">Hello world</Button>
+			<LoginDialog />
 		</>
 	);
 }
