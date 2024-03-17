@@ -16,6 +16,7 @@ export default function InputField({ value, type = 'text' }) {
 				label={value}
 				variant="outlined"
 				type={type}
+				size="small"
 			/>
 		</Box>
 	);

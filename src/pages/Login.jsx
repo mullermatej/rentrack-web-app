@@ -1,25 +1,19 @@
 import Button from '@mui/material/Button';
 import InputField from '../components/InputField';
-import LoginDialog from '../components/LoginDialog';
+// import LoginDialog from '../components/LoginDialog';
 
-function Login() {
+export default function Login() {
 	return (
 		<>
 			<h1>This is a Login page</h1>
-			<InputField value="Username" />
+			<InputField value="OIB obrta" />
 			<InputField
-				value="Email"
-				type="email"
-			/>
-			<InputField
-				value="Password"
+				value="Lozinka"
 				type="password"
 			/>
 
-			<Button variant="outlined">Hello world</Button>
-			<LoginDialog />
+			<Button variant="outlined">Ulogiraj se</Button>
+			{/* <LoginDialog /> */}
 		</>
 	);
 }
-
-export default Login;

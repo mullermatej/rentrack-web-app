@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import InputField from '../components/InputField';
 
-function Register() {
+export default function Register() {
 	return (
 		<>
 			<h1>This is a Register page</h1>
@@ -23,9 +23,7 @@ function Register() {
 				type="password"
 			/>
 
-			<Button variant="outlined">Hello world</Button>
+			<Button variant="outlined">Registriraj se</Button>
 		</>
 	);
 }
-
-export default Register;
