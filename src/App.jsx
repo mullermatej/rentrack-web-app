@@ -4,6 +4,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import UserSelect from './pages/UserSelect';
 import Equipment from './pages/Equipment';
+import EquipmentDetails from './pages/EquipmentDetails';
 import './App.css';
 
 function App() {
@@ -32,8 +33,12 @@ function App() {
 					element={<UserSelect />}
 				/>
 				<Route
-					path="/equipment"
+					path="/oprema"
 					element={<Equipment />}
+				/>
+				<Route
+					path="/oprema/:equipmentName"
+					element={<EquipmentDetails />}
 				/>
 			</Routes>
 			{/* <div>

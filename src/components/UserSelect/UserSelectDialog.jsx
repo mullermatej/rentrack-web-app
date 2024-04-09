@@ -20,12 +20,18 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<DialogTitle className="text-center">Ispuni informacije o novoj opremi</DialogTitle>
+			<DialogTitle className="text-center">Ispuni informacije novog korisnika</DialogTitle>
 			<div className="text-center">
-				<InputField value="Naziv" />
-				<InputField value="Količina" />
-				<InputField value="Cijena" />
-				<InputField value="Admin lozinka" />
+				<InputField value="Ime" />
+				<InputField value="Prezime" />
+				<InputField
+					value="Lozinka"
+					type="password"
+				/>
+				<InputField
+					value="Ponovi lozinku"
+					type="password"
+				/>
 				<Button
 					variant="outlined"
 					style={{ marginBottom: '20px', marginTop: '20px' }}
@@ -58,12 +64,15 @@ export default function UserSelectDialog() {
 
 	return (
 		<>
-			<Button
-				variant="outlined"
-				onClick={handleClickOpen}
-			>
-				Dodaj
-			</Button>
+			<div className="flex justify-center gap-4 mt-2">
+				<Button variant="outlined"> Ulogiraj</Button>
+				<Button
+					variant="outlined"
+					onClick={handleClickOpen}
+				>
+					Novi korisnik
+				</Button>
+			</div>
 			<SimpleDialog
 				selectedValue={selectedValue}
 				open={open}

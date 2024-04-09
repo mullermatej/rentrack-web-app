@@ -9,7 +9,7 @@ export default function Equipment() {
 				<EquipmentDialog />
 			</div>
 			<div className="mt-6 flex space-x-4">
-				<EquipmentChip value="Ležaljke" />
+				<EquipmentChip value="Lezaljke" />
 				<EquipmentChip value="Suncobrani" />
 				<EquipmentChip value="Pedaline" />
 				<EquipmentChip value="Gliseri" />
