@@ -37,7 +37,7 @@ function App() {
 					element={<Equipment />}
 				/>
 				<Route
-					path="/oprema/:equipmentName"
+					path="/oprema/:adminId/:equipmentName"
 					element={<EquipmentDetails />}
 				/>
 			</Routes>

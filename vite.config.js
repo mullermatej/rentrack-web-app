@@ -5,13 +5,7 @@ import react from '@vitejs/plugin-react';
 // Promijeniti proxy target na render/vercel backend
 export default defineConfig({
 	server: {
-		proxy: {
-			'/api': {
-				target: 'http://localhost:3000',
-				changeOrigin: true,
-				secure: false,
-			},
-		},
+		proxy: {},
 	},
 	plugins: [react()],
 });

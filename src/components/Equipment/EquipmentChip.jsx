@@ -7,7 +7,7 @@ export default function EquipmentChip({ value }) {
 
 	const handleClick = () => {
 		const lowercaseValue = value.toLowerCase();
-		navigate(`/oprema/${lowercaseValue}`);
+		navigate(`/oprema/adminId/${lowercaseValue}`); // Kod logina spremi adminId u localStorage ?
 	};
 
 	return (
