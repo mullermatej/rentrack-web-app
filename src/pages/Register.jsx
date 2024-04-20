@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import axios from 'axios';
 import Button from '@mui/material/Button';
 import InputField from '../components/InputField';
-import axios from 'axios';
+import AuthSnackbar from '../components/Snackbars/AuthSnackbar';
 
 export default function Register() {
 	const [inputValues, setInputValues] = useState({});
+	const [snackbarOpen, setSnackbarOpen] = useState(false);
+	const [snackbarMessage, setSnackbarMessage] = useState('');
 
 	const handleClick = async () => {
 		const username = inputValues['korisnicko ime'];
@@ -12,15 +15,32 @@ export default function Register() {
 		try {
 			const doc = { username, password };
 
-			const response = await axios.post('http://localhost:3000/users', doc);
-			console.log('Success: ', response.data);
+			if (!username || !password) {
+				setSnackbarMessage('Potrebno je unijeti korisničko ime i lozinku!');
+				setSnackbarOpen(true);
+				return;
+			} else {
+				const response = await axios.post('api/users', doc);
+				console.log('Success, response is: ', response);
+				setSnackbarMessage('Uspješno si se registrirao!');
+				setSnackbarOpen(true);
+			}
 		} catch (error) {
+			setSnackbarMessage('Greška kod registracije!');
+			setSnackbarOpen(true);
 			if (error.response) {
 				console.error('Error:', error.response.data, error.response.status);
 			} else {
 				console.error('Error:', error.message);
 			}
 		}
+	};
+
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setSnackbarOpen(false);
 	};
 
 	return (
@@ -57,6 +77,12 @@ export default function Register() {
 			>
 				Registriraj se
 			</Button>
+			<AuthSnackbar
+				open={snackbarOpen}
+				autoHideDuration={6000}
+				handleClose={handleClose}
+				message={snackbarMessage}
+			/>
 		</>
 	);
 }
