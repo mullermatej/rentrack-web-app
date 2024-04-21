@@ -4,19 +4,18 @@ import InputField from '../components/Login/InputField';
 import AuthSnackbar from '../components/Snackbars/AuthSnackbar';
 import axios from 'axios';
 import '../App.css';
-// import LoginDialog from '../components/LoginDialog';
 
 export default function Login() {
+	const [userInfo, setUserInfo] = useState({ username: '', password: '' });
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
 	const [snackbarMessage, setSnackbarMessage] = useState('');
 
 	const handleLogin = async () => {
-		const username = document.querySelector('input[type="text"]').value;
-		const password = document.querySelector('input[type="password"]').value;
-		const doc = { username, password };
+		const doc = { username: userInfo.username, password: userInfo.password };
+		console.log('doc', doc);
 
 		try {
-			if (!username || !password) {
+			if (userInfo.username === '' || userInfo.password === '') {
 				setSnackbarMessage('Potrebno je unijeti korisničko ime i lozinku!');
 				setSnackbarOpen(true);
 				return;
@@ -51,10 +50,16 @@ export default function Login() {
 	return (
 		<div id="auth-container">
 			<h1>This is a Login page </h1>
-			<InputField value="Korisnicko ime" />
+			<InputField
+				value="Korisnicko ime"
+				setUserInfo={setUserInfo}
+				field="username"
+			/>
 			<InputField
 				value="Lozinka"
 				type="password"
+				setUserInfo={setUserInfo}
+				field="password"
 			/>
 
 			<Button

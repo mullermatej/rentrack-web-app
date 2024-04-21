@@ -1,7 +1,14 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export default function InputField({ value, type = 'text' }) {
+export default function InputField({ value, type = 'text', setUserInfo, field }) {
+	const handleChange = (event) => {
+		setUserInfo((prevState) => ({
+			...prevState,
+			[field]: event.target.value,
+		}));
+	};
+
 	return (
 		<Box
 			component="form"
@@ -13,6 +20,7 @@ export default function InputField({ value, type = 'text' }) {
 		>
 			<TextField
 				label={value}
+				onChange={handleChange}
 				variant="outlined"
 				type={type}
 				size="small"

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -20,19 +21,31 @@ function SimpleDialog(props) {
 		onClose(selectedValue);
 	};
 
-	const handleCreateUser = () => {
+	const handleCreateUser = async () => {
+		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+		const doc = {
+			adminId,
+			name: newUser.name,
+			surname: newUser.surname,
+			password: newUser.password,
+		};
+
 		if (newUser.name === '' || newUser.surname === '') {
 			console.log('Potrebno je ispuniti sva polja!');
 			return;
-		} else if (newUser.password.length < 8) {
-			console.log('Lozinka mora imati najmanje 8 znakova');
+		} else if (newUser.password.length < 6) {
+			console.log('Lozinka mora imati najmanje 6 znakova');
 			return;
 		} else if (newUser.password !== newUser.repeatPassword) {
 			console.log('Lozinke se ne podudaraju');
 			return;
 		}
-
-		console.log(newUser);
+		try {
+			const response = await axios.post(`api/users/${adminId}/profiles`, doc);
+			console.log('Success, response is: ', response);
+		} catch (error) {
+			console.error('Error:', error.message);
+		}
 	};
 
 	return (
@@ -95,10 +108,19 @@ export default function UserSelectDialog() {
 		setSelectedValue(value);
 	};
 
+	const handleProfileLogin = () => {
+		// Nastaviti ovdje
+	};
+
 	return (
 		<>
 			<div className="flex justify-center gap-4 mt-2">
-				<Button variant="outlined"> Ulogiraj</Button>
+				<Button
+					variant="outlined"
+					onClick={handleProfileLogin}
+				>
+					Ulogiraj
+				</Button>
 				<Button
 					variant="outlined"
 					onClick={handleClickOpen}
