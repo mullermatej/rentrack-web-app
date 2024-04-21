@@ -5,20 +5,13 @@ import Login from './pages/Login';
 import UserSelect from './pages/UserSelect';
 import Equipment from './pages/Equipment';
 import EquipmentDetails from './pages/EquipmentDetails';
+import Navigation from './components/Layout/Navigation';
 import './App.css';
 
 function App() {
-	// const [backendData, setBackendData] = useState([{}]);
-
-	// useEffect(() => {
-	// 	fetch('/api')
-	// 		.then((response) => response.json())
-	// 		.then((data) => setBackendData(data))
-	// 		.catch((err) => console.log(err));
-	// }, []);
-
 	return (
 		<BrowserRouter>
+			<Navigation />
 			<Routes>
 				<Route
 					path="/register"
@@ -41,13 +34,6 @@ function App() {
 					element={<EquipmentDetails />}
 				/>
 			</Routes>
-			{/* <div>
-				{typeof backendData.users === 'undefined' ? (
-					<p>Loading...</p>
-				) : (
-					backendData.users.map((user, i) => <p key={i}>{user}</p>)
-				)}
-			</div> */}
 		</BrowserRouter>
 	);
 }

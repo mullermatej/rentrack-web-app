@@ -1,6 +1,14 @@
 #root {
-	max-width: 1280px;
+	/* max-width: 1280px; */
 	margin: 0 auto;
-	padding: 2rem;
+	/* padding: 2rem; */
 	text-align: center;
+}
+
+#auth-container {
+	display: flex;
+	align-items: center; /* Keep this for vertical centering */
+	justify-content: center; /* Keep this for horizontal centering */
+	flex-direction: column; /* Align items vertically */
+	height: 100vh;
 }

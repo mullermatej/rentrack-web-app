@@ -1,11 +1,12 @@
-import UserSelectDialog from '../components/UserSelect/UserSelectDialog';
+import InputField from '../components/UserSelect/InputField';
 import UserSelectDropdown from '../components/UserSelect/UserSelectDropdown';
-import InputField from '../components/InputField';
+import UserSelectDialog from '../components/UserSelect/UserSelectDialog';
 
 export default function UserSelect() {
 	return (
 		<>
-			<h1>Odaberi korisnika</h1>
+			<h1>Tko si ti?</h1>
+			<h3>Ako nisi na popisu, dodaj se!</h3>
 			<UserSelectDropdown />
 			<InputField
 				value="Lozinka"

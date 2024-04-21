@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 
-import InputField from '../../components/InputField';
+import InputField from './InputField';
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 

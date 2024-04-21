@@ -2,26 +2,37 @@ import { useState } from 'react';
 import Button from '@mui/material/Button';
 import InputField from '../components/Login/InputField';
 import AuthSnackbar from '../components/Snackbars/AuthSnackbar';
+import axios from 'axios';
+import '../App.css';
 // import LoginDialog from '../components/LoginDialog';
 
 export default function Login() {
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
 	const [snackbarMessage, setSnackbarMessage] = useState('');
 
-	const handleLogin = () => {
+	const handleLogin = async () => {
 		const username = document.querySelector('input[type="text"]').value;
 		const password = document.querySelector('input[type="password"]').value;
+		const doc = { username, password };
 
 		try {
 			if (!username || !password) {
 				setSnackbarMessage('Potrebno je unijeti korisničko ime i lozinku!');
 				setSnackbarOpen(true);
-				console.log('Error: Username and password are required!');
 				return;
 			} else {
-				setSnackbarMessage('Uspješno si se registrirao!');
-				setSnackbarOpen(true);
-				console.log('Success: Username and password entered!');
+				try {
+					const response = await axios.post('api/auth', doc);
+					const user = response.data;
+
+					localStorage.setItem('user', JSON.stringify(user));
+
+					setSnackbarMessage('Uspješno si se logirao!');
+					setSnackbarOpen(true);
+				} catch (error) {
+					console.error('Error:', error.message);
+					// Ako ne vidis snackbar kod greske, onda ga ovdje treba dodat
+				}
 			}
 		} catch (error) {
 			console.error('Error:', error.message);
@@ -38,8 +49,8 @@ export default function Login() {
 	};
 
 	return (
-		<>
-			<h1>This is a Login page</h1>
+		<div id="auth-container">
+			<h1>This is a Login page </h1>
 			<InputField value="Korisnicko ime" />
 			<InputField
 				value="Lozinka"
@@ -58,6 +69,6 @@ export default function Login() {
 				handleClose={handleClose}
 				message={snackbarMessage}
 			/>
-		</>
+		</div>
 	);
 }

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
 import Button from '@mui/material/Button';
-import InputField from '../components/InputField';
+import InputField from '../components/Register/InputField';
 import AuthSnackbar from '../components/Snackbars/AuthSnackbar';
+import '../App.css';
 
 export default function Register() {
 	const [inputValues, setInputValues] = useState({});
@@ -44,7 +45,7 @@ export default function Register() {
 	};
 
 	return (
-		<>
+		<div id="auth-container">
 			<h1>This is a Register page</h1>
 			{/* <InputField value="Ime vlasnika" />
 			<InputField value="Prezime vlasnika" />
@@ -83,6 +84,6 @@ export default function Register() {
 				handleClose={handleClose}
 				message={snackbarMessage}
 			/>
-		</>
+		</div>
 	);
 }
