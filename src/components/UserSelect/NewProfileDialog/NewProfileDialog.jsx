@@ -6,10 +6,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import InputField from './InputField';
 
-const emails = ['username@gmail.com', 'user02@gmail.com'];
-
-function SimpleDialog(props) {
-	const { onClose, selectedValue, open } = props;
+function SimpleDialog({ onClose, open }) {
 	const [newUser, setNewUser] = useState({
 		name: '',
 		surname: '',
@@ -18,7 +15,7 @@ function SimpleDialog(props) {
 	});
 
 	const handleClose = () => {
-		onClose(selectedValue);
+		onClose();
 	};
 
 	const handleCreateUser = async () => {
@@ -92,44 +89,12 @@ function SimpleDialog(props) {
 SimpleDialog.propTypes = {
 	onClose: PropTypes.func.isRequired,
 	open: PropTypes.bool.isRequired,
-	selectedValue: PropTypes.string.isRequired,
 };
 
-export default function UserSelectDialog() {
-	const [open, setOpen] = useState(false);
-	const [selectedValue, setSelectedValue] = useState(emails[1]);
-
-	const handleClickOpen = () => {
-		setOpen(true);
-	};
-
-	const handleClose = (value) => {
-		setOpen(false);
-		setSelectedValue(value);
-	};
-
-	const handleProfileLogin = () => {
-		// Nastaviti ovdje
-	};
-
+export default function NewProfileDialog({ open, handleClose }) {
 	return (
 		<>
-			<div className="flex justify-center gap-4 mt-2">
-				<Button
-					variant="outlined"
-					onClick={handleProfileLogin}
-				>
-					Ulogiraj
-				</Button>
-				<Button
-					variant="outlined"
-					onClick={handleClickOpen}
-				>
-					Novi korisnik?
-				</Button>
-			</div>
 			<SimpleDialog
-				selectedValue={selectedValue}
 				open={open}
 				onClose={handleClose}
 			/>

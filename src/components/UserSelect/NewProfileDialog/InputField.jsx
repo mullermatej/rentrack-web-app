@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export default function InputField({ value, type = 'text', field, setProfile }) {
+export default function InputField({ value, type = 'text', setNewUser, field }) {
 	const handleChange = (event) => {
-		setProfile((prevState) => ({
+		setNewUser((prevState) => ({
 			...prevState,
 			[field]: event.target.value,
 		}));

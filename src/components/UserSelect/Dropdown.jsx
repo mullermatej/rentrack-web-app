@@ -6,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function BasicSelect() {
+export default function Dropdown({ setProfile }) {
 	const [username, setUsername] = useState('');
 	const [data, setData] = useState(null);
 
@@ -30,7 +30,10 @@ export default function BasicSelect() {
 	}, []);
 
 	const handleChange = (event) => {
+		const [name, surname] = event.target.value.split(' ');
+		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
 		setUsername(event.target.value);
+		setProfile({ name, surname, adminId });
 	};
 
 	return (
@@ -58,9 +61,6 @@ export default function BasicSelect() {
 								{item.name} {item.surname}
 							</MenuItem>
 						))}
-					{/* <MenuItem value={10}>Ten</MenuItem>
-					<MenuItem value={10}>Ten</MenuItem>
-					<MenuItem value={10}>Ten</MenuItem> */}
 				</Select>
 			</FormControl>
 		</Box>
