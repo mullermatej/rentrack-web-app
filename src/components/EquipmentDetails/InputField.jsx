@@ -1,14 +1,7 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export default function InputField({ value, type = 'text', setNewEquipment, field }) {
-	const handleChange = (e) => {
-		setNewEquipment((prevState) => ({
-			...prevState,
-			[field]: e.target.value,
-		}));
-	};
-
+export default function InputField({ value, type = 'text' }) {
 	return (
 		<Box
 			component="form"
@@ -23,7 +16,6 @@ export default function InputField({ value, type = 'text', setNewEquipment, fiel
 				variant="outlined"
 				type={type}
 				size="small"
-				onChange={handleChange}
 			/>
 		</Box>
 	);

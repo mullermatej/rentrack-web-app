@@ -1,24 +1,18 @@
-import { useState } from 'react';
-// import axios from 'axios';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
+import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 
 import InputField from './InputField';
+
+const emails = ['username@gmail.com', 'user02@gmail.com'];
+
 function SimpleDialog(props) {
-	const { onClose, selectedValue, open } = props;
-	const [NewEquipment, setNewEquipment] = useState({
-		name: '',
-		adminId: '',
-	});
+	const { onClose, selectedValue, open, equipmentName } = props;
 
 	const handleClose = () => {
 		onClose(selectedValue);
-	};
-
-	const handleAddEquipment = () => {
-		// Nastavi na dodavanje nakon sto omogucis prikaz
-		console.log('Adding equipment: ', NewEquipment);
 	};
 
 	return (
@@ -26,21 +20,12 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
+			<DialogTitle className="text-center">Dodaj u opremu &quot;{equipmentName}&quot;</DialogTitle>
 			<div className="text-center">
-				<InputField
-					value="Naziv"
-					field="name"
-					setNewEquipment={setNewEquipment}
-				/>
-				<InputField
-					value="Admin lozinka"
-					field="adminId"
-					setNewEquipment={setNewEquipment}
-				/>
+				<InputField value="ID" />
 				<Button
 					variant="outlined"
-					style={{ marginBottom: '10px', marginTop: '10px' }}
-					onClick={handleAddEquipment}
+					style={{ marginBottom: '20px', marginTop: '20px' }}
 				>
 					Dodaj
 				</Button>
@@ -52,17 +37,20 @@ function SimpleDialog(props) {
 SimpleDialog.propTypes = {
 	onClose: PropTypes.func.isRequired,
 	open: PropTypes.bool.isRequired,
+	selectedValue: PropTypes.string.isRequired,
 };
 
-export default function UserSelectDialog() {
-	const [open, setOpen] = useState(false);
+export default function NewEquipment({ equipmentName }) {
+	const [open, setOpen] = React.useState(false);
+	const [selectedValue, setSelectedValue] = React.useState(emails[1]);
 
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
 
-	const handleClose = () => {
+	const handleClose = (value) => {
 		setOpen(false);
+		setSelectedValue(value);
 	};
 
 	return (
@@ -74,8 +62,10 @@ export default function UserSelectDialog() {
 				Dodaj
 			</Button>
 			<SimpleDialog
+				selectedValue={selectedValue}
 				open={open}
 				onClose={handleClose}
+				equipmentName={equipmentName}
 			/>
 		</>
 	);

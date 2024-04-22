@@ -7,7 +7,11 @@ export default function EquipmentChip({ value }) {
 
 	const handleClick = () => {
 		const lowercaseValue = value.toLowerCase();
-		navigate(`/oprema/adminId/${lowercaseValue}`); // Kod logina spremi adminId u localStorage ?
+		navigate(`/oprema/adminId/${lowercaseValue}`); // Zamijeni sa id-em iz storage-a
+	};
+
+	const handleDelete = () => {
+		console.info('You clicked the delete icon.');
 	};
 
 	return (
@@ -16,9 +20,10 @@ export default function EquipmentChip({ value }) {
 			spacing={1}
 		>
 			<Chip
-				className="capitalize !cursor-pointer"
+				className="capitalize"
 				label={value}
 				onClick={() => handleClick()}
+				onDelete={handleDelete}
 			/>
 		</Stack>
 	);
