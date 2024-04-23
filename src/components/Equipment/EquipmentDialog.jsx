@@ -1,24 +1,52 @@
-import { useState } from 'react';
-// import axios from 'axios';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 
-import InputField from './InputField';
+import EquipmentInputField from './EquipmentInputField';
+import UserInputField from './UserInputField';
+
 function SimpleDialog(props) {
 	const { onClose, selectedValue, open } = props;
+	const [user, setUser] = useState({ username: '', password: '' });
 	const [NewEquipment, setNewEquipment] = useState({
 		name: '',
 		adminId: '',
 	});
 
+	useEffect(() => {
+		const user = JSON.parse(localStorage.getItem('user'));
+		if (user) {
+			setUser({
+				username: user.username,
+				password: '',
+			});
+		}
+		setNewEquipment((prevState) => ({
+			...prevState,
+			adminId: user.adminId,
+		}));
+	}, []);
+
 	const handleClose = () => {
 		onClose(selectedValue);
 	};
 
-	const handleAddEquipment = () => {
-		// Nastavi na dodavanje nakon sto omogucis prikaz
-		console.log('Adding equipment: ', NewEquipment);
+	const handleAddEquipment = async () => {
+		try {
+			const response = await axios.post('/api/auth/equipment', user);
+			if (response.status === 200) {
+				try {
+					const response = await axios.post('/api/equipment', NewEquipment);
+					console.log(response);
+				} catch (error) {
+					console.error(error);
+				}
+			}
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	return (
@@ -27,15 +55,15 @@ function SimpleDialog(props) {
 			open={open}
 		>
 			<div className="text-center">
-				<InputField
+				<EquipmentInputField
 					value="Naziv"
 					field="name"
 					setNewEquipment={setNewEquipment}
 				/>
-				<InputField
+				<UserInputField
 					value="Admin lozinka"
-					field="adminId"
-					setNewEquipment={setNewEquipment}
+					field="password"
+					setUser={setUser}
 				/>
 				<Button
 					variant="outlined"

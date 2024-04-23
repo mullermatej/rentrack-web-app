@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export default function InputField({ value, type = 'text', setNewEquipment, field }) {
+export default function EquipmentInputField({ value, type = 'text', setUser, field }) {
 	const handleChange = (e) => {
-		setNewEquipment((prevState) => ({
+		setUser((prevState) => ({
 			...prevState,
 			[field]: e.target.value,
 		}));
