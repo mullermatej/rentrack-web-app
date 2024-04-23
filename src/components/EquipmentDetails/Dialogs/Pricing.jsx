@@ -1,12 +1,9 @@
-import * as React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
-import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 
-import InputField from './InputField';
-
-const emails = ['username@gmail.com', 'user02@gmail.com'];
+import DenseTable from '../Tables/DenseTable';
 
 function SimpleDialog(props) {
 	const { onClose, selectedValue, open, equipmentName } = props;
@@ -20,16 +17,7 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<DialogTitle className="text-center">Dodaj u opremu &quot;{equipmentName}&quot;</DialogTitle>
-			<div className="text-center">
-				<InputField value="ID" />
-				<Button
-					variant="outlined"
-					style={{ marginBottom: '20px', marginTop: '20px' }}
-				>
-					Dodaj
-				</Button>
-			</div>
+			<DenseTable equipmentName={equipmentName} />
 		</Dialog>
 	);
 }
@@ -40,9 +28,9 @@ SimpleDialog.propTypes = {
 	selectedValue: PropTypes.string.isRequired,
 };
 
-export default function NewEquipment({ equipmentName }) {
-	const [open, setOpen] = React.useState(false);
-	const [selectedValue, setSelectedValue] = React.useState(emails[1]);
+export default function Pricing({ equipmentName }) {
+	const [open, setOpen] = useState(false);
+	const [selectedValue, setSelectedValue] = useState('');
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -56,10 +44,11 @@ export default function NewEquipment({ equipmentName }) {
 	return (
 		<>
 			<Button
-				variant="outlined"
+				size="small"
+				variant="contained"
 				onClick={handleClickOpen}
 			>
-				Dodaj
+				Cjenik
 			</Button>
 			<SimpleDialog
 				selectedValue={selectedValue}
