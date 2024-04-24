@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -16,11 +15,11 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 import HandlePayment from './Dialogs/HandlePayment';
 
-function createData(id, state, until, profitDay, profitMonth, history) {
+function createData(id, availability, endTime, profitDay, profitMonth, history) {
 	return {
 		id,
-		state,
-		until,
+		availability,
+		endTime,
 		profitDay,
 		profitMonth,
 		history,
@@ -28,13 +27,16 @@ function createData(id, state, until, profitDay, profitMonth, history) {
 }
 
 function Row(props) {
-	const { row } = props;
+	const { row, equipment } = props;
 	const [open, setOpen] = useState(false);
 	const [openPayment, setOpenPayment] = useState(false);
+	const [equipmentId, setEquipmentId] = useState('');
 
 	const handlePayment = () => {
-		console.log('Stisnuo si suncobran sa id-em: ', row.id);
-		setOpenPayment(true);
+		if (row.availability === 'available') {
+			setOpenPayment(true);
+			setEquipmentId(row.id);
+		}
 	};
 
 	return (
@@ -59,9 +61,9 @@ function Row(props) {
 					align="right"
 					onClick={handlePayment}
 				>
-					{row.state}
+					{row.availability}
 				</TableCell>
-				<TableCell align="right">{row.until}</TableCell>
+				<TableCell align="right">{row.endTime}</TableCell>
 				<TableCell align="right">{row.profitDay}€</TableCell>
 				<TableCell align="right">{row.profitMonth}€</TableCell>
 			</TableRow>
@@ -116,27 +118,12 @@ function Row(props) {
 			<HandlePayment
 				openPayment={openPayment}
 				setOpenPayment={setOpenPayment}
+				equipment={equipment}
+				equipmentId={equipmentId}
 			/>
 		</>
 	);
 }
-
-Row.propTypes = {
-	row: PropTypes.shape({
-		id: PropTypes.number.isRequired,
-		state: PropTypes.string.isRequired,
-		until: PropTypes.string.isRequired,
-		profitDay: PropTypes.string.isRequired,
-		profitMonth: PropTypes.string.isRequired,
-		history: PropTypes.arrayOf(
-			PropTypes.shape({
-				date: PropTypes.string.isRequired,
-				worker: PropTypes.string.isRequired,
-				hours: PropTypes.number.isRequired,
-			})
-		).isRequired,
-	}).isRequired,
-};
 
 const rows = [];
 
@@ -182,6 +169,7 @@ export default function InfoTable({ equipment }) {
 						<Row
 							key={row.id}
 							row={row}
+							equipment={equipment}
 						/>
 					))}
 				</TableBody>

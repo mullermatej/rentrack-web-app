@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import PriceOptions from '../RadioGroups/PriceOptions';
 
 function SimpleDialog(props) {
-	const { onClose, selectedValue, openPayment } = props;
+	const { onClose, selectedValue, openPayment, equipment, equipmentId } = props;
 
 	const handleClose = () => {
 		onClose(selectedValue);
@@ -16,8 +16,11 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={openPayment}
 		>
-			<div>
-				<PriceOptions />
+			<div className="p-4">
+				<PriceOptions
+					equipment={equipment}
+					equipmentId={equipmentId}
+				/>
 			</div>
 		</Dialog>
 	);
@@ -29,7 +32,7 @@ SimpleDialog.propTypes = {
 	selectedValue: PropTypes.string.isRequired,
 };
 
-export default function HandlePayment({ openPayment, setOpenPayment }) {
+export default function HandlePayment({ openPayment, setOpenPayment, equipment, equipmentId }) {
 	const [selectedValue, setSelectedValue] = useState('');
 
 	const handleClosePayment = (value) => {
@@ -43,6 +46,8 @@ export default function HandlePayment({ openPayment, setOpenPayment }) {
 				selectedValue={selectedValue}
 				openPayment={openPayment}
 				onClose={handleClosePayment}
+				equipment={equipment}
+				equipmentId={equipmentId}
 			/>
 		</>
 	);
