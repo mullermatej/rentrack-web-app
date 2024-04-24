@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -29,24 +28,9 @@ SimpleDialog.propTypes = {
 	selectedValue: PropTypes.string.isRequired,
 };
 
-export default function Pricing({ equipmentName }) {
+export default function Pricing({ equipment }) {
 	const [open, setOpen] = useState(false);
 	const [selectedValue, setSelectedValue] = useState('');
-	const [equipment, setEquipment] = useState({});
-	const baseUrl = import.meta.env.VITE_SERVER_BASE_URL;
-
-	useEffect(() => {
-		const getEquipment = async () => {
-			try {
-				const adminId = JSON.parse(localStorage.getItem('user')).adminId;
-				const response = await axios.get(`${baseUrl}/equipment/${adminId}/${equipmentName}`);
-				setEquipment(response.data[0]);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-		getEquipment();
-	}, [baseUrl, equipmentName]);
 
 	const handleClickOpen = async () => {
 		setOpen(true);

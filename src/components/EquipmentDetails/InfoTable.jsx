@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -14,6 +14,8 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
+import HandlePayment from './Dialogs/HandlePayment';
+
 function createData(id, state, until, profitDay, profitMonth, history) {
 	return {
 		id,
@@ -27,10 +29,16 @@ function createData(id, state, until, profitDay, profitMonth, history) {
 
 function Row(props) {
 	const { row } = props;
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = useState(false);
+	const [openPayment, setOpenPayment] = useState(false);
+
+	const handlePayment = () => {
+		console.log('Stisnuo si suncobran sa id-em: ', row.id);
+		setOpenPayment(true);
+	};
 
 	return (
-		<React.Fragment>
+		<>
 			<TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
 				<TableCell>
 					<IconButton
@@ -47,10 +55,15 @@ function Row(props) {
 				>
 					{row.id}
 				</TableCell>
-				<TableCell align="right">{row.state}</TableCell>
+				<TableCell
+					align="right"
+					onClick={handlePayment}
+				>
+					{row.state}
+				</TableCell>
 				<TableCell align="right">{row.until}</TableCell>
-				<TableCell align="right">{row.profitDay}</TableCell>
-				<TableCell align="right">{row.profitMonth}</TableCell>
+				<TableCell align="right">{row.profitDay}€</TableCell>
+				<TableCell align="right">{row.profitMonth}€</TableCell>
 			</TableRow>
 			<TableRow>
 				<TableCell
@@ -100,7 +113,11 @@ function Row(props) {
 					</Collapse>
 				</TableCell>
 			</TableRow>
-		</React.Fragment>
+			<HandlePayment
+				openPayment={openPayment}
+				setOpenPayment={setOpenPayment}
+			/>
+		</>
 	);
 }
 
@@ -121,25 +138,39 @@ Row.propTypes = {
 	}).isRequired,
 };
 
-const rows = [
-	createData(1, 'U najmu', '13:30', '20€', '660€', [
-		{ date: '2021-10-01', worker: 'Matija Grubic', hours: 3 },
-		{ date: '2021-10-02', worker: 'Mario Maric', hours: 3 },
-	]),
-	createData(3, 'Slobodno', '/', '20€', '660€', [
-		{ date: '2021-10-01', worker: 'Ivana Grubic', hours: 2 },
-		{ date: '2021-10-02', worker: 'Mario Maric', hours: 1 },
-	]),
-];
+const rows = [];
 
-export default function InfoTable() {
+export default function InfoTable({ equipment }) {
+	const [addedEquipment, setAddedEquipment] = useState([]);
+
+	useEffect(() => {
+		setAddedEquipment(equipment.addedEquipment);
+
+		if (addedEquipment && addedEquipment.length > 0) {
+			Object.keys(addedEquipment).forEach((key) => {
+				const newRow = createData(
+					addedEquipment[key].id,
+					addedEquipment[key].availability,
+					addedEquipment[key].endTime,
+					addedEquipment[key].profitDay,
+					addedEquipment[key].profitMonth,
+					addedEquipment[key].history
+				);
+
+				if (!rows.find((row) => row.id === newRow.id)) {
+					rows.push(newRow);
+				}
+			});
+		}
+	}, [equipment, addedEquipment]);
+
 	return (
 		<TableContainer component={Paper}>
 			<Table aria-label="collapsible table">
 				<TableHead>
 					<TableRow>
 						<TableCell />
-						<TableCell>ID</TableCell>
+						<TableCell>key</TableCell>
 						<TableCell align="right">Izdano</TableCell>
 						<TableCell align="right">Istice</TableCell>
 						<TableCell align="right">Danasnji prihod</TableCell>
