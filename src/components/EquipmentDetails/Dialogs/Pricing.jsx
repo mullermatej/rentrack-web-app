@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -6,7 +7,7 @@ import Dialog from '@mui/material/Dialog';
 import DenseTable from '../Tables/DenseTable';
 
 function SimpleDialog(props) {
-	const { onClose, selectedValue, open, equipmentName } = props;
+	const { onClose, selectedValue, open, equipment } = props;
 
 	const handleClose = () => {
 		onClose(selectedValue);
@@ -17,7 +18,7 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<DenseTable equipmentName={equipmentName} />
+			<DenseTable equipment={equipment} />
 		</Dialog>
 	);
 }
@@ -31,8 +32,23 @@ SimpleDialog.propTypes = {
 export default function Pricing({ equipmentName }) {
 	const [open, setOpen] = useState(false);
 	const [selectedValue, setSelectedValue] = useState('');
+	const [equipment, setEquipment] = useState({});
+	const baseUrl = import.meta.env.VITE_SERVER_BASE_URL;
 
-	const handleClickOpen = () => {
+	useEffect(() => {
+		const getEquipment = async () => {
+			try {
+				const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+				const response = await axios.get(`${baseUrl}/equipment/${adminId}/${equipmentName}`);
+				setEquipment(response.data[0]);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		getEquipment();
+	}, [baseUrl, equipmentName]);
+
+	const handleClickOpen = async () => {
 		setOpen(true);
 	};
 
@@ -54,7 +70,7 @@ export default function Pricing({ equipmentName }) {
 				selectedValue={selectedValue}
 				open={open}
 				onClose={handleClose}
-				equipmentName={equipmentName}
+				equipment={equipment}
 			/>
 		</>
 	);

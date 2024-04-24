@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,23 +10,13 @@ function createData(hours, price) {
 	return { hours, price };
 }
 
-const rows = [createData(1, 10), createData(2, 20), createData(3, 30), createData(24, 60)];
+export default function DenseTable({ equipment }) {
+	const prices = equipment.prices;
+	const rows = [];
 
-export default function DenseTable({ equipmentName }) {
-	const [equipment, setEquipment] = useState([]);
-
-	useEffect(() => {
-		const getEquipment = async () => {
-			try {
-				const adminId = JSON.parse(localStorage.getItem('user')).adminId;
-				const response = await axios.get(`api/equipment/${adminId}/${equipmentName}`);
-				console.log('Response: ', response);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-		getEquipment();
-	}, []);
+	Object.keys(prices).forEach((hours) => {
+		rows.push(createData(hours, prices[hours]));
+	});
 
 	return (
 		<TableContainer component={Paper}>
@@ -39,7 +27,7 @@ export default function DenseTable({ equipmentName }) {
 			>
 				<TableHead>
 					<TableRow>
-						<TableCell>Broj sati</TableCell>
+						<TableCell>Broj sati za {equipment.name} </TableCell>
 						<TableCell align="left">Cijena</TableCell>
 					</TableRow>
 				</TableHead>

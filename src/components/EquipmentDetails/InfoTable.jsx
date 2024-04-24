@@ -149,7 +149,7 @@ export default function InfoTable() {
 				<TableBody>
 					{rows.map((row) => (
 						<Row
-							key={row.name}
+							key={row.id}
 							row={row}
 						/>
 					))}

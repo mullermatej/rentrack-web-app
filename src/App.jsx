@@ -1,4 +1,3 @@
-// import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Register from './pages/Register';
 import Login from './pages/Login';
@@ -6,6 +5,7 @@ import UserSelect from './pages/UserSelect';
 import Equipment from './pages/Equipment';
 import EquipmentDetails from './pages/EquipmentDetails';
 import Navigation from './components/Layout/Navigation';
+import Test from './pages/Test';
 import './App.css';
 
 function App() {
@@ -26,12 +26,16 @@ function App() {
 					element={<UserSelect />}
 				/>
 				<Route
-					path="/oprema"
+					path="/equipment"
 					element={<Equipment />}
 				/>
 				<Route
-					path="/oprema/:adminId/:equipmentName"
+					path="/equipment/:adminId/:equipmentName"
 					element={<EquipmentDetails />}
+				/>
+				<Route
+					path="/test"
+					element={<Test />}
 				/>
 			</Routes>
 		</BrowserRouter>

@@ -7,7 +7,8 @@ export default function EquipmentChip({ value }) {
 
 	const handleClick = () => {
 		const lowercaseValue = value.toLowerCase();
-		navigate(`/oprema/adminId/${lowercaseValue}`); // Zamijeni sa id-em iz storage-a
+		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+		navigate(`/equipment/${adminId}/${lowercaseValue}`);
 	};
 
 	const handleDelete = () => {
