@@ -6,31 +6,35 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 
+const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
+
 export default function PriceOptions({ equipment, equipmentId }) {
 	const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+	const equipmentName = equipment.name;
 	const worker =
 		JSON.parse(localStorage.getItem('profile')).name + ' ' + JSON.parse(localStorage.getItem('profile')).surname;
-	const equipmentName = equipment.name;
 	const prices = equipment.prices;
 	let choice = {};
 
 	const handleChoice = (event) => {
+		let date = new Date();
+		date.setHours(date.getHours() + parseInt(event.target.value.split(',')[0]));
+
 		choice = {
 			equipmentId: equipmentId,
-			worker: worker,
-			currentTime: new Date().toLocaleString(),
+			availability: 'unavailable',
+			endTime: date.toLocaleString(),
+			historyDate: new Date().toLocaleString(),
+			historyWorker: worker,
 			hours: event.target.value.split(',')[0],
 			price: event.target.value.split(',')[1],
 		};
 	};
 
-	const handleConfirm = () => {
+	const handleConfirm = async () => {
 		try {
-			// Ovdje nastavit
-			// const response = axios.patch(`api/equipment/${adminId}/${equipmentName}`, choice);
-			// console.log(response);
-
-			console.log(choice);
+			const response = await axios.patch(`${BASE_URL}/equipment/${adminId}/${equipmentName}`, choice);
+			console.log(response);
 		} catch (error) {
 			console.error(error);
 		}
