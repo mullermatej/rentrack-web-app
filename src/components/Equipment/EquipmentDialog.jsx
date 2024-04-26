@@ -58,7 +58,6 @@ function SimpleDialog(props) {
 
 	const handleAddEquipment = async () => {
 		console.log(newEquipment);
-
 		try {
 			const response = await axios.post('/api/auth/equipment', user);
 			if (response.status === 200) {
