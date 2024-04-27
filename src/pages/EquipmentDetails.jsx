@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import InfoTable from '../components/EquipmentDetails/InfoTable';
 import NewEquipment from '../components/EquipmentDetails/Dialogs/NewEquipment';
 import Pricing from '../components/EquipmentDetails/Dialogs/Pricing';
+import Profit from '../components/EquipmentDetails/Dialogs/Profit';
 
 const baseUrl = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -57,12 +58,7 @@ export default function EquipmentDetails() {
 				<div className="my-4 space-x-4">
 					<NewEquipment equipmentName={equipmentName} />
 					<Pricing equipment={equipment} />
-					<Button
-						size="small"
-						variant="contained"
-					>
-						Zarada
-					</Button>
+					<Profit equipment={equipment} />
 					<Button
 						size="small"
 						variant="outlined"

@@ -22,7 +22,7 @@ function SimpleDialog(props) {
 		const username = JSON.parse(localStorage.getItem('user')).username;
 		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
 		const doc = {
-			id: newEquipmentId,
+			id: parseInt(newEquipmentId),
 			availability: 'available',
 			endTime: '/',
 			profitDay: '0',
