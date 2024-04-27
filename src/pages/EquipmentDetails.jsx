@@ -14,10 +14,34 @@ export default function EquipmentDetails() {
 	const [equipment, setEquipment] = useState({});
 
 	useEffect(() => {
+		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+
+		const updateEquipment = async (addedEquipment) => {
+			const doc = { availability: 'available', endTime: '/' };
+			for (const equipment of addedEquipment) {
+				const currentDate = new Date().toLocaleString();
+
+				if (equipment.endTime < currentDate && equipment.endTime !== '/') {
+					try {
+						const response = await axios.patch(
+							`${baseUrl}/equipment/${adminId}/${equipmentName}/${equipment.id}`,
+							doc
+						);
+						console.log(response);
+					} catch (error) {
+						console.error(error);
+					}
+				}
+			}
+		};
+
 		const getEquipment = async () => {
 			try {
-				const adminId = JSON.parse(localStorage.getItem('user')).adminId;
 				const response = await axios.get(`${baseUrl}/equipment/${adminId}/${equipmentName}`);
+				const addedEquipment = response.data[0].addedEquipment;
+
+				updateEquipment(addedEquipment);
+
 				setEquipment(response.data[0]);
 			} catch (error) {
 				console.error(error);
