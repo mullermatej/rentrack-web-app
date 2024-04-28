@@ -130,6 +130,43 @@ const rows = [];
 export default function InfoTable({ equipment }) {
 	const [addedEquipment, setAddedEquipment] = useState([]);
 
+	const getTodaysProfit = (history) => {
+		let today = new Date();
+		let year = today.getFullYear();
+		let month = today.getMonth() + 1;
+		month = '0' + month;
+		let date = today.getDate();
+		let formattedDate = date + '/' + month + '/' + year;
+
+		let profit = 0;
+
+		for (const historyObject of history) {
+			const historyDate = historyObject.date.split(',')[0];
+			if (historyDate === formattedDate) {
+				profit += parseInt(historyObject.price);
+			}
+		}
+
+		return profit;
+	};
+
+	const getMonthlyProfit = (history) => {
+		let today = new Date();
+		let month = today.getMonth() + 1;
+		month = '0' + month;
+
+		let profit = 0;
+
+		for (const historyObject of history) {
+			const historyMonth = historyObject.date.split('/')[1];
+			if (historyMonth === month) {
+				profit += parseInt(historyObject.price);
+			}
+		}
+
+		return profit;
+	};
+
 	useEffect(() => {
 		setAddedEquipment(equipment.addedEquipment);
 
@@ -139,8 +176,9 @@ export default function InfoTable({ equipment }) {
 					addedEquipment[key].id,
 					addedEquipment[key].availability,
 					addedEquipment[key].endTime,
-					addedEquipment[key].profitDay,
-					addedEquipment[key].profitMonth,
+					// addedEquipment[key].profitDay,
+					getTodaysProfit(addedEquipment[key].history),
+					getMonthlyProfit(addedEquipment[key].history),
 					addedEquipment[key].history
 				);
 

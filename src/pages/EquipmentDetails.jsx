@@ -13,9 +13,18 @@ const baseUrl = import.meta.env.VITE_SERVER_BASE_URL;
 export default function EquipmentDetails() {
 	const { equipmentName } = useParams();
 	const [equipment, setEquipment] = useState({});
+	const [counter, setCounter] = useState(0);
 
 	useEffect(() => {
 		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+
+		const checkAvailableEquipment = (addedEquipment) => {
+			for (const object of addedEquipment) {
+				if (object.availability === 'unavailable') {
+					setCounter((prevCounter) => prevCounter + 1);
+				}
+			}
+		};
 
 		const updateEquipment = async (addedEquipment) => {
 			const doc = { availability: 'available', endTime: '/' };
@@ -42,8 +51,8 @@ export default function EquipmentDetails() {
 				const addedEquipment = response.data[0].addedEquipment;
 
 				updateEquipment(addedEquipment);
-
 				setEquipment(response.data[0]);
+				checkAvailableEquipment(addedEquipment);
 			} catch (error) {
 				console.error(error);
 			}
@@ -63,7 +72,8 @@ export default function EquipmentDetails() {
 						size="small"
 						variant="outlined"
 					>
-						12 / 46
+						{counter / 2 === 0.5 ? 1 : counter / 2} /{' '}
+						{equipment.addedEquipment !== undefined && equipment.addedEquipment.length}
 					</Button>
 				</div>
 			</div>

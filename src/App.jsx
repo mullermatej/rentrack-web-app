@@ -6,6 +6,9 @@ import Equipment from './pages/Equipment';
 import EquipmentDetails from './pages/EquipmentDetails';
 import Navigation from './components/Layout/Navigation';
 import Test from './pages/Test';
+import Settings from './pages/Settings';
+import Admin from './pages/Admin';
+import Profile from './pages/Profile';
 import './App.css';
 
 function App() {
@@ -36,6 +39,18 @@ function App() {
 				<Route
 					path="/test"
 					element={<Test />}
+				/>
+				<Route
+					path="/settings"
+					element={<Settings />}
+				/>
+				<Route
+					path="/admin"
+					element={<Admin />}
+				/>
+				<Route
+					path="/profile"
+					element={<Profile />}
 				/>
 			</Routes>
 		</BrowserRouter>

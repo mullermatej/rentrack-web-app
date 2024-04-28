@@ -47,7 +47,7 @@ function SimpleDialog(props) {
 				...prevState,
 				prices: {
 					...prevState.prices,
-					[hours]: price,
+					[hours]: parseInt(price),
 				},
 			}));
 			console.log('Added pricing: ', hours, 'h = ', price, '€');
@@ -80,7 +80,7 @@ function SimpleDialog(props) {
 		>
 			<div className="text-center p-5">
 				<EquipmentInputField
-					value="*Naziv"
+					value="Naziv"
 					field="name"
 					setNewEquipment={setNewEquipment}
 				/>
@@ -96,14 +96,14 @@ function SimpleDialog(props) {
 				</div>
 				<Button
 					size="small"
-					variant="outlined"
+					variant="contained"
 					onClick={handleAddPricing}
 				>
 					Dodaj u cjenik
 				</Button>
 
 				<UserInputField
-					value="*Admin lozinka"
+					value="Admin lozinka"
 					field="password"
 					setUser={setUser}
 				/>
@@ -112,7 +112,7 @@ function SimpleDialog(props) {
 					style={{ marginBottom: '10px', marginTop: '10px' }}
 					onClick={handleAddEquipment}
 				>
-					Dodaj
+					Kreiraj
 				</Button>
 			</div>
 		</Dialog>
@@ -138,10 +138,11 @@ export default function UserSelectDialog() {
 	return (
 		<>
 			<Button
-				variant="outlined"
+				size="small"
+				variant="contained"
 				onClick={handleClickOpen}
 			>
-				Dodaj
+				Kreiraj
 			</Button>
 			<SimpleDialog
 				open={open}
