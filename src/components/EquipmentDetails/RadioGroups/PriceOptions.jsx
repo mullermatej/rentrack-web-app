@@ -10,6 +10,7 @@ const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export default function PriceOptions({ equipment, equipmentId }) {
 	const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+	const profileId = JSON.parse(localStorage.getItem('profile')).profileId;
 	const equipmentName = equipment.name;
 	const worker =
 		JSON.parse(localStorage.getItem('profile')).name + ' ' + JSON.parse(localStorage.getItem('profile')).surname;
@@ -35,6 +36,21 @@ export default function PriceOptions({ equipment, equipmentId }) {
 		try {
 			const response = await axios.patch(`${BASE_URL}/equipment/${adminId}/${equipmentName}`, choice);
 			console.log(response);
+			if (response.status === 200) {
+				try {
+					const income = parseInt(choice.price);
+					const response = await axios.patch(`${BASE_URL}/users/${adminId}/profiles/${profileId}`, {
+						income,
+					});
+					console.log(response);
+					if (response.status === 200) {
+						const equipment = response.data;
+						localStorage.setItem('equipment', JSON.stringify(equipment));
+					}
+				} catch (error) {
+					console.error(error);
+				}
+			}
 		} catch (error) {
 			console.error(error);
 		}
