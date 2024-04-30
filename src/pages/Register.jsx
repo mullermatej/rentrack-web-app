@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
 import Button from '@mui/material/Button';
-import InputField from '../components/Register/InputField';
+import Box from '@mui/material/Box';
 import AuthSnackbar from '../components/Snackbars/AuthSnackbar';
+import Divider from '@mui/material/Divider';
+import Paper from '@mui/material/Paper';
 import '../App.css';
+
+import TextFieldRegister from '../components/Register/TextFieldRegister';
 
 export default function Register() {
 	const [inputValues, setInputValues] = useState({});
@@ -45,18 +49,28 @@ export default function Register() {
 	};
 
 	return (
-		<div id="auth-container">
-			<h1>This is a Register page</h1>
-			{/* <InputField value="Ime vlasnika" />
-			<InputField value="Prezime vlasnika" />
-			<InputField value="Naziv obrta" />
-			<InputField value="OIB broj obrta" />
-			<InputField value="Adresa obrta" />
-			<InputField
-				value="Email"
-				type="email"
-			/> */}
-			<InputField
+		<div className="flex items-center justify-center h-screen">
+			<Paper
+				elevation={3}
+				className="p-10"
+			>
+				<p className="text-5xl mb-5">Registracija</p>
+				<TextFieldRegister label="* Ime" />
+				<TextFieldRegister label="* Prezime" />
+				<TextFieldRegister label="* Email" />
+				<TextFieldRegister label="* Lozinka" />
+				<Box sx={{ '& > :not(style)': { width: '30ch' } }}>
+					<Button
+						variant="contained"
+						onClick={handleClick}
+						style={{ textTransform: 'none', fontSize: '17.5px' }}
+					>
+						Registriraj se
+					</Button>
+				</Box>
+				<p className="mt-2 text-sm">Već imaš račun? Prijavi se</p>
+			</Paper>
+			{/* <InputField
 				value="Korisnicko ime"
 				inputValues={inputValues}
 				setInputValues={setInputValues}
@@ -66,18 +80,8 @@ export default function Register() {
 				type="password"
 				inputValues={inputValues}
 				setInputValues={setInputValues}
-			/>
-			{/* <InputField
-				value="Potvrdi lozinku"
-				type="password"
 			/> */}
 
-			<Button
-				variant="outlined"
-				onClick={handleClick}
-			>
-				Registriraj se
-			</Button>
 			<AuthSnackbar
 				open={snackbarOpen}
 				autoHideDuration={6000}

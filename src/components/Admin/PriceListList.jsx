@@ -8,13 +8,14 @@ import Grid from '@mui/material/Grid';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
-const adminId = JSON.parse(localStorage.getItem('user')).adminId;
 
 const Demo = styled('div')(({ theme }) => ({
 	backgroundColor: theme.palette.background.paper,
 }));
 
 export default function PriceListList({ hour, price, singleEquipmentName }) {
+	const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+
 	const handleDeletePrice = async () => {
 		try {
 			const response = await axios.delete(`${BASE_URL}/equipment/${adminId}/${singleEquipmentName}/prices`, {

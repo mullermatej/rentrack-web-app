@@ -6,7 +6,6 @@ import Dialog from '@mui/material/Dialog';
 import NewPriceInput from './NewPriceInput';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
-const adminId = JSON.parse(localStorage.getItem('user')).adminId;
 
 function SimpleDialog(props) {
 	const { onClose, selectedValue, open, singleEquipmentName } = props;
@@ -16,7 +15,9 @@ function SimpleDialog(props) {
 	});
 
 	const handleAddNewPrice = async () => {
+		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
 		priceInfo.price = parseInt(priceInfo.price);
+
 		try {
 			const response = await axios.post(`${BASE_URL}/equipment/${adminId}/${singleEquipmentName}/prices`, {
 				hours: priceInfo.hours,

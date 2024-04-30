@@ -9,6 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
+import SellIcon from '@mui/icons-material/Sell';
 
 export default function NavigationDrawer({ open, toggleDrawer }) {
 	const navigate = useNavigate();
@@ -35,6 +36,8 @@ export default function NavigationDrawer({ open, toggleDrawer }) {
 				console.log('Odjavljen admin!');
 				navigate('/login');
 			}
+		} else if (event.currentTarget.innerText === 'Oprema') {
+			navigate('/equipment');
 		}
 	};
 
@@ -45,46 +48,39 @@ export default function NavigationDrawer({ open, toggleDrawer }) {
 			onClick={toggleDrawer(false)}
 		>
 			<List>
-				{['Admin', 'Profil', 'Postavke', 'Odjavi se (Profil)', 'Odjavi se (Admin)'].map((text, index) => (
-					<ListItem
-						key={text}
-						disablePadding
-					>
-						<ListItemButton onClick={handleClick}>
-							{(index === 4 || index === 3) && (
-								<ListItemIcon>
-									<LogoutIcon />
-								</ListItemIcon>
-							)}
-							{index === 2 && (
-								<ListItemIcon>
-									<SettingsIcon />
-								</ListItemIcon>
-							)}
-							{(index === 0 || index === 1) && (
-								<ListItemIcon>
-									<PersonIcon />
-								</ListItemIcon>
-							)}
-							<ListItemText primary={text} />
-						</ListItemButton>
-					</ListItem>
-				))}
+				{['Admin', 'Profil', 'Oprema', 'Postavke', 'Odjavi se (Profil)', 'Odjavi se (Admin)'].map(
+					(text, index) => (
+						<ListItem
+							key={text}
+							disablePadding
+						>
+							<ListItemButton onClick={handleClick}>
+								{(index === 5 || index === 4) && (
+									<ListItemIcon>
+										<LogoutIcon />
+									</ListItemIcon>
+								)}
+								{index === 2 && (
+									<ListItemIcon>
+										<SellIcon />
+									</ListItemIcon>
+								)}
+								{index === 3 && (
+									<ListItemIcon>
+										<SettingsIcon />
+									</ListItemIcon>
+								)}
+								{(index === 0 || index === 1) && (
+									<ListItemIcon>
+										<PersonIcon />
+									</ListItemIcon>
+								)}
+								<ListItemText primary={text} />
+							</ListItemButton>
+						</ListItem>
+					)
+				)}
 			</List>
-			{/* <Divider />
-			<List>
-				{['All mail', 'Trash', 'Spam'].map((text, index) => (
-					<ListItem
-						key={text}
-						disablePadding
-					>
-						<ListItemButton>
-							<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItemButton>
-					</ListItem>
-				))}
-			</List> */}
 		</Box>
 	);
 

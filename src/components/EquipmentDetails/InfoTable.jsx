@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -12,8 +13,10 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
+import Button from '@mui/material/Button';
 import HandlePayment from './Dialogs/HandlePayment';
+
+const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 function createData(id, availability, endTime, profitDay, profitMonth, history) {
 	return {
@@ -36,6 +39,18 @@ function Row(props) {
 		if (row.availability === 'available') {
 			setOpenPayment(true);
 			setEquipmentId(row.id);
+		}
+	};
+
+	const deleteAddedEquipment = async (name, id) => {
+		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+		try {
+			const response = await axios.delete(`${BASE_URL}/equipment/${adminId}/${name}/${id}`);
+			if (response.status === 200) {
+				console.log('Status 200 deleted equipment');
+			}
+		} catch (error) {
+			console.error(error);
 		}
 	};
 
@@ -66,6 +81,10 @@ function Row(props) {
 				<TableCell align="right">{row.endTime}</TableCell>
 				<TableCell align="right">{row.profitDay}€</TableCell>
 				<TableCell align="right">{row.profitMonth}€</TableCell>
+				<TableCell align="right">
+					{' '}
+					<Button onClick={() => deleteAddedEquipment(equipment.name, row.id)}>Ukloni</Button>
+				</TableCell>
 			</TableRow>
 			<TableRow>
 				<TableCell
@@ -176,7 +195,6 @@ export default function InfoTable({ equipment }) {
 					addedEquipment[key].id,
 					addedEquipment[key].availability,
 					addedEquipment[key].endTime,
-					// addedEquipment[key].profitDay,
 					getTodaysProfit(addedEquipment[key].history),
 					getMonthlyProfit(addedEquipment[key].history),
 					addedEquipment[key].history
@@ -200,6 +218,7 @@ export default function InfoTable({ equipment }) {
 						<TableCell align="right">Istice</TableCell>
 						<TableCell align="right">Danasnji prihod</TableCell>
 						<TableCell align="right">Mjesecni prihod</TableCell>
+						<TableCell align="right"></TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>

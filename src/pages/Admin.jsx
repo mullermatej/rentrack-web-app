@@ -22,7 +22,7 @@ export default function Admin() {
 		};
 		getProfiles();
 		getEquipment();
-	}, [adminId]);
+	}, [adminId, equipment]);
 
 	return (
 		<div>
