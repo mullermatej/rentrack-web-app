@@ -3,35 +3,46 @@ import axios from 'axios';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import AuthSnackbar from '../components/Snackbars/AuthSnackbar';
-import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
 import '../App.css';
 
 import TextFieldRegister from '../components/Register/TextFieldRegister';
 
 export default function Register() {
-	const [inputValues, setInputValues] = useState({});
+	const [userInfo, setUserInfo] = useState({
+		name: '',
+		surname: '',
+		email: '',
+		password: '',
+	});
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
 	const [snackbarMessage, setSnackbarMessage] = useState('');
+	const [backgroundColor, setBackgroundColor] = useState('');
+
+	const navigateToLogin = () => {
+		window.location.href = '/login';
+	};
 
 	const handleClick = async () => {
-		const username = inputValues['korisnicko ime'];
-		const password = inputValues['lozinka'];
 		try {
-			const doc = { username, password };
-
-			if (!username || !password) {
-				setSnackbarMessage('Potrebno je unijeti korisničko ime i lozinku!');
+			if (!userInfo.name || !userInfo.surname || !userInfo.email || !userInfo.password) {
+				setBackgroundColor('fireBrick');
+				setSnackbarMessage('Greška! Polja označena sa * su obavezna.');
 				setSnackbarOpen(true);
 				return;
 			} else {
-				const response = await axios.post('api/users', doc);
+				const response = await axios.post('api/users', userInfo);
 				console.log('Success, response is: ', response);
-				setSnackbarMessage('Uspješno si se registrirao!');
+				setBackgroundColor('forestGreen');
+				setSnackbarMessage('Registracija uspješna!');
 				setSnackbarOpen(true);
+				setTimeout(() => {
+					window.location.href = '/login';
+				}, 1500);
 			}
 		} catch (error) {
-			setSnackbarMessage('Greška kod registracije!');
+			setBackgroundColor('fireBrick');
+			setSnackbarMessage('Greška! Došlo je do greške kod registracije!');
 			setSnackbarOpen(true);
 			if (error.response) {
 				console.error('Error:', error.response.data, error.response.status);
@@ -54,39 +65,54 @@ export default function Register() {
 				elevation={3}
 				className="p-10"
 			>
-				<p className="text-5xl mb-5">Registracija</p>
-				<TextFieldRegister label="* Ime" />
-				<TextFieldRegister label="* Prezime" />
-				<TextFieldRegister label="* Email" />
-				<TextFieldRegister label="* Lozinka" />
+				<p className="text-4xl mb-5">Registracija</p>
+				<TextFieldRegister
+					label="* Ime"
+					field="name"
+					setUserInfo={setUserInfo}
+				/>
+				<TextFieldRegister
+					label="* Prezime"
+					field="surname"
+					setUserInfo={setUserInfo}
+				/>
+				<TextFieldRegister
+					label="* Email"
+					field="email"
+					setUserInfo={setUserInfo}
+				/>
+				<TextFieldRegister
+					label="* Lozinka"
+					type="password"
+					field="password"
+					setUserInfo={setUserInfo}
+				/>
 				<Box sx={{ '& > :not(style)': { width: '30ch' } }}>
 					<Button
 						variant="contained"
 						onClick={handleClick}
-						style={{ textTransform: 'none', fontSize: '17.5px' }}
+						style={{ textTransform: 'none', fontSize: '17.5px', backgroundColor: '#2463EB' }}
 					>
 						Registriraj se
 					</Button>
 				</Box>
-				<p className="mt-2 text-sm">Već imaš račun? Prijavi se</p>
+				<p className="mt-2 text-sm">
+					Već imaš račun?{' '}
+					<span
+						className="text-main-blue font-semibold cursor-pointer"
+						onClick={navigateToLogin}
+					>
+						Prijavi se
+					</span>
+				</p>
 			</Paper>
-			{/* <InputField
-				value="Korisnicko ime"
-				inputValues={inputValues}
-				setInputValues={setInputValues}
-			/>
-			<InputField
-				value="Lozinka"
-				type="password"
-				inputValues={inputValues}
-				setInputValues={setInputValues}
-			/> */}
 
 			<AuthSnackbar
 				open={snackbarOpen}
 				autoHideDuration={6000}
 				handleClose={handleClose}
 				message={snackbarMessage}
+				backgroundColor={backgroundColor}
 			/>
 		</div>
 	);

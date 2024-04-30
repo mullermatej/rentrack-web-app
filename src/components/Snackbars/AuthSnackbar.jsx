@@ -1,9 +1,10 @@
 import React from 'react';
 import Snackbar from '@mui/material/Snackbar';
+import SnackbarContent from '@mui/material/SnackbarContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function RegistrationSuccessful({ open, autoHideDuration, message, handleClose }) {
+export default function RegistrationSuccessful({ open, autoHideDuration, message, handleClose, backgroundColor }) {
 	const action = (
 		<React.Fragment>
 			<IconButton
@@ -24,6 +25,13 @@ export default function RegistrationSuccessful({ open, autoHideDuration, message
 			onClose={handleClose}
 			message={message}
 			action={action}
-		/>
+		>
+			<SnackbarContent
+				style={{
+					backgroundColor,
+				}}
+				message={<span id="client-snackbar">{message}</span>}
+			/>
+		</Snackbar>
 	);
 }
