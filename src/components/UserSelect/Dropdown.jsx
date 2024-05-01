@@ -37,13 +37,13 @@ export default function Dropdown({ setProfile }) {
 	};
 
 	return (
-		<Box sx={{ minWidth: 120 }}>
+		<Box sx={{ '& > :not(style)': { m: 1, mb: 3, width: '30ch' } }}>
 			<FormControl style={{ minWidth: 250, marginTop: '20px' }}>
 				<InputLabel
 					id="demo-simple-select-label"
 					size="small"
 				>
-					Korisnik
+					* Korisnik
 				</InputLabel>
 				<Select
 					labelId="demo-simple-select-label"
@@ -51,6 +51,7 @@ export default function Dropdown({ setProfile }) {
 					value={username}
 					label="Korisnik"
 					onChange={handleChange}
+					size="small"
 				>
 					{data &&
 						data.map((item, index) => (

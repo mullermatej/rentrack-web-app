@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import EquipmentChip from '../components/Equipment/EquipmentChip';
 import EquipmentDialog from '../components/Equipment/EquipmentDialog';
+import EquipmentCard from '../components/Equipment/EquipmentCard';
 
 export default function Equipment() {
 	const [equipment, setEquipment] = useState([]);
@@ -27,10 +28,11 @@ export default function Equipment() {
 			</div>
 			<div className="mt-6 flex space-x-4 justify-center">
 				{equipment.map((item) => (
-					<EquipmentChip
-						key={item._id}
-						value={item.name}
-					/>
+					// <EquipmentChip
+					// 	key={item._id}
+					// 	value={item.name}
+					// />
+					<EquipmentCard key={item._id} />
 				))}
 			</div>
 		</>

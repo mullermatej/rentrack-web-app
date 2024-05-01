@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import AuthSnackbar from '../components/Snackbars/AuthSnackbar';
 import Box from '@mui/material/Box';
 import TextFieldLogin from '../components/Login/TextFieldLogin';
+import PasswordField from '../components/Login/PasswordField';
 import '../App.css';
 
 export default function Login() {
@@ -23,6 +24,7 @@ export default function Login() {
 
 		try {
 			if (userInfo.email === '' || userInfo.password === '') {
+				setBackgroundColor('fireBrick');
 				setSnackbarMessage('Greška! Polja označena sa * su obavezna.');
 				setSnackbarOpen(true);
 				return;
@@ -34,15 +36,16 @@ export default function Login() {
 					localStorage.setItem('user', JSON.stringify(user));
 
 					setBackgroundColor('forestGreen');
-					setSnackbarMessage('Uspješno si se logirao!');
+					setSnackbarMessage('Prijava uspješna!');
 					setSnackbarOpen(true);
-					// use setTimeout to redirect to another page
 					setTimeout(() => {
 						window.location.href = '/userSelect';
 					}, 1500);
 				} catch (error) {
 					console.error('Error:', error.message);
-					// Ako ne vidis snackbar kod greske, onda ga ovdje treba dodat
+					setBackgroundColor('fireBrick');
+					setSnackbarMessage('Greška! Pokušaj ponovno.');
+					setSnackbarOpen(true);
 				}
 			}
 		} catch (error) {
@@ -71,11 +74,9 @@ export default function Login() {
 					setUserInfo={setUserInfo}
 					field="email"
 				/>
-				<TextFieldLogin
-					error={false}
-					label="* Lozinka"
-					type="password"
+				<PasswordField
 					setUserInfo={setUserInfo}
+					label="* Lozinka"
 					field="password"
 				/>
 				<Box sx={{ '& > :not(style)': { width: '30ch' } }}>
