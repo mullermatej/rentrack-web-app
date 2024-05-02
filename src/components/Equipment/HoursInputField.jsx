@@ -10,14 +10,14 @@ export default function HoursInputField({ type = 'number', setHours, value }) {
 		<Box
 			component="form"
 			sx={{
-				'& > :not(style)': { m: 1, width: '11ch' },
+				'& > :not(style)': { m: 1, width: '12ch' },
 			}}
 			noValidate
 			autoComplete="off"
 		>
 			<TextField
 				value={value}
-				label="Sati"
+				label="* Sati"
 				variant="outlined"
 				type={type}
 				size="small"

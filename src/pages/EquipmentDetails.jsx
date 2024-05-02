@@ -1,14 +1,25 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import InfoTable from '../components/EquipmentDetails/InfoTable';
 import NewEquipment from '../components/EquipmentDetails/Dialogs/NewEquipment';
 import Pricing from '../components/EquipmentDetails/Dialogs/Pricing';
 import Profit from '../components/EquipmentDetails/Dialogs/Profit';
+import Container from '@mui/material/Container';
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const baseUrl = import.meta.env.VITE_SERVER_BASE_URL;
+
+const theme = createTheme({
+	palette: {
+		primary: {
+			main: '#2463EB',
+		},
+	},
+});
 
 export default function EquipmentDetails() {
 	const { equipmentName } = useParams();
@@ -62,22 +73,47 @@ export default function EquipmentDetails() {
 
 	return (
 		<div className="mx-auto">
-			<div className="justify-center mt-8">
-				<p className="text-4xl uppercase">{equipmentName}</p>
-				<div className="my-4 space-x-4">
-					<NewEquipment equipmentName={equipmentName} />
-					<Pricing equipment={equipment} />
-					<Profit equipment={equipment} />
-					<Button
-						size="small"
-						variant="outlined"
-					>
-						{counter / 2 === 0.5 ? 1 : counter / 2} /{' '}
-						{equipment.addedEquipment !== undefined && equipment.addedEquipment.length}
-					</Button>
-				</div>
+			<div className="flex justify-center my-10">
+				<Paper className="justify-center p-4">
+					<p className="text-4xl capitalize font-nunito">{equipmentName}</p>
+					<div className="my-4 space-x-4">
+						<NewEquipment equipmentName={equipmentName} />
+						<Pricing equipment={equipment} />
+						<Profit equipment={equipment} />
+						<Button
+							size="small"
+							variant="outlined"
+							style={{
+								textTransform: 'none',
+								fontSize: '14px',
+								backgroundColor: '#2463EB',
+								color: 'white',
+								fontFamily: 'nunito',
+							}}
+						>
+							{counter / 2 === 0.5 ? 1 : counter / 2} /{' '}
+							{equipment.addedEquipment !== undefined && equipment.addedEquipment.length}
+						</Button>
+					</div>
+					<ThemeProvider theme={theme}>
+						<Button
+							variant="outlined"
+							size="small"
+							color="primary"
+							style={{
+								textTransform: 'none',
+								fontFamily: 'nunito',
+							}}
+							onClick={() => (window.location.href = '/equipment')}
+						>
+							<ArrowBackOutlinedIcon fontSize="inherit" /> Natrag
+						</Button>
+					</ThemeProvider>
+				</Paper>
 			</div>
-			<InfoTable equipment={equipment} />
+			<Container>
+				<InfoTable equipment={equipment} />
+			</Container>
 		</div>
 	);
 }

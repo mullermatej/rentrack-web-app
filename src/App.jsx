@@ -13,10 +13,9 @@ import './App.css';
 
 function App() {
 	const user = JSON.parse(localStorage.getItem('user'));
-	const profile = JSON.parse(localStorage.getItem('profile'));
 	return (
 		<BrowserRouter>
-			{user && profile && <Navigation />}
+			{user && <Navigation />}
 			<Routes>
 				<Route
 					path="/register"

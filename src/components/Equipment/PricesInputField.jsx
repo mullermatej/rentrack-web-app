@@ -11,14 +11,14 @@ export default function PricesInputField({ type = 'number', setPrice, value }) {
 		<Box
 			component="form"
 			sx={{
-				'& > :not(style)': { m: 1, width: '11ch' },
+				'& > :not(style)': { m: 1, width: '12ch' },
 			}}
 			noValidate
 			autoComplete="off"
 		>
 			<TextField
 				value={value}
-				label="Cijena"
+				label="* Cijena"
 				variant="outlined"
 				type={type}
 				size="small"

@@ -101,7 +101,7 @@ export default function Login() {
 
 			<AuthSnackbar
 				open={snackbarOpen}
-				autoHideDuration={5000}
+				autoHideDuration={4000}
 				handleClose={handleClose}
 				message={snackbarMessage}
 				backgroundColor={backgroundColor}

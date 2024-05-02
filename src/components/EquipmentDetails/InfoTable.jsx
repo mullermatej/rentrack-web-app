@@ -69,6 +69,7 @@ function Row(props) {
 				<TableCell
 					component="th"
 					scope="row"
+					sx={{ fontFamily: 'nunito' }}
 				>
 					{row.id}
 				</TableCell>
@@ -76,14 +77,36 @@ function Row(props) {
 					align="right"
 					onClick={handlePayment}
 				>
-					{row.availability}
+					<span className="cursor-pointer font-nunito text-main-blue capitalize">
+						{row.availability === 'available' ? 'Dostupno' : 'Izdano'}
+					</span>
 				</TableCell>
-				<TableCell align="right">{row.endTime}</TableCell>
-				<TableCell align="right">{row.profitDay}€</TableCell>
-				<TableCell align="right">{row.profitMonth}€</TableCell>
+				<TableCell
+					align="right"
+					sx={{ fontFamily: 'nunito' }}
+				>
+					{row.endTime}
+				</TableCell>
+				<TableCell
+					align="right"
+					sx={{ fontFamily: 'nunito' }}
+				>
+					{row.profitDay}€
+				</TableCell>
+				<TableCell
+					align="right"
+					sx={{ fontFamily: 'nunito' }}
+				>
+					{row.profitMonth}€
+				</TableCell>
 				<TableCell align="right">
 					{' '}
-					<Button onClick={() => deleteAddedEquipment(equipment.name, row.id)}>Ukloni</Button>
+					<Button
+						onClick={() => deleteAddedEquipment(equipment.name, row.id)}
+						style={{ textTransform: 'none', fontSize: '14px', color: '#2463EB', fontFamily: 'nunito' }}
+					>
+						Ukloni
+					</Button>
 				</TableCell>
 			</TableRow>
 			<TableRow>
@@ -101,6 +124,7 @@ function Row(props) {
 								variant="h6"
 								gutterBottom
 								component="div"
+								sx={{ fontFamily: 'nunito' }}
 							>
 								Povijest
 							</Typography>
@@ -110,9 +134,9 @@ function Row(props) {
 							>
 								<TableHead>
 									<TableRow>
-										<TableCell>Datum</TableCell>
-										<TableCell>Radnik</TableCell>
-										<TableCell>Sati izdano</TableCell>
+										<TableCell sx={{ fontFamily: 'nunito' }}>Datum</TableCell>
+										<TableCell sx={{ fontFamily: 'nunito' }}>Radnik</TableCell>
+										<TableCell sx={{ fontFamily: 'nunito' }}>Sati izdano</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
@@ -121,11 +145,12 @@ function Row(props) {
 											<TableCell
 												component="th"
 												scope="row"
+												sx={{ fontFamily: 'nunito' }}
 											>
 												{historyRow.date}
 											</TableCell>
-											<TableCell>{historyRow.worker}</TableCell>
-											<TableCell>{historyRow.hours}</TableCell>
+											<TableCell sx={{ fontFamily: 'nunito' }}>{historyRow.worker}</TableCell>
+											<TableCell sx={{ fontFamily: 'nunito' }}>{historyRow.hours}</TableCell>
 										</TableRow>
 									))}
 								</TableBody>
@@ -213,11 +238,31 @@ export default function InfoTable({ equipment }) {
 				<TableHead>
 					<TableRow>
 						<TableCell />
-						<TableCell>key</TableCell>
-						<TableCell align="right">Izdano</TableCell>
-						<TableCell align="right">Istice</TableCell>
-						<TableCell align="right">Danasnji prihod</TableCell>
-						<TableCell align="right">Mjesecni prihod</TableCell>
+						<TableCell sx={{ fontFamily: 'nunito' }}>Identifikacijski broj</TableCell>
+						<TableCell
+							align="right"
+							sx={{ fontFamily: 'nunito' }}
+						>
+							Izdano
+						</TableCell>
+						<TableCell
+							align="right"
+							sx={{ fontFamily: 'nunito' }}
+						>
+							Ističe
+						</TableCell>
+						<TableCell
+							align="right"
+							sx={{ fontFamily: 'nunito' }}
+						>
+							Današnji prihod
+						</TableCell>
+						<TableCell
+							align="right"
+							sx={{ fontFamily: 'nunito' }}
+						>
+							Mjesečni prihod
+						</TableCell>
 						<TableCell align="right"></TableCell>
 					</TableRow>
 				</TableHead>

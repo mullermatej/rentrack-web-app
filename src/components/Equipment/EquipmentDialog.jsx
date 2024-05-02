@@ -7,10 +7,13 @@ import EquipmentInputField from './EquipmentInputField';
 import UserInputField from './UserInputField';
 import HoursInputField from './HoursInputField';
 import PricesInputField from './PricesInputField';
+import AuthSnackbar from '../Snackbars/AuthSnackbar';
 
 function SimpleDialog(props) {
 	const { onClose, selectedValue, open } = props;
-
+	const [snackbarOpen, setSnackbarOpen] = useState(false);
+	const [snackbarMessage, setSnackbarMessage] = useState('');
+	const [backgroundColor, setBackgroundColor] = useState('forestGreen');
 	const [user, setUser] = useState({ username: '', password: '' });
 	const [newEquipment, setNewEquipment] = useState({
 		name: '',
@@ -38,9 +41,18 @@ function SimpleDialog(props) {
 		onClose(selectedValue);
 	};
 
+	const handleSnackbarClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setSnackbarOpen(false);
+	};
+
 	const handleAddPricing = () => {
 		if (hours === 0 || price === 0) {
-			console.log('Hours or price not set');
+			setBackgroundColor('fireBrick');
+			setSnackbarMessage('Greška! Polja označena sa * su obavezna.');
+			setSnackbarOpen(true);
 			return;
 		} else {
 			setNewEquipment((prevState) => ({
@@ -51,6 +63,8 @@ function SimpleDialog(props) {
 				},
 			}));
 			console.log('Added pricing: ', hours, 'h = ', price, '€');
+			setSnackbarMessage('Dodano: ' + hours + 'sati ' + price + '€');
+			setSnackbarOpen(true);
 			setHours(0);
 			setPrice(0);
 		}
@@ -58,18 +72,31 @@ function SimpleDialog(props) {
 
 	const handleAddEquipment = async () => {
 		console.log(newEquipment);
+		if (newEquipment.name === '' || user.password === '') {
+			setBackgroundColor('fireBrick');
+			setSnackbarMessage('Greška! Polja označena sa * su obavezna.');
+			setSnackbarOpen(true);
+		}
 		try {
 			const response = await axios.post('/api/auth/equipment', user);
 			if (response.status === 200) {
 				try {
 					const response = await axios.post('/api/equipment', newEquipment);
 					console.log(response);
+					setSnackbarMessage('Uspješno dodana nova oprema!');
+					setSnackbarOpen(true);
+					setTimeout(() => {
+						window.location.reload();
+					}, 1500);
 				} catch (error) {
 					console.error(error);
 				}
 			}
 		} catch (error) {
 			console.error(error);
+			setBackgroundColor('fireBrick');
+			setSnackbarMessage('Greška! Pokušaj ponovno.');
+			setSnackbarOpen(true);
 		}
 	};
 
@@ -80,7 +107,7 @@ function SimpleDialog(props) {
 		>
 			<div className="text-center p-5">
 				<EquipmentInputField
-					value="Naziv"
+					value="* Naziv"
 					field="name"
 					setNewEquipment={setNewEquipment}
 				/>
@@ -98,23 +125,42 @@ function SimpleDialog(props) {
 					size="small"
 					variant="contained"
 					onClick={handleAddPricing}
+					style={{
+						textTransform: 'none',
+						fontSize: '14px',
+						marginTop: '10px',
+						marginBottom: '10px',
+						backgroundColor: '#2463EB',
+					}}
 				>
 					Dodaj u cjenik
 				</Button>
 
 				<UserInputField
-					value="Admin lozinka"
+					value="* Admin lozinka"
 					field="password"
 					setUser={setUser}
 				/>
 				<Button
 					variant="contained"
-					style={{ marginBottom: '10px', marginTop: '10px' }}
+					style={{
+						textTransform: 'none',
+						fontSize: '14px',
+						marginTop: '10px',
+						backgroundColor: '#2463EB',
+					}}
 					onClick={handleAddEquipment}
 				>
 					Kreiraj
 				</Button>
 			</div>
+			<AuthSnackbar
+				open={snackbarOpen}
+				autoHideDuration={4000}
+				handleClose={handleSnackbarClose}
+				message={snackbarMessage}
+				backgroundColor={backgroundColor}
+			/>
 		</Dialog>
 	);
 }
@@ -141,8 +187,9 @@ export default function UserSelectDialog() {
 				size="small"
 				variant="contained"
 				onClick={handleClickOpen}
+				style={{ textTransform: 'none', fontSize: '14px', backgroundColor: '#2463EB' }}
 			>
-				Kreiraj
+				Dodaj novu opremu
 			</Button>
 			<SimpleDialog
 				open={open}

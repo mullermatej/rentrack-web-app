@@ -1,4 +1,6 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -7,42 +9,63 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 
-const bull = (
-	<Box
-		component="span"
-		sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-	>
-		•
-	</Box>
-);
+const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
-const card = (
-	<React.Fragment>
-		<CardContent>
-			<Typography
-				variant="h5"
-				component="div"
-			>
-				Ležaljke
-			</Typography>
-		</CardContent>
-		<Divider />
-		<CardActions className="flex justify-between">
-			<p>Ovaj mjesec</p>
-			<Button
-				size="small"
-				variant="outlined"
-			>
-				1450.60€
-			</Button>
-		</CardActions>
-	</React.Fragment>
-);
+export default function EquipmentCard({ equipment }) {
+	const [profit, setProfit] = useState(0);
+	const navigate = useNavigate();
 
-export default function EquipmentCard() {
+	useEffect(() => {
+		const getProfit = async () => {
+			const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+			try {
+				const response = await axios.get(`${BASE_URL}/equipment/${adminId}/${equipment.name}/profit`);
+				setProfit(response.data.profit);
+			} catch (error) {
+				console.error('Error getting profit: ', error);
+			}
+		};
+		getProfit();
+	}, [equipment.name]);
+
+	const handleClick = () => {
+		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+		navigate(`/equipment/${adminId}/${equipment.name}`);
+	};
+
+	const card = (
+		<>
+			<CardContent>
+				<Typography
+					variant="h5"
+					component="div"
+					className="capitalize"
+				>
+					<span className="font-nunito">{equipment.name}</span>
+				</Typography>
+			</CardContent>
+			<Divider />
+			<CardActions className="flex justify-between">
+				<p className="text-sm font-nunito">Ovaj mjesec</p>
+				<Button
+					size="small"
+					variant="outlined"
+				>
+					<span className="font-nunito">{profit}€</span>
+				</Button>
+			</CardActions>
+		</>
+	);
+
 	return (
-		<Box sx={{ minWidth: 275 }}>
-			<Card variant="outlined">{card}</Card>
+		<Box sx={{ minWidth: 250, maxWidth: 250 }}>
+			<Card
+				variant="outlined"
+				onClick={handleClick}
+				className="cursor-pointer"
+			>
+				{card}
+			</Card>
 		</Box>
 	);
 }

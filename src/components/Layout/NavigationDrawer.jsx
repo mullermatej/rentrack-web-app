@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -5,35 +6,41 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import LogoutIcon from '@mui/icons-material/Logout';
-import PersonIcon from '@mui/icons-material/Person';
-import SettingsIcon from '@mui/icons-material/Settings';
-import SellIcon from '@mui/icons-material/Sell';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import Typography from '@mui/material/Typography';
+import AuthSnackbar from '../Snackbars/AuthSnackbar';
 
 export default function NavigationDrawer({ open, toggleDrawer }) {
 	const navigate = useNavigate();
+	const [snackbarOpen, setSnackbarOpen] = useState(false);
+	const [snackbarMessage, setSnackbarMessage] = useState('');
+	const [backgroundColor, setBackgroundColor] = useState('forestGreen');
+
+	const handleSnackbarClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setSnackbarOpen(false);
+	};
 
 	const handleClick = (event) => {
-		if (event.currentTarget.innerText === 'Postavke') {
-			navigate('/settings');
-		} else if (event.currentTarget.innerText === 'Admin') {
+		if (event.currentTarget.innerText === 'Admin') {
 			navigate('/admin');
-		} else if (event.currentTarget.innerText === 'Profil') {
-			navigate('/profile');
-		} else if (event.currentTarget.innerText === 'Odjavi se (Profil)') {
-			// Logout user
+		} else if (event.currentTarget.innerText === 'Odjavi se: Profil') {
 			localStorage.removeItem('profile');
-			console.log('Odjavljen korisnik!');
-			navigate('/userSelect');
-		} else if (event.currentTarget.innerText === 'Odjavi se (Admin)') {
-			// Logout admin
+			setSnackbarMessage('Odjava sa profila uspješna.');
+			setSnackbarOpen(true);
+			setTimeout(() => {
+				window.location.href = '/userSelect';
+			}, 1000);
+		} else if (event.currentTarget.innerText === 'Odjavi se: Admin') {
 			let profile = JSON.parse(localStorage.getItem('profile'));
 			if (profile) {
-				console.log('Nemoguce se odjaviti dok je radnik ulogiran!');
+				alert('Potrebno je odjaviti se sa računa radnika prvo!');
 			} else {
 				localStorage.removeItem('user');
-				console.log('Odjavljen admin!');
 				navigate('/login');
 			}
 		} else if (event.currentTarget.innerText === 'Oprema') {
@@ -48,39 +55,66 @@ export default function NavigationDrawer({ open, toggleDrawer }) {
 			onClick={toggleDrawer(false)}
 		>
 			<List>
-				{['Admin', 'Profil', 'Oprema', 'Postavke', 'Odjavi se (Profil)', 'Odjavi se (Admin)'].map(
-					(text, index) => (
-						<ListItem
-							key={text}
-							disablePadding
+				<ListItem disablePadding>
+					<ListItemButton onClick={handleClick}>
+						<ListItemIcon>
+							<PersonOutlineOutlinedIcon />
+						</ListItemIcon>
+						<Typography
+							variant="body1"
+							style={{ fontFamily: 'nunito' }}
 						>
-							<ListItemButton onClick={handleClick}>
-								{(index === 5 || index === 4) && (
-									<ListItemIcon>
-										<LogoutIcon />
-									</ListItemIcon>
-								)}
-								{index === 2 && (
-									<ListItemIcon>
-										<SellIcon />
-									</ListItemIcon>
-								)}
-								{index === 3 && (
-									<ListItemIcon>
-										<SettingsIcon />
-									</ListItemIcon>
-								)}
-								{(index === 0 || index === 1) && (
-									<ListItemIcon>
-										<PersonIcon />
-									</ListItemIcon>
-								)}
-								<ListItemText primary={text} />
-							</ListItemButton>
-						</ListItem>
-					)
-				)}
+							Admin
+						</Typography>
+					</ListItemButton>
+				</ListItem>
+				<ListItem disablePadding>
+					<ListItemButton onClick={handleClick}>
+						<ListItemIcon>
+							<LocalOfferOutlinedIcon />
+						</ListItemIcon>
+						<Typography
+							variant="body1"
+							style={{ fontFamily: 'nunito' }}
+						>
+							Oprema
+						</Typography>
+					</ListItemButton>
+				</ListItem>
+				<ListItem disablePadding>
+					<ListItemButton onClick={handleClick}>
+						<ListItemIcon>
+							<LogoutIcon />
+						</ListItemIcon>
+						<Typography
+							variant="body1"
+							style={{ fontFamily: 'nunito' }}
+						>
+							Odjavi se: Profil
+						</Typography>
+					</ListItemButton>
+				</ListItem>
+				<ListItem disablePadding>
+					<ListItemButton onClick={handleClick}>
+						<ListItemIcon>
+							<LogoutIcon />
+						</ListItemIcon>
+						<Typography
+							variant="body1"
+							style={{ fontFamily: 'nunito' }}
+						>
+							Odjavi se: Admin
+						</Typography>
+					</ListItemButton>
+				</ListItem>
 			</List>
+			<AuthSnackbar
+				open={snackbarOpen}
+				autoHideDuration={4000}
+				handleClose={handleSnackbarClose}
+				message={snackbarMessage}
+				backgroundColor={backgroundColor}
+			/>
 		</Box>
 	);
 

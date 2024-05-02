@@ -94,6 +94,7 @@ export default function Profit({ equipment }) {
 				size="small"
 				variant="contained"
 				onClick={handleClickOpen}
+				style={{ textTransform: 'none', fontSize: '14px', backgroundColor: '#2463EB', fontFamily: 'nunito' }}
 			>
 				Zarada
 			</Button>

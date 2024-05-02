@@ -126,7 +126,10 @@ export default function Navigation() {
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static">
+			<AppBar
+				position="static"
+				sx={{ bgcolor: 'white', color: 'black' }}
+			>
 				<Toolbar>
 					<IconButton
 						size="large"
@@ -142,18 +145,11 @@ export default function Navigation() {
 						open={open}
 						toggleDrawer={toggleDrawer}
 					/>
-					<Typography
-						variant="h6"
-						noWrap
-						component="div"
-						sx={{ display: { xs: 'none', sm: 'block' } }}
-					>
-						Sky Sport Fazana
-					</Typography>
-
 					<Box sx={{ flexGrow: 1 }} />
 					<Box sx={{ display: { md: 'flex' } }}>
-						<Typography>Radnik: {profile && profile.name + ' ' + profile.surname}</Typography>
+						<Typography sx={{ fontFamily: 'nunito' }}>
+							{profile ? 'Radnik: ' : ''} {profile && profile.name + ' ' + profile.surname}
+						</Typography>
 					</Box>
 				</Toolbar>
 			</AppBar>
