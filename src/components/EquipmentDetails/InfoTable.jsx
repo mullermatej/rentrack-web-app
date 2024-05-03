@@ -207,7 +207,7 @@ export default function InfoTable({ equipment }) {
 		let month = today.getMonth() + 1;
 		month = '0' + month;
 		let date = today.getDate();
-		let formattedDate = date + '/' + month + '/' + year;
+		let formattedDate = '0' + date + '/' + month + '/' + year;
 
 		let profit = 0;
 
