@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import AuthSnackbar from '../components/Snackbars/AuthSnackbar';
 import Paper from '@mui/material/Paper';
 import PasswordField from '../components/Login/PasswordField';
+import Logo from '../assets/LogoCropped.jpeg';
 import '../App.css';
 
 import TextFieldRegister from '../components/Register/TextFieldRegister';
@@ -66,7 +67,12 @@ export default function Register() {
 				elevation={3}
 				className="p-10"
 			>
-				<p className="text-4xl mb-5">Registracija</p>
+				<img
+					src={Logo}
+					alt="Logo"
+					className="h-20 mx-auto mb-5"
+				/>
+				<p className="text-3xl mb-5 font-nunito">Registracija</p>
 				<TextFieldRegister
 					label="* Ime"
 					field="name"
@@ -91,12 +97,17 @@ export default function Register() {
 					<Button
 						variant="contained"
 						onClick={handleClick}
-						style={{ textTransform: 'none', fontSize: '17.5px', backgroundColor: '#2463EB' }}
+						style={{
+							textTransform: 'none',
+							fontSize: '17.5px',
+							backgroundColor: '#2463EB',
+							fontFamily: 'nunito',
+						}}
 					>
 						Registriraj se
 					</Button>
 				</Box>
-				<p className="mt-2 text-sm">
+				<p className="mt-2 text-sm font-nunito">
 					Već imaš račun?{' '}
 					<span
 						className="text-main-blue font-semibold cursor-pointer"

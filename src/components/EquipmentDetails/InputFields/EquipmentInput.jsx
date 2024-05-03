@@ -21,6 +21,8 @@ export default function EquipmentInput({ value, type = 'text', setNewEquipmentId
 				type={type}
 				size="small"
 				onChange={handleChange}
+				InputProps={{ style: { fontFamily: 'nunito' } }}
+				InputLabelProps={{ style: { fontFamily: 'nunito' } }}
 			/>
 		</Box>
 	);

@@ -30,7 +30,9 @@ export default function TextFieldRegister({ label, type = 'text', setUserInfo, f
 							{label === '* Lozinka' && <LockOutlinedIcon />}
 						</InputAdornment>
 					),
+					style: { fontFamily: 'nunito' },
 				}}
+				InputLabelProps={{ style: { fontFamily: 'nunito' } }}
 			/>
 		</Box>
 	);

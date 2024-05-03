@@ -42,6 +42,7 @@ export default function Dropdown({ setProfile }) {
 				<InputLabel
 					id="demo-simple-select-label"
 					size="small"
+					style={{ fontFamily: 'nunito' }}
 				>
 					* Korisnik
 				</InputLabel>
@@ -53,15 +54,28 @@ export default function Dropdown({ setProfile }) {
 					onChange={handleChange}
 					size="small"
 				>
-					{data &&
-						data.map((item, index) => (
+					{data !== null ? (
+						data.length > 0 ? (
+							data.map((item, index) => (
+								<MenuItem
+									key={index}
+									value={item.name + ' ' + item.surname}
+									style={{ fontFamily: 'nunito' }}
+								>
+									{item.name} {item.surname}
+								</MenuItem>
+							))
+						) : (
 							<MenuItem
-								key={index}
-								value={item.name + ' ' + item.surname}
+								value="No profiles found"
+								style={{ pointerEvents: 'none', fontFamily: 'nunito' }}
 							>
-								{item.name} {item.surname}
+								Nema profila
 							</MenuItem>
-						))}
+						)
+					) : (
+						<MenuItem value="Loading...">Učitavam...</MenuItem>
+					)}
 				</Select>
 			</FormControl>
 		</Box>

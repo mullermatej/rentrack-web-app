@@ -3,8 +3,8 @@ import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from '@mui/material/IconButton';
 
 export default function PasswordField({ label, setUserInfo, field, widthRecieve = '30ch' }) {
@@ -43,11 +43,13 @@ export default function PasswordField({ label, setUserInfo, field, widthRecieve 
 								onMouseDown={handleMouseDownPassword}
 								edge="end"
 							>
-								{showPassword ? <VisibilityOff /> : <Visibility />}
+								{showPassword ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}
 							</IconButton>
 						</InputAdornment>
 					),
+					style: { fontFamily: 'nunito' },
 				}}
+				InputLabelProps={{ style: { fontFamily: 'nunito' } }}
 			/>
 		</Box>
 	);

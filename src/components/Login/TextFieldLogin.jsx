@@ -26,7 +26,9 @@ export default function TextFieldLogin({ label, type = 'text', setUserInfo, fiel
 							{label === '* Lozinka' && <LockOutlinedIcon />}
 						</InputAdornment>
 					),
+					style: { fontFamily: 'nunito' },
 				}}
+				InputLabelProps={{ style: { fontFamily: 'nunito' } }}
 			/>
 		</Box>
 	);

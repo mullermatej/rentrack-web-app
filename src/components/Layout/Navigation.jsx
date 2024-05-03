@@ -11,8 +11,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-
 import NavigationDrawer from './NavigationDrawer';
+import Logo from '../../assets/LogoCropped.jpeg';
 
 export default function Navigation() {
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -141,6 +141,11 @@ export default function Navigation() {
 					>
 						<MenuIcon />
 					</IconButton>
+					<img
+						src={Logo}
+						alt="Logo"
+						style={{ height: '40px' }}
+					/>
 					<NavigationDrawer
 						open={open}
 						toggleDrawer={toggleDrawer}

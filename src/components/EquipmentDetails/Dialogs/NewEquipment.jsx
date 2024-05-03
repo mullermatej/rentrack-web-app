@@ -3,7 +3,6 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-
 import EquipmentInput from '../InputFields/EquipmentInput';
 import PasswordInput from '../InputFields/PasswordInput';
 
@@ -56,16 +55,24 @@ function SimpleDialog(props) {
 		>
 			<div className="text-center p-4">
 				<EquipmentInput
-					value="ID opreme"
+					value="* ID opreme"
 					setNewEquipmentId={setNewEquipmentId}
 				/>
 				<PasswordInput
-					value="Admin lozinka"
+					value="* Admin lozinka"
 					setAdminPassword={setAdminPassword}
+					type="password"
 				/>
 				<Button
 					variant="contained"
 					onClick={handleAddEquipment}
+					style={{
+						backgroundColor: '#2463EB',
+						color: 'white',
+						fontFamily: 'nunito',
+						width: '30ch',
+						marginTop: '10px',
+					}}
 				>
 					Dodaj
 				</Button>

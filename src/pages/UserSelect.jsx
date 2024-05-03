@@ -62,7 +62,8 @@ export default function UserSelect() {
 				elevation={3}
 				className="p-10"
 			>
-				<p className="text-4xl mb-5">Odaberi svoj profil </p>
+				<p className="text-3xl font-nunito">Odaberi svoj profil </p>
+				<p className="text-sm mb-5 font-nunito">Preporučuje se da svaki radnik ima svoj profil</p>
 				<Dropdown setProfile={setProfile} />
 				<TextFieldUserSelect
 					label="* Lozinka"
@@ -74,12 +75,17 @@ export default function UserSelect() {
 					<Button
 						variant="contained"
 						onClick={handleProfileLogin}
-						style={{ textTransform: 'none', fontSize: '17.5px', backgroundColor: '#2463EB' }}
+						style={{
+							textTransform: 'none',
+							fontSize: '17.5px',
+							backgroundColor: '#2463EB',
+							fontFamily: 'nunito',
+						}}
 					>
 						Prijavi se u profil
 					</Button>
 				</Box>
-				<p className="mt-2 text-sm">
+				<p className="mt-2 text-sm font-nunito">
 					Ne vidiš se na popisu?{' '}
 					<span
 						className="text-main-blue font-semibold"

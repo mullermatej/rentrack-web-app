@@ -34,7 +34,9 @@ export default function InputField({ value, type = 'text', setNewUser, field }) 
 							{(field === 'password' || field === 'repeatPassword') && <LockOutlinedIcon />}
 						</InputAdornment>
 					),
+					style: { fontFamily: 'nunito' },
 				}}
+				InputLabelProps={{ style: { fontFamily: 'nunito' } }}
 			/>
 		</Box>
 	);

@@ -116,6 +116,7 @@ function SimpleDialog({ onClose, open }) {
 							textTransform: 'none',
 							fontSize: '17.5px',
 							backgroundColor: '#2463EB',
+							fontFamily: 'nunito',
 						}}
 						onClick={handleCreateUser}
 					>

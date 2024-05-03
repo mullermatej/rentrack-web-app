@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -10,41 +8,24 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import Typography from '@mui/material/Typography';
-import AuthSnackbar from '../Snackbars/AuthSnackbar';
 
 export default function NavigationDrawer({ open, toggleDrawer }) {
-	const navigate = useNavigate();
-	const [snackbarOpen, setSnackbarOpen] = useState(false);
-	const [snackbarMessage, setSnackbarMessage] = useState('');
-	const [backgroundColor, setBackgroundColor] = useState('forestGreen');
-
-	const handleSnackbarClose = (event, reason) => {
-		if (reason === 'clickaway') {
-			return;
-		}
-		setSnackbarOpen(false);
-	};
-
 	const handleClick = (event) => {
 		if (event.currentTarget.innerText === 'Admin') {
-			navigate('/admin');
+			window.location.href = '/admin';
 		} else if (event.currentTarget.innerText === 'Odjavi se: Profil') {
 			localStorage.removeItem('profile');
-			setSnackbarMessage('Odjava sa profila uspješna.');
-			setSnackbarOpen(true);
-			setTimeout(() => {
-				window.location.href = '/userSelect';
-			}, 1000);
+			window.location.href = '/userSelect';
 		} else if (event.currentTarget.innerText === 'Odjavi se: Admin') {
 			let profile = JSON.parse(localStorage.getItem('profile'));
 			if (profile) {
 				alert('Potrebno je odjaviti se sa računa radnika prvo!');
 			} else {
 				localStorage.removeItem('user');
-				navigate('/login');
+				window.location.href = '/login';
 			}
 		} else if (event.currentTarget.innerText === 'Oprema') {
-			navigate('/equipment');
+			window.location.href = '/equipment';
 		}
 	};
 
@@ -108,13 +89,6 @@ export default function NavigationDrawer({ open, toggleDrawer }) {
 					</ListItemButton>
 				</ListItem>
 			</List>
-			<AuthSnackbar
-				open={snackbarOpen}
-				autoHideDuration={4000}
-				handleClose={handleSnackbarClose}
-				message={snackbarMessage}
-				backgroundColor={backgroundColor}
-			/>
 		</Box>
 	);
 

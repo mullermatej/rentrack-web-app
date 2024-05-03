@@ -6,6 +6,7 @@ import AuthSnackbar from '../components/Snackbars/AuthSnackbar';
 import Box from '@mui/material/Box';
 import TextFieldLogin from '../components/Login/TextFieldLogin';
 import PasswordField from '../components/Login/PasswordField';
+import Logo from '../assets/LogoCropped.jpeg';
 import '../App.css';
 
 export default function Login() {
@@ -68,7 +69,12 @@ export default function Login() {
 				elevation={3}
 				className="p-10"
 			>
-				<p className="text-4xl mb-5">Prijava </p>
+				<img
+					src={Logo}
+					alt="Logo"
+					className="h-20 mb-5 mx-auto"
+				/>
+				<p className="text-3xl mb-5 font-nunito">Prijava </p>
 				<TextFieldLogin
 					label="* Email"
 					setUserInfo={setUserInfo}
@@ -83,12 +89,17 @@ export default function Login() {
 					<Button
 						variant="contained"
 						onClick={handleLogin}
-						style={{ textTransform: 'none', fontSize: '17.5px', backgroundColor: '#2463EB' }}
+						style={{
+							textTransform: 'none',
+							fontSize: '17.5px',
+							backgroundColor: '#2463EB',
+							fontFamily: 'nunito',
+						}}
 					>
 						Prijavi se
 					</Button>
 				</Box>
-				<p className="mt-2 text-sm">
+				<p className="mt-2 text-sm font-nunito">
 					Nemaš kreiran račun?{' '}
 					<span
 						className="text-main-blue font-semibold cursor-pointer"

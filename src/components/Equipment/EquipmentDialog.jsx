@@ -140,6 +140,7 @@ function SimpleDialog(props) {
 					value="* Admin lozinka"
 					field="password"
 					setUser={setUser}
+					type="password"
 				/>
 				<Button
 					variant="contained"
@@ -187,7 +188,7 @@ export default function UserSelectDialog() {
 				size="small"
 				variant="contained"
 				onClick={handleClickOpen}
-				style={{ textTransform: 'none', fontSize: '14px', backgroundColor: '#2463EB' }}
+				style={{ textTransform: 'none', fontSize: '14px', backgroundColor: '#2463EB', fontFamily: 'nunito' }}
 			>
 				Dodaj novu opremu
 			</Button>

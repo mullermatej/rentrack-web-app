@@ -28,7 +28,7 @@ export default function Equipment() {
 		<>
 			<div className="flex justify-center my-8">
 				<Paper className="py-4 px-8 flex-column justify-center">
-					<p className="text-3xl mb-4">Oprema</p>
+					<p className="text-4xl mb-4 font-nunito">Popis Opreme</p>
 					<EquipmentDialog />
 				</Paper>
 			</div>
@@ -43,6 +43,13 @@ export default function Equipment() {
 						</div>
 					))}
 				</div>
+				{equipment.length < 1 && (
+					<div className="flex justify-center">
+						<Paper className="flex-column justify-center p-6">
+							<p className="font-nunito">Nema opreme za prikazati</p>
+						</Paper>
+					</div>
+				)}
 			</Container>
 		</>
 	);
