@@ -1,57 +1,52 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import UserSelect from './pages/UserSelect';
 import Equipment from './pages/Equipment';
 import EquipmentDetails from './pages/EquipmentDetails';
 import Navigation from './components/Layout/Navigation';
-import Test from './pages/Test';
-import Settings from './pages/Settings';
 import Admin from './pages/Admin';
-import Profile from './pages/Profile';
 import './App.css';
 
 function App() {
 	const user = JSON.parse(localStorage.getItem('user'));
+	const profile = JSON.parse(localStorage.getItem('profile'));
+
+	const isLoggedIn = () => {
+		return user !== null;
+	};
+
+	const profileExists = () => {
+		return profile !== null;
+	};
+
 	return (
 		<BrowserRouter>
-			{user && <Navigation />}
+			{isLoggedIn() && <Navigation />}
 			<Routes>
 				<Route
 					path="/register"
-					element={<Register />}
+					element={isLoggedIn() ? <Navigate to="/userSelect" /> : <Register />}
 				/>
 				<Route
 					path="/login"
-					element={<Login />}
+					element={isLoggedIn() ? <Navigate to="/userSelect" /> : <Login />}
 				/>
 				<Route
 					path="/userSelect"
-					element={<UserSelect />}
+					element={isLoggedIn() ? <UserSelect /> : <Navigate to="/login" />}
 				/>
 				<Route
 					path="/equipment"
-					element={<Equipment />}
+					element={isLoggedIn() && profileExists() ? <Equipment /> : <Navigate to="/userSelect" />}
 				/>
 				<Route
 					path="/equipment/:adminId/:equipmentName"
-					element={<EquipmentDetails />}
-				/>
-				<Route
-					path="/test"
-					element={<Test />}
-				/>
-				<Route
-					path="/settings"
-					element={<Settings />}
+					element={isLoggedIn() && profileExists() ? <EquipmentDetails /> : <Navigate to="/userSelect" />}
 				/>
 				<Route
 					path="/admin"
-					element={<Admin />}
-				/>
-				<Route
-					path="/profile"
-					element={<Profile />}
+					element={isLoggedIn() ? <Admin /> : <Navigate to="/login" />}
 				/>
 			</Routes>
 		</BrowserRouter>

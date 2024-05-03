@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import EquipmentInput from '../InputFields/EquipmentInput';
 import PasswordInput from '../InputFields/PasswordInput';
+import AuthSnackbar from '../../Snackbars/AuthSnackbar';
 
 const baseUrl = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -12,9 +13,19 @@ function SimpleDialog(props) {
 	const { onClose, selectedValue, open, equipmentName } = props;
 	const [newEquipmentId, setNewEquipmentId] = useState('');
 	const [adminPassword, setAdminPassword] = useState('');
+	const [snackbarOpen, setSnackbarOpen] = useState(false);
+	const [snackbarMessage, setSnackbarMessage] = useState('');
+	const [backgroundColor, setBackgroundColor] = useState('fireBrick');
 
 	const handleClose = () => {
 		onClose(selectedValue);
+	};
+
+	const handleSnackbarClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setSnackbarOpen(false);
 	};
 
 	const handleAddEquipment = async () => {
@@ -33,17 +44,30 @@ function SimpleDialog(props) {
 			password: adminPassword,
 		};
 
+		if (newEquipmentId === '' || adminPassword === '') {
+			setSnackbarMessage('Greška! Polja označena sa * su obavezna.');
+			setSnackbarOpen(true);
+		}
+
 		try {
 			const authenticate = await axios.post('/api/auth/equipment', user);
 			if (authenticate.status === 200) {
 				try {
 					const response = await axios.post(`${baseUrl}/equipment/${adminId}/${equipmentName}`, doc);
 					console.log(response);
+					setBackgroundColor('forestGreen');
+					setSnackbarMessage('Oprema uspješno dodana.');
+					setSnackbarOpen(true);
+					setTimeout(() => {
+						window.location.reload();
+					}, 1000);
 				} catch (error) {
 					console.error(error);
 				}
 			}
 		} catch (error) {
+			setSnackbarMessage('Greška! Pokušaj ponovno.');
+			setSnackbarOpen(true);
 			console.error(error);
 		}
 	};
@@ -72,11 +96,19 @@ function SimpleDialog(props) {
 						fontFamily: 'nunito',
 						width: '30ch',
 						marginTop: '10px',
+						textTransform: 'none',
 					}}
 				>
 					Dodaj
 				</Button>
 			</div>
+			<AuthSnackbar
+				open={snackbarOpen}
+				autoHideDuration={3000}
+				handleClose={handleSnackbarClose}
+				message={snackbarMessage}
+				backgroundColor={backgroundColor}
+			/>
 		</Dialog>
 	);
 }

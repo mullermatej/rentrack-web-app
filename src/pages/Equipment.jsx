@@ -9,6 +9,7 @@ const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export default function Equipment() {
 	const [equipment, setEquipment] = useState([]);
+	const [exists, setExists] = useState(false);
 	const adminId = JSON.parse(localStorage.getItem('user')).adminId;
 
 	useEffect(() => {
@@ -16,6 +17,9 @@ export default function Equipment() {
 			try {
 				const response = await axios.get(`${BASE_URL}/equipment/${adminId}`);
 				setEquipment(response.data);
+				if (response.data.length > 0) {
+					setExists(true);
+				}
 			} catch (error) {
 				console.error('Error getting equipment: ', error);
 			}
@@ -33,21 +37,22 @@ export default function Equipment() {
 				</Paper>
 			</div>
 			<Container>
-				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-					{equipment.map((item) => (
-						<div
-							key={item._id}
-							className="flex justify-center my-2"
-						>
-							<EquipmentCard equipment={item} />
-						</div>
-					))}
-				</div>
-				{equipment.length < 1 && (
+				{exists === false ? (
 					<div className="flex justify-center">
 						<Paper className="flex-column justify-center p-6">
 							<p className="font-nunito">Nema opreme za prikazati</p>
 						</Paper>
+					</div>
+				) : (
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+						{equipment.map((item) => (
+							<div
+								key={item._id}
+								className="flex justify-center my-2"
+							>
+								<EquipmentCard equipment={item} />
+							</div>
+						))}
 					</div>
 				)}
 			</Container>

@@ -16,6 +16,7 @@ export default function EquipmentInput({ value, type = 'text', setNewEquipmentId
 			autoComplete="off"
 		>
 			<TextField
+				helperText="ID mora biti jedinstven"
 				label={value}
 				variant="outlined"
 				type={type}

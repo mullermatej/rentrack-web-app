@@ -9,6 +9,7 @@ import Pricing from '../components/EquipmentDetails/Dialogs/Pricing';
 import Profit from '../components/EquipmentDetails/Dialogs/Profit';
 import Container from '@mui/material/Container';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const baseUrl = import.meta.env.VITE_SERVER_BASE_URL;
@@ -25,6 +26,7 @@ export default function EquipmentDetails() {
 	const { equipmentName } = useParams();
 	const [equipment, setEquipment] = useState({});
 	const [counter, setCounter] = useState(0);
+	const [exists, setExists] = useState(false);
 
 	useEffect(() => {
 		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
@@ -64,6 +66,7 @@ export default function EquipmentDetails() {
 				updateEquipment(addedEquipment);
 				setEquipment(response.data[0]);
 				checkAvailableEquipment(addedEquipment);
+				if (response.data[0].addedEquipment.length > 0) setExists(true);
 			} catch (error) {
 				console.error(error);
 			}
@@ -95,24 +98,47 @@ export default function EquipmentDetails() {
 							{equipment.addedEquipment !== undefined && equipment.addedEquipment.length}
 						</Button>
 					</div>
-					<ThemeProvider theme={theme}>
-						<Button
-							variant="outlined"
-							size="small"
-							color="primary"
-							style={{
-								textTransform: 'none',
-								fontFamily: 'nunito',
-							}}
-							onClick={() => (window.location.href = '/equipment')}
-						>
-							<ArrowBackOutlinedIcon fontSize="inherit" /> Natrag
-						</Button>
-					</ThemeProvider>
+					<div className="flex justify-center gap-4">
+						<ThemeProvider theme={theme}>
+							<Button
+								variant="outlined"
+								size="small"
+								color="primary"
+								style={{
+									textTransform: 'none',
+									fontFamily: 'nunito',
+								}}
+								onClick={() => (window.location.href = '/equipment')}
+							>
+								<ArrowBackOutlinedIcon fontSize="inherit" /> Natrag
+							</Button>
+							<Button
+								variant="outlined"
+								size="small"
+								color="primary"
+								style={{
+									textTransform: 'none',
+									fontFamily: 'nunito',
+								}}
+								onClick={() => window.location.reload()}
+							>
+								<RefreshIcon fontSize="inherit" />
+								Osvježi
+							</Button>
+						</ThemeProvider>
+					</div>
 				</Paper>
 			</div>
 			<Container>
-				<InfoTable equipment={equipment} />
+				{exists === false ? (
+					<div className="flex justify-center">
+						<Paper className="p-5">
+							<p className="text-center text font-nunito">Nema opreme za prikazati</p>
+						</Paper>
+					</div>
+				) : (
+					<InfoTable equipment={equipment} />
+				)}
 			</Container>
 		</div>
 	);

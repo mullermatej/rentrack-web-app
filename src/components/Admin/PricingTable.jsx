@@ -42,8 +42,8 @@ export default function PricingTable({ equipment }) {
 			>
 				<TableHead>
 					<TableRow>
-						<TableCell>Ime opreme</TableCell>
-						<TableCell align="left">Cjenik</TableCell>
+						<TableCell sx={{ fontFamily: 'nunito', fontSize: '16px' }}>Naziv opreme</TableCell>
+						<TableCell></TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -56,6 +56,7 @@ export default function PricingTable({ equipment }) {
 								component="th"
 								scope="row"
 								className="capitalize"
+								sx={{ fontFamily: 'nunito' }}
 							>
 								<HighlightOffIcon
 									className="cursor-pointer"
@@ -64,7 +65,7 @@ export default function PricingTable({ equipment }) {
 								/>{' '}
 								{row.equipmentName}
 							</TableCell>
-							<TableCell align="left">
+							<TableCell align="right">
 								<PriceListDialog
 									equipment={equipment}
 									singleEquipmentName={row.equipmentName}

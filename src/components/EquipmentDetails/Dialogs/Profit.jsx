@@ -62,7 +62,7 @@ function SimpleDialog(props) {
 					/>
 				</div>
 				<div className="mt-4">
-					<p className="text-lg">Zarada u ovom periodu iznosi: {profit}€</p>
+					<p className="text-lg text-center font-nunito">Zarada u ovom periodu iznosi: {profit}€</p>
 				</div>
 			</div>
 		</Dialog>

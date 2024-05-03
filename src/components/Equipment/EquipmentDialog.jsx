@@ -149,6 +149,7 @@ function SimpleDialog(props) {
 						fontSize: '14px',
 						marginTop: '10px',
 						backgroundColor: '#2463EB',
+						width: '32ch',
 					}}
 					onClick={handleAddEquipment}
 				>

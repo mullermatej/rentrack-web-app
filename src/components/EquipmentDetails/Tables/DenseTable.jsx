@@ -27,8 +27,13 @@ export default function DenseTable({ equipment }) {
 			>
 				<TableHead>
 					<TableRow>
-						<TableCell>Broj sati za {equipment.name} </TableCell>
-						<TableCell align="left">Cijena</TableCell>
+						<TableCell style={{ fontFamily: 'nunito', fontSize: '16px' }}>Broj sati</TableCell>
+						<TableCell
+							align="left"
+							style={{ fontFamily: 'nunito', fontSize: '16px' }}
+						>
+							Cijena
+						</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -40,10 +45,16 @@ export default function DenseTable({ equipment }) {
 							<TableCell
 								component="th"
 								scope="row"
+								style={{ fontFamily: 'nunito' }}
 							>
 								{row.hours}h
 							</TableCell>
-							<TableCell align="left">{row.price}€</TableCell>
+							<TableCell
+								align="left"
+								style={{ fontFamily: 'nunito' }}
+							>
+								{row.price}€
+							</TableCell>
 						</TableRow>
 					))}
 				</TableBody>

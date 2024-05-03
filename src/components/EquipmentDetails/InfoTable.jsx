@@ -15,6 +15,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Button from '@mui/material/Button';
 import HandlePayment from './Dialogs/HandlePayment';
+import AuthSnackbar from '../Snackbars/AuthSnackbar';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -34,6 +35,9 @@ function Row(props) {
 	const [open, setOpen] = useState(false);
 	const [openPayment, setOpenPayment] = useState(false);
 	const [equipmentId, setEquipmentId] = useState('');
+	const [snackbarOpen, setSnackbarOpen] = useState(false);
+	const [snackbarMessage, setSnackbarMessage] = useState('');
+	const [backgroundColor, setBackgroundColor] = useState('');
 
 	const handlePayment = () => {
 		if (row.availability === 'available') {
@@ -42,14 +46,30 @@ function Row(props) {
 		}
 	};
 
+	const handleScanbarClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setSnackbarOpen(false);
+	};
+
 	const deleteAddedEquipment = async (name, id) => {
 		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
 		try {
 			const response = await axios.delete(`${BASE_URL}/equipment/${adminId}/${name}/${id}`);
 			if (response.status === 200) {
 				console.log('Status 200 deleted equipment');
+				setBackgroundColor('forestGreen');
+				setSnackbarMessage('Oprema uspješno izbrisana.');
+				setSnackbarOpen(true);
+				setTimeout(() => {
+					window.location.reload();
+				}, 1200);
 			}
 		} catch (error) {
+			setBackgroundColor('fireBrick');
+			setSnackbarMessage('Greška! Pokušaj ponovno.');
+			setSnackbarOpen(true);
 			console.error(error);
 		}
 	};
@@ -165,6 +185,13 @@ function Row(props) {
 				equipment={equipment}
 				equipmentId={equipmentId}
 			/>
+			<AuthSnackbar
+				open={snackbarOpen}
+				autoHideDuration={4000}
+				handleClose={handleScanbarClose}
+				message={snackbarMessage}
+				backgroundColor={backgroundColor}
+			/>
 		</>
 	);
 }
@@ -243,7 +270,7 @@ export default function InfoTable({ equipment }) {
 							align="right"
 							sx={{ fontFamily: 'nunito' }}
 						>
-							Izdano
+							Stanje
 						</TableCell>
 						<TableCell
 							align="right"

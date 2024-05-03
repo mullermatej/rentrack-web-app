@@ -5,7 +5,7 @@ export default function NewPriceInput({ label, setPriceInfo }) {
 	let priceInfoValue = '';
 
 	const handleChange = (e) => {
-		if (label === 'Sati') priceInfoValue = 'hours';
+		if (label === '* Sati') priceInfoValue = 'hours';
 		else priceInfoValue = 'price';
 
 		setPriceInfo((prev) => ({
@@ -29,6 +29,8 @@ export default function NewPriceInput({ label, setPriceInfo }) {
 				type="number"
 				size="small"
 				onChange={handleChange}
+				InputProps={{ style: { fontFamily: 'nunito' } }}
+				InputLabelProps={{ style: { fontFamily: 'nunito' } }}
 			/>
 		</Box>
 	);

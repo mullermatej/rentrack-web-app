@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import axios from 'axios';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -6,6 +7,7 @@ import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import AuthSnackbar from '../Snackbars/AuthSnackbar';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -15,16 +17,29 @@ const Demo = styled('div')(({ theme }) => ({
 
 export default function PriceListList({ hour, price, singleEquipmentName }) {
 	const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+	const [snackbarOpen, setSnackbarOpen] = useState(false);
+	const [snackbarMessage, setSnackbarMessage] = useState('');
+	const [backgroundColor, setBackgroundColor] = useState('');
+
+	const handleSnackbarClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setSnackbarOpen(false);
+	};
 
 	const handleDeletePrice = async () => {
 		try {
-			const response = await axios.delete(`${BASE_URL}/equipment/${adminId}/${singleEquipmentName}/prices`, {
+			console.log(adminId, singleEquipmentName, hour);
+			await axios.delete(`${BASE_URL}/equipment/${adminId}/${singleEquipmentName}/prices`, {
 				data: {
 					hours: hour,
 				},
 			});
-			console.log(response);
 		} catch (error) {
+			setBackgroundColor('fireBrick');
+			setSnackbarMessage('Greška. Pokušaj ponovno.');
+			setSnackbarOpen(true);
 			console.error(error);
 		}
 	};
@@ -49,13 +64,20 @@ export default function PriceListList({ hour, price, singleEquipmentName }) {
 								</IconButton>
 							}
 						>
-							<p>
+							<p className="font-nunito">
 								{hour === '1' ? `${hour} sat` : `${hour} sata`} - {price}€
 							</p>
 						</ListItem>
 					</List>
 				</Demo>
 			</Grid>
+			<AuthSnackbar
+				open={snackbarOpen}
+				autoHideDuration={3000}
+				handleClose={handleSnackbarClose}
+				message={snackbarMessage}
+				backgroundColor={backgroundColor}
+			/>
 		</Box>
 	);
 }

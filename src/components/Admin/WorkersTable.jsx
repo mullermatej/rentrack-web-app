@@ -26,9 +26,19 @@ export default function WorkersTable({ profiles }) {
 			>
 				<TableHead>
 					<TableRow>
-						<TableCell>Ime</TableCell>
-						<TableCell align="left">Prezime</TableCell>
-						<TableCell align="left">Prihod</TableCell>
+						<TableCell sx={{ fontFamily: 'nunito', fontSize: '16px' }}>Ime radnika</TableCell>
+						<TableCell
+							align="left"
+							sx={{ fontFamily: 'nunito', fontSize: '16px' }}
+						>
+							Prezime radnika
+						</TableCell>
+						<TableCell
+							align="right"
+							sx={{ fontFamily: 'nunito', fontSize: '16px' }}
+						>
+							Ukupni prihod
+						</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -40,11 +50,22 @@ export default function WorkersTable({ profiles }) {
 							<TableCell
 								component="th"
 								scope="row"
+								sx={{ fontFamily: 'nunito' }}
 							>
 								{row.workerName}
 							</TableCell>
-							<TableCell align="left">{row.workerSurname}</TableCell>
-							<TableCell align="left">{row.workerIncome}€</TableCell>
+							<TableCell
+								align="left"
+								sx={{ fontFamily: 'nunito' }}
+							>
+								{row.workerSurname}
+							</TableCell>
+							<TableCell
+								align="right"
+								sx={{ fontFamily: 'nunito' }}
+							>
+								{row.workerIncome}€
+							</TableCell>
 						</TableRow>
 					))}
 				</TableBody>

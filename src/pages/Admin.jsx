@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import WorkersTable from '../components/Admin/WorkersTable';
 import PricingTable from '../components/Admin/PricingTable';
+import { Container, Paper } from '@mui/material';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export default function Admin() {
 	const [profiles, setProfiles] = useState([]);
 	const [equipment, setEquipment] = useState([]);
-	const username = JSON.parse(localStorage.getItem('user')).username;
+	const email = JSON.parse(localStorage.getItem('user')).email;
 	const adminId = JSON.parse(localStorage.getItem('user')).adminId;
 
 	useEffect(() => {
@@ -25,14 +26,20 @@ export default function Admin() {
 	}, [adminId, equipment]);
 
 	return (
-		<div>
-			<h1>Profil vlasnika</h1>
-			<p>Ulogiran kao: {username}</p>
-			<p>Tvoj Admin ID: {adminId}</p>
-			<p>Popis radnika</p>
-			<WorkersTable profiles={profiles} />
-			<p>Popis cijena</p>
-			<PricingTable equipment={equipment} />
-		</div>
+		<>
+			<div className="flex justify-center my-6">
+				<Paper className="p-4">
+					<p className="font-nunito text-3xl">Profil vlasnika</p>
+					<p className="font-nunito text-lg">Ulogiran kao: {email}</p>
+					<p className="font-nunito text-lg">Tvoj Admin ID: {adminId}</p>
+				</Paper>
+			</div>
+			<Container sx={{ marginBottom: '25px' }}>
+				<WorkersTable profiles={profiles} />
+			</Container>
+			<Container>
+				<PricingTable equipment={equipment} />
+			</Container>
+		</>
 	);
 }

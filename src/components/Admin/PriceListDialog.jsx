@@ -15,7 +15,6 @@ function SimpleDialog(props) {
 
 	const getPriceList = () => {
 		const equipmentObject = equipment.find((object) => object.name === singleEquipmentName);
-
 		if (equipmentObject) {
 			return (
 				<div>
@@ -42,12 +41,6 @@ function SimpleDialog(props) {
 			<div className="text-center">
 				{getPriceList()}
 				<div className="flex gap-4 justify-center mb-2">
-					<Button
-						variant="contained"
-						size="small"
-					>
-						Spremi
-					</Button>
 					<NewPriceDialog singleEquipmentName={singleEquipmentName} />
 				</div>
 			</div>
@@ -80,6 +73,7 @@ export default function Pricing({ equipment, singleEquipmentName }) {
 				size="small"
 				variant="contained"
 				onClick={handleClickOpen}
+				style={{ textTransform: 'none', fontFamily: 'nunito', backgroundColor: '#2463EB', fontSize: '13px' }}
 			>
 				<EditIcon
 					fontSize="inherit"

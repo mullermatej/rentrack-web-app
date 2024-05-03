@@ -10,7 +10,7 @@ export default function PasswordInput({ value, type = 'text', setAdminPassword }
 		<Box
 			component="form"
 			sx={{
-				'& > :not(style)': { m: 1, width: '25ch' },
+				'& > :not(style)': { mb: 2, width: '25ch' },
 			}}
 			noValidate
 			autoComplete="off"

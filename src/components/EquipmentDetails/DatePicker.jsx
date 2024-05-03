@@ -2,6 +2,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Typography } from '@mui/material';
 
 export default function BasicDatePicker({ label, setDateRange }) {
 	const handleChange = (newValue) => {
@@ -12,7 +13,7 @@ export default function BasicDatePicker({ label, setDateRange }) {
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<DemoContainer components={['DatePicker']}>
 				<DatePicker
-					label={label}
+					label={<Typography style={{ fontFamily: 'nunito' }}>{label}</Typography>}
 					onChange={handleChange}
 					format="DD/MM/YYYY"
 				/>
