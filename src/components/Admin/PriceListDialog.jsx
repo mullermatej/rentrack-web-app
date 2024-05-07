@@ -5,6 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import EditIcon from '@mui/icons-material/Edit';
 import PriceListList from './PriceListList';
 import NewPriceDialog from './NewPriceDialog';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function SimpleDialog(props) {
 	const { onClose, selectedValue, open, equipment, singleEquipmentName } = props;
@@ -38,6 +39,12 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
+			<div className="py-2 px-2">
+				<ArrowBackIcon
+					onClick={handleClose}
+					sx={{ cursor: 'pointer' }}
+				/>
+			</div>
 			<div className="text-center">
 				{getPriceList()}
 				<div className="flex gap-4 justify-center mb-2">

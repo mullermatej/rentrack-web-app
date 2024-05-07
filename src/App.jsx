@@ -25,6 +25,12 @@ function App() {
 			{isLoggedIn() && <Navigation />}
 			<Routes>
 				<Route
+					path="/"
+					element={
+						isLoggedIn() && profileExists() ? <Navigate to="/equipment" /> : <Navigate to="/register" />
+					}
+				/>
+				<Route
 					path="/register"
 					element={isLoggedIn() ? <Navigate to="/userSelect" /> : <Register />}
 				/>

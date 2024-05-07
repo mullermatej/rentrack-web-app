@@ -26,12 +26,12 @@ export default function WorkersTable({ profiles }) {
 			>
 				<TableHead>
 					<TableRow>
-						<TableCell sx={{ fontFamily: 'nunito', fontSize: '16px' }}>Ime radnika</TableCell>
+						<TableCell sx={{ fontFamily: 'nunito', fontSize: '16px' }}>Ime djelatnika</TableCell>
 						<TableCell
 							align="left"
 							sx={{ fontFamily: 'nunito', fontSize: '16px' }}
 						>
-							Prezime radnika
+							Prezime djelatnika
 						</TableCell>
 						<TableCell
 							align="right"

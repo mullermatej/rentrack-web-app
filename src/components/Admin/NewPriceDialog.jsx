@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import NewPriceInput from './NewPriceInput';
 import AuthSnackbar from '../Snackbars/AuthSnackbar';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -57,7 +58,13 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<div className="text-center m-4 p-4">
+			<div className="pt-2 px-2">
+				<ArrowBackIcon
+					onClick={handleClose}
+					sx={{ cursor: 'pointer' }}
+				/>
+			</div>
+			<div className="text-center py-4 px-6">
 				<NewPriceInput
 					setPriceInfo={setPriceInfo}
 					label="* Sati"

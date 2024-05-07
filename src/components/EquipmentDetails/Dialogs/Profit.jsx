@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import BasicDateRangePicker from '../DatePicker';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -50,7 +51,13 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<div className="p-4">
+			<div className="py-2 px-2">
+				<ArrowBackIcon
+					onClick={handleClose}
+					sx={{ cursor: 'pointer' }}
+				/>
+			</div>
+			<div className="px-4 pb-4">
 				<div className=" flex gap-4">
 					<BasicDateRangePicker
 						label="Od kada"

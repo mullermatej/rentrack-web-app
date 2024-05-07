@@ -97,9 +97,16 @@ function Row(props) {
 					align="right"
 					onClick={handlePayment}
 				>
-					<span className="cursor-pointer font-nunito text-main-blue capitalize">
+					{/* <span className="cursor-pointer font-nunito text-main-blue capitalize">
 						{row.availability === 'available' ? 'Dostupno' : 'Izdano'}
-					</span>
+					</span> */}
+					<Button
+						variant={row.availability === 'available' ? 'outlined' : 'default'}
+						size="small"
+						style={{ textTransform: 'none', fontSize: '14px', color: '#2463EB', fontFamily: 'nunito' }}
+					>
+						{row.availability === 'available' ? 'Dostupno' : 'Izdano'}
+					</Button>
 				</TableCell>
 				<TableCell
 					align="right"

@@ -6,6 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import EquipmentInput from '../InputFields/EquipmentInput';
 import PasswordInput from '../InputFields/PasswordInput';
 import AuthSnackbar from '../../Snackbars/AuthSnackbar';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const baseUrl = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -77,7 +78,13 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<div className="text-center p-4">
+			<div className="py-2 px-2">
+				<ArrowBackIcon
+					onClick={handleClose}
+					sx={{ cursor: 'pointer' }}
+				/>
+			</div>
+			<div className="text-center px-4 pb-4">
 				<EquipmentInput
 					value="* ID opreme"
 					setNewEquipmentId={setNewEquipmentId}

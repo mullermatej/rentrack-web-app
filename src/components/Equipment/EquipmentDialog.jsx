@@ -8,6 +8,7 @@ import UserInputField from './UserInputField';
 import HoursInputField from './HoursInputField';
 import PricesInputField from './PricesInputField';
 import AuthSnackbar from '../Snackbars/AuthSnackbar';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function SimpleDialog(props) {
 	const { onClose, selectedValue, open } = props;
@@ -105,7 +106,13 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<div className="text-center p-5">
+			<div className="py-2 px-2">
+				<ArrowBackIcon
+					onClick={handleClose}
+					sx={{ cursor: 'pointer' }}
+				/>
+			</div>
+			<div className="text-center px-5 pb-5">
 				<EquipmentInputField
 					value="* Naziv"
 					field="name"

@@ -7,6 +7,7 @@ import InputField from './InputField';
 import Box from '@mui/material/Box';
 import PasswordField from '../../Login/PasswordField';
 import AuthSnackbar from '../../Snackbars/AuthSnackbar';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -79,7 +80,13 @@ function SimpleDialog({ onClose, open }) {
 			onClose={handleClose}
 			open={open}
 		>
-			<div className="flex-column text-center pt-8 justify-center items-center p-10">
+			<div className="py-2 px-2">
+				<ArrowBackIcon
+					onClick={handleClose}
+					sx={{ cursor: 'pointer' }}
+				/>
+			</div>
+			<div className="flex-column text-center justify-center items-center px-5 pb-5">
 				<InputField
 					value="* Ime"
 					setNewUser={setNewUser}

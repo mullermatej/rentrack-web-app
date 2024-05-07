@@ -79,7 +79,6 @@ export default function PriceOptions({ equipment, equipmentId }) {
 	};
 	return (
 		<FormControl>
-			<p className="font-nunito text-lg mb-2">Odaberi vrijeme najma</p>
 			<RadioGroup
 				aria-labelledby="demo-radio-buttons-group-label"
 				defaultValue="first"

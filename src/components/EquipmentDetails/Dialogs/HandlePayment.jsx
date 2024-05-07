@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@mui/material/Dialog';
-
 import PriceOptions from '../RadioGroups/PriceOptions';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function SimpleDialog(props) {
 	const { onClose, selectedValue, openPayment, equipment, equipmentId } = props;
@@ -16,7 +16,20 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={openPayment}
 		>
-			<div className="p-4">
+			<ArrowBackIcon
+				onClick={handleClose}
+				sx={{
+					cursor: 'pointer',
+					position: 'absolute',
+					left: '-15px',
+					top: '4px',
+					marginLeft: '20px',
+				}}
+			/>
+			<div className="text-center px-10 py-4">
+				<p className="font-nunito text-lg ">Iznajmi opremu</p>
+			</div>
+			<div className="px-10 pb-4 text-center">
 				<PriceOptions
 					equipment={equipment}
 					equipmentId={equipmentId}

@@ -2,8 +2,8 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-
 import DenseTable from '../Tables/DenseTable';
+import ArrowIconBack from '@mui/icons-material/ArrowBack';
 
 function SimpleDialog(props) {
 	const { onClose, selectedValue, open, equipment } = props;
@@ -17,6 +17,12 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
+			<div className="py-2 px-2">
+				<ArrowIconBack
+					onClick={handleClose}
+					sx={{ cursor: 'pointer' }}
+				/>
+			</div>
 			<DenseTable equipment={equipment} />
 		</Dialog>
 	);
