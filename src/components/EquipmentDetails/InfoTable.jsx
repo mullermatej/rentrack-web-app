@@ -93,16 +93,14 @@ function Row(props) {
 				>
 					{row.id}
 				</TableCell>
-				<TableCell
-					align="right"
-					onClick={handlePayment}
-				>
+				<TableCell align="right">
 					{/* <span className="cursor-pointer font-nunito text-main-blue capitalize">
 						{row.availability === 'available' ? 'Dostupno' : 'Izdano'}
 					</span> */}
 					<Button
 						variant={row.availability === 'available' ? 'outlined' : 'default'}
 						size="small"
+						onClick={handlePayment}
 						style={{ textTransform: 'none', fontSize: '14px', color: '#2463EB', fontFamily: 'nunito' }}
 					>
 						{row.availability === 'available' ? 'Dostupno' : 'Izdano'}

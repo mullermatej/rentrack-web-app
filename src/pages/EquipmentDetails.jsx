@@ -25,6 +25,7 @@ const theme = createTheme({
 export default function EquipmentDetails() {
 	const { equipmentName } = useParams();
 	const [equipment, setEquipment] = useState({});
+	const [features, setFeatures] = useState({});
 	const [counter, setCounter] = useState(0);
 	const [exists, setExists] = useState(false);
 
@@ -71,12 +72,22 @@ export default function EquipmentDetails() {
 				console.error(error);
 			}
 		};
+
+		const getFeatures = async () => {
+			try {
+				const response = await axios.get(`${baseUrl}/equipment/${adminId}/${equipmentName}/features`);
+				setFeatures(response.data);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		getFeatures();
 		getEquipment();
 	}, [equipmentName]);
 
 	return (
 		<div className="mx-auto">
-			<div className="flex justify-center my-10">
+			<div className="flex justify-center mt-10">
 				<Paper className="justify-center p-4">
 					<p className="text-4xl capitalize font-nunito">{equipmentName}</p>
 					<div className="my-4 space-x-4">
@@ -129,6 +140,61 @@ export default function EquipmentDetails() {
 					</div>
 				</Paper>
 			</div>
+			<Container maxWidth="lg">
+				<Paper>
+					{(features.color ||
+						features.dimensions ||
+						features.material ||
+						features.horsepower ||
+						features.license ||
+						features.wheels ||
+						features.weight ||
+						features.maximumPeople) && (
+						<div className="md:flex lg:flex xl:flex gap-4 justify-center p-4 my-6">
+							{features.color && (
+								<p className="text-lg font-nunito">
+									Boja: <span className="text-main-blue">{features.color}</span>
+								</p>
+							)}
+							{features.dimensions && (
+								<p className="text-lg font-nunito">
+									Dimenzije: <span className="text-main-blue">{features.dimensions}</span>
+								</p>
+							)}
+							{features.material && (
+								<p className="text-lg font-nunito">
+									Materijal: <span className="text-main-blue">{features.material}</span>
+								</p>
+							)}
+							{features.horsepower && (
+								<p className="text-lg font-nunito">
+									Konjska snaga: <span className="text-main-blue">{features.horsepower}</span>
+								</p>
+							)}
+							{features.license && (
+								<p className="text-lg font-nunito">
+									Dozvola: <span className="text-main-blue">{features.license}</span>
+								</p>
+							)}
+							{features.wheels && (
+								<p className="text-lg font-nunito">
+									Kotačići: <span className="text-main-blue">{features.wheels}</span>
+								</p>
+							)}
+							{features.weight && (
+								<p className="text-lg font-nunito">
+									Težina: <span className="text-main-blue">{features.weight}</span>
+								</p>
+							)}
+							{features.maximumPeople && (
+								<p className="text-lg font-nunito">
+									Maks. osoba: <span className="text-main-blue">{features.maximumPeople}</span>
+								</p>
+							)}
+						</div>
+					)}
+				</Paper>
+			</Container>
 			<Container>
 				{exists === false ? (
 					<div className="flex justify-center">

@@ -4,22 +4,34 @@ import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import EquipmentInputField from './EquipmentInputField';
-import UserInputField from './UserInputField';
 import HoursInputField from './HoursInputField';
 import PricesInputField from './PricesInputField';
 import AuthSnackbar from '../Snackbars/AuthSnackbar';
+import CheckList from './CheckList';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import FeaturesDialog from './FeaturesDialog';
 
 function SimpleDialog(props) {
 	const { onClose, selectedValue, open } = props;
+	const [featureDialogOpen, setFeatureDialogOpen] = useState(false);
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
 	const [snackbarMessage, setSnackbarMessage] = useState('');
 	const [backgroundColor, setBackgroundColor] = useState('forestGreen');
-	const [user, setUser] = useState({ username: '', password: '' });
+	const [user, setUser] = useState({ username: '' });
 	const [newEquipment, setNewEquipment] = useState({
 		name: '',
 		adminId: '',
 		prices: {},
+		features: {
+			color: false,
+			dimensions: false,
+			material: false,
+			horsepower: false,
+			license: false,
+			wheels: false,
+			weight: false,
+			maximumPeople: false,
+		},
 	});
 	const [hours, setHours] = useState(0);
 	const [price, setPrice] = useState(0);
@@ -29,7 +41,6 @@ function SimpleDialog(props) {
 		if (user) {
 			setUser({
 				username: user.username,
-				password: '',
 			});
 		}
 		setNewEquipment((prevState) => ({
@@ -42,11 +53,26 @@ function SimpleDialog(props) {
 		onClose(selectedValue);
 	};
 
+	const handleFeatureDialogOpen = () => {
+		setFeatureDialogOpen(true);
+	};
+
 	const handleSnackbarClose = (event, reason) => {
 		if (reason === 'clickaway') {
 			return;
 		}
 		setSnackbarOpen(false);
+	};
+
+	const checkSelectedFeatures = () => {
+		// loop trough features object and check if any of the values is true
+		for (const [key, value] of Object.entries(newEquipment.features)) {
+			if (value === true) {
+				console.log(key, value);
+				return true;
+			}
+		}
+		return false;
 	};
 
 	const handleAddPricing = () => {
@@ -79,20 +105,13 @@ function SimpleDialog(props) {
 			setSnackbarOpen(true);
 		}
 		try {
-			const response = await axios.post('/api/auth/equipment', user);
-			if (response.status === 200) {
-				try {
-					const response = await axios.post('/api/equipment', newEquipment);
-					console.log(response);
-					setSnackbarMessage('Uspješno dodana nova oprema!');
-					setSnackbarOpen(true);
-					setTimeout(() => {
-						window.location.reload();
-					}, 1500);
-				} catch (error) {
-					console.error(error);
-				}
-			}
+			const response = await axios.post('/api/equipment', newEquipment);
+			console.log(response);
+			setSnackbarMessage('Uspješno dodana nova oprema!');
+			setSnackbarOpen(true);
+			setTimeout(() => {
+				window.location.reload();
+			}, 1200);
 		} catch (error) {
 			console.error(error);
 			setBackgroundColor('fireBrick');
@@ -142,26 +161,36 @@ function SimpleDialog(props) {
 				>
 					Dodaj u cjenik
 				</Button>
-
-				<UserInputField
-					value="* Admin lozinka"
-					field="password"
-					setUser={setUser}
-					type="password"
-				/>
-				<Button
-					variant="contained"
-					style={{
-						textTransform: 'none',
-						fontSize: '14px',
-						marginTop: '10px',
-						backgroundColor: '#2463EB',
-						width: '32ch',
-					}}
-					onClick={handleAddEquipment}
-				>
-					Kreiraj
-				</Button>
+				<CheckList setNewEquipment={setNewEquipment} />
+				{checkSelectedFeatures() === false ? (
+					<Button
+						variant="contained"
+						style={{
+							textTransform: 'none',
+							fontSize: '14px',
+							marginTop: '10px',
+							backgroundColor: '#2463EB',
+							width: '32ch',
+						}}
+						onClick={handleAddEquipment}
+					>
+						Kreiraj
+					</Button>
+				) : (
+					<Button
+						variant="outlined"
+						style={{
+							textTransform: 'none',
+							fontSize: '14px',
+							marginTop: '10px',
+							width: '32ch',
+							color: '#2463EB',
+						}}
+						onClick={handleFeatureDialogOpen}
+					>
+						Ispuni obilježja
+					</Button>
+				)}
 			</div>
 			<AuthSnackbar
 				open={snackbarOpen}
@@ -169,6 +198,12 @@ function SimpleDialog(props) {
 				handleClose={handleSnackbarClose}
 				message={snackbarMessage}
 				backgroundColor={backgroundColor}
+			/>
+			<FeaturesDialog
+				open={featureDialogOpen}
+				setOpen={setFeatureDialogOpen}
+				newEquipment={newEquipment}
+				onClose={() => setFeatureDialogOpen(false)}
 			/>
 		</Dialog>
 	);

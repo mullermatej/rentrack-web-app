@@ -22,8 +22,8 @@ function SimpleDialog(props) {
 					cursor: 'pointer',
 					position: 'absolute',
 					left: '-15px',
-					top: '4px',
-					marginLeft: '20px',
+					top: '17px',
+					marginLeft: '25px',
 				}}
 			/>
 			<div className="text-center px-10 py-4">
