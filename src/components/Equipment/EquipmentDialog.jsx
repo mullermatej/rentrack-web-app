@@ -66,9 +66,8 @@ function SimpleDialog(props) {
 
 	const checkSelectedFeatures = () => {
 		// loop trough features object and check if any of the values is true
-		for (const [key, value] of Object.entries(newEquipment.features)) {
+		for (const [, value] of Object.entries(newEquipment.features)) {
 			if (value === true) {
-				console.log(key, value);
 				return true;
 			}
 		}
@@ -76,9 +75,9 @@ function SimpleDialog(props) {
 	};
 
 	const handleAddPricing = () => {
-		if (hours === 0 || price === 0) {
+		if (hours < 1 || hours > 24 || price === 0) {
 			setBackgroundColor('fireBrick');
-			setSnackbarMessage('Greška! Polja označena sa * su obavezna.');
+			setSnackbarMessage('Greška! Provjeri unesene informacije.');
 			setSnackbarOpen(true);
 			return;
 		} else {
@@ -98,7 +97,7 @@ function SimpleDialog(props) {
 	};
 
 	const handleAddEquipment = async () => {
-		console.log(newEquipment);
+		// console.log(newEquipment);
 		if (newEquipment.name === '' || user.password === '') {
 			setBackgroundColor('fireBrick');
 			setSnackbarMessage('Greška! Polja označena sa * su obavezna.');
@@ -203,6 +202,7 @@ function SimpleDialog(props) {
 				open={featureDialogOpen}
 				setOpen={setFeatureDialogOpen}
 				newEquipment={newEquipment}
+				setNewEquipment={setNewEquipment}
 				onClose={() => setFeatureDialogOpen(false)}
 			/>
 		</Dialog>
@@ -228,12 +228,18 @@ export default function UserSelectDialog() {
 	return (
 		<>
 			<Button
-				size="small"
 				variant="contained"
 				onClick={handleClickOpen}
-				style={{ textTransform: 'none', fontSize: '14px', backgroundColor: '#2463EB', fontFamily: 'nunito' }}
+				sx={{
+					fontFamily: 'nunito',
+					fontSize: '16px',
+					textTransform: 'none',
+					backgroundColor: '#2463EB',
+					color: 'white',
+					marginTop: '15px',
+				}}
 			>
-				Dodaj novu opremu
+				Dodaj Opremu
 			</Button>
 			<SimpleDialog
 				open={open}

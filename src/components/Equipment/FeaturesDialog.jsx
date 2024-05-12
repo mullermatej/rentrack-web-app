@@ -8,10 +8,27 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import FeatureField from './FeatureField';
 
 function SimpleDialog(props) {
-	const { onClose, selectedValue, open, newEquipment } = props;
+	const { onClose, selectedValue, open, newEquipment, setNewEquipment } = props;
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
 	const [snackbarMessage, setSnackbarMessage] = useState('');
 	const [backgroundColor, setBackgroundColor] = useState('forestGreen');
+
+	const handleAddEquipment = async () => {
+		try {
+			const response = await axios.post('/api/equipment', newEquipment);
+			console.log(response);
+			setSnackbarMessage('Uspješno dodana nova oprema!');
+			setSnackbarOpen(true);
+			setTimeout(() => {
+				window.location.reload();
+			}, 1200);
+		} catch (error) {
+			console.error(error);
+			setBackgroundColor('fireBrick');
+			setSnackbarMessage('Greška! Pokušaj ponovno.');
+			setSnackbarOpen(true);
+		}
+	};
 
 	const handleClose = () => {
 		onClose(selectedValue);
@@ -37,7 +54,7 @@ function SimpleDialog(props) {
 			case 'license':
 				return 'Potrebna dozvola';
 			case 'wheels':
-				return 'Broj kotača';
+				return 'Kotačići';
 			case 'weight':
 				return 'Težina';
 			case 'maximumPeople':
@@ -52,7 +69,13 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<div className="items-center p-4">
+			<div className="pt-2 px-2">
+				<ArrowBackIcon
+					onClick={handleClose}
+					sx={{ cursor: 'pointer' }}
+				/>
+			</div>
+			<div className="items-center text-center p-4">
 				{/* Loop trough newEquipment.features and create a paragraph for each features whose value is true */}
 				{Object.entries(newEquipment.features).map(([key, value]) => {
 					if (value) {
@@ -61,10 +84,25 @@ function SimpleDialog(props) {
 								key={key}
 								value={translateValue(key)}
 								type="text"
+								setNewEquipment={setNewEquipment}
+								field={key}
 							/>
 						);
 					}
 				})}
+				<Button
+					variant="contained"
+					style={{
+						textTransform: 'none',
+						fontSize: '14px',
+						marginTop: '10px',
+						backgroundColor: '#2463EB',
+						width: '32ch',
+					}}
+					onClick={handleAddEquipment}
+				>
+					Kreiraj
+				</Button>
 			</div>
 			<AuthSnackbar
 				open={snackbarOpen}
@@ -82,7 +120,7 @@ SimpleDialog.propTypes = {
 	open: PropTypes.bool.isRequired,
 };
 
-export default function FeaturesDialog({ open, setOpen, newEquipment }) {
+export default function FeaturesDialog({ open, setOpen, newEquipment, setNewEquipment }) {
 	const handleClose = () => {
 		setOpen(false);
 	};
@@ -93,6 +131,7 @@ export default function FeaturesDialog({ open, setOpen, newEquipment }) {
 				open={open}
 				onClose={handleClose}
 				newEquipment={newEquipment}
+				setNewEquipment={setNewEquipment}
 			/>
 		</>
 	);

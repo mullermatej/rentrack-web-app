@@ -127,7 +127,7 @@ export default function Navigation() {
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar
-				position="static"
+				position="fixed"
 				sx={{ bgcolor: 'white', color: 'black' }}
 			>
 				<Toolbar>
