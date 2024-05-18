@@ -21,6 +21,7 @@ export default function PricingTable({ equipment }) {
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
 	const [snackbarMessage, setSnackbarMessage] = useState('');
 	const [backgroundColor, setBackgroundColor] = useState('fireBrick');
+	const [snackbarLink, setSnackbarLink] = useState('');
 	const rows = [];
 
 	const handleClose = (event, reason) => {
@@ -28,6 +29,18 @@ export default function PricingTable({ equipment }) {
 			return;
 		}
 		setSnackbarOpen(false);
+	};
+
+	const createSnackbarLink = (equipmentName) => {
+		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+		return (
+			<a
+				href={`/equipment/${adminId}/${equipmentName}`}
+				className="underline"
+			>
+				Vidi opremu
+			</a>
+		);
 	};
 
 	const handleDeleteEquipment = async (equipmentName) => {
@@ -40,18 +53,27 @@ export default function PricingTable({ equipment }) {
 				if (addedEquipment[i].availability === 'unavailable') {
 					console.log('Equipment is in use and cannot be deleted');
 					deleteable = false;
-					setSnackbarMessage('Greška! Oprema je u najmu.');
+					setSnackbarMessage('Greška! Oprema je trenutno u najmu.');
+					setSnackbarLink(createSnackbarLink(equipmentName));
 					setSnackbarOpen(true);
 					return;
 				}
 			}
 		}
 		if (deleteable) {
-			await axios.delete(`${BASE_URL}/equipment/${adminId}/${equipmentName}`);
-			setBackgroundColor('forestGreen');
-			setSnackbarMessage('Oprema uspješno obrisana');
-			setSnackbarOpen(true);
-			window.location.reload();
+			let response = await axios.delete(`${BASE_URL}/equipment/${adminId}/${equipmentName}`);
+			if (response.status === 200) {
+				setBackgroundColor('forestGreen');
+				setSnackbarMessage('Oprema uspješno obrisana');
+				setSnackbarOpen(true);
+				setTimeout(() => {
+					window.location.reload();
+				}, 1300);
+			} else {
+				setBackgroundColor('fireBrick');
+				setSnackbarMessage('Greška! Pokušaj ponovno.');
+				setSnackbarOpen(true);
+			}
 		}
 	};
 
@@ -109,6 +131,7 @@ export default function PricingTable({ equipment }) {
 				handleClose={handleClose}
 				message={snackbarMessage}
 				backgroundColor={backgroundColor}
+				link={snackbarLink}
 			/>
 		</>
 	);

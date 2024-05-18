@@ -31,11 +31,19 @@ export default function PriceListList({ hour, price, singleEquipmentName }) {
 	const handleDeletePrice = async () => {
 		try {
 			console.log(adminId, singleEquipmentName, hour);
-			await axios.delete(`${BASE_URL}/equipment/${adminId}/${singleEquipmentName}/prices`, {
+			let response = await axios.delete(`${BASE_URL}/equipment/${adminId}/${singleEquipmentName}/prices`, {
 				data: {
 					hours: hour,
 				},
 			});
+			if (response.status === 200) {
+				setBackgroundColor('forestGreen');
+				setSnackbarMessage('Cijena uspješno obrisana.');
+				setSnackbarOpen(true);
+				setTimeout(() => {
+					window.location.reload();
+				}, 1300);
+			}
 		} catch (error) {
 			setBackgroundColor('fireBrick');
 			setSnackbarMessage('Greška. Pokušaj ponovno.');

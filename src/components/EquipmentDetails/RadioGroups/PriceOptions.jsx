@@ -42,23 +42,15 @@ export default function PriceOptions({ equipment, equipmentId }) {
 			const response = await axios.patch(`${BASE_URL}/equipment/${adminId}/${equipmentName}`, choice);
 			console.log(response);
 			if (response.status === 200) {
-				// Snackbar here
 				setBackgroundColor('forestGreen');
 				setSnackbarMessage('Oprema uspješno iznajmljena.');
 				setSnackbarOpen(true);
-				setTimeout(() => {
-					window.location.reload();
-				}, 1500);
 				try {
 					const income = parseInt(choice.price);
 					const response = await axios.patch(`${BASE_URL}/users/${adminId}/profiles/${profileId}`, {
 						income,
 					});
 					console.log(response);
-					if (response.status === 200) {
-						const equipment = response.data;
-						localStorage.setItem('equipment', JSON.stringify(equipment));
-					}
 				} catch (error) {
 					console.error(error);
 				}
@@ -69,6 +61,9 @@ export default function PriceOptions({ equipment, equipmentId }) {
 			setSnackbarOpen(true);
 			console.error(error);
 		}
+		setTimeout(() => {
+			window.location.reload();
+		}, 2000);
 	};
 
 	const handleSnackbarClose = (event, reason) => {

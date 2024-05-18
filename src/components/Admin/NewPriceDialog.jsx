@@ -30,6 +30,12 @@ function SimpleDialog(props) {
 		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
 		priceInfo.price = parseInt(priceInfo.price);
 
+		if (priceInfo.hours < 1 || priceInfo.hours > 24 || priceInfo.price < 1 || priceInfo.price > 5000) {
+			setSnackbarMessage('Greška! Provjeri unesene vrijednosti.');
+			setSnackbarOpen(true);
+			return;
+		}
+
 		try {
 			const response = await axios.post(`${BASE_URL}/equipment/${adminId}/${singleEquipmentName}/prices`, {
 				hours: priceInfo.hours,
@@ -40,7 +46,7 @@ function SimpleDialog(props) {
 			setSnackbarMessage('Uspješno dodano.');
 			setSnackbarOpen(true);
 			setTimeout(() => {
-				onClose(selectedValue);
+				window.location.reload();
 			}, 1000);
 		} catch (error) {
 			setSnackbarMessage('Greška. Pokušaj ponovno.');

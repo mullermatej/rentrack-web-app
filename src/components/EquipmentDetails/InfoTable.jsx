@@ -101,16 +101,18 @@ function Row(props) {
 					{row.id}
 				</TableCell>
 				<TableCell align="right">
-					{/* <span className="cursor-pointer font-nunito text-main-blue capitalize">
-						{row.availability === 'available' ? 'Dostupno' : 'Izdano'}
-					</span> */}
 					<Button
 						variant={row.availability === 'available' ? 'outlined' : 'default'}
 						size="small"
 						onClick={handlePayment}
-						style={{ textTransform: 'none', fontSize: '14px', color: '#2463EB', fontFamily: 'nunito' }}
+						style={{
+							textTransform: 'none',
+							fontSize: '14px',
+							color: row.availability === 'available' ? '#2463EB' : '#D3302F',
+							fontFamily: 'nunito',
+						}}
 					>
-						{row.availability === 'available' ? 'Dostupno' : 'Izdano'}
+						{row.availability === 'available' ? 'Dostupno' : 'Zaustavi'}
 					</Button>
 				</TableCell>
 				<TableCell
@@ -219,7 +221,12 @@ export default function InfoTable({ equipment }) {
 		let month = today.getMonth() + 1;
 		month = '0' + month;
 		let date = today.getDate();
-		let formattedDate = '0' + date + '/' + month + '/' + year;
+		let formattedDate;
+		if (date < 10) {
+			formattedDate = '0' + date + '/' + month + '/' + year;
+		} else {
+			formattedDate = date + '/' + month + '/' + year;
+		}
 
 		let profit = 0;
 
