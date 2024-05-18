@@ -89,10 +89,7 @@ export default function EquipmentDetails() {
 	return (
 		<div className="mx-auto">
 			{exists === true && (
-				<div
-					className="flex justify-center mb-6"
-					style={{ marginTop: '100px' }}
-				>
+				<div className="flex justify-center my-6">
 					<Paper className="justify-center p-4">
 						<p className="text-4xl capitalize font-nunito">{equipmentName}</p>
 						<div className="my-4 space-x-4">

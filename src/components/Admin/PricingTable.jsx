@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import axios from 'axios';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -6,9 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
 import PriceListDialog from './PriceListDialog';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import AuthSnackbar from '../Snackbars/AuthSnackbar';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -17,15 +18,40 @@ function createData(equipmentName, equipmentPricing) {
 }
 
 export default function PricingTable({ equipment }) {
+	const [snackbarOpen, setSnackbarOpen] = useState(false);
+	const [snackbarMessage, setSnackbarMessage] = useState('');
+	const [backgroundColor, setBackgroundColor] = useState('fireBrick');
 	const rows = [];
 
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setSnackbarOpen(false);
+	};
+
 	const handleDeleteEquipment = async (equipmentName) => {
+		let deleteable = true;
 		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
-		try {
-			const response = await axios.delete(`${BASE_URL}/equipment/${adminId}/${equipmentName}`);
-			console.log(response);
-		} catch (error) {
-			console.error(error);
+		const response = await axios.get(`${BASE_URL}/equipment/${adminId}/${equipmentName}`);
+		const addedEquipment = response.data[0].addedEquipment;
+		if (addedEquipment.length > 0) {
+			for (let i = 0; i < addedEquipment.length; i++) {
+				if (addedEquipment[i].availability === 'unavailable') {
+					console.log('Equipment is in use and cannot be deleted');
+					deleteable = false;
+					setSnackbarMessage('Greška! Oprema je u najmu.');
+					setSnackbarOpen(true);
+					return;
+				}
+			}
+		}
+		if (deleteable) {
+			await axios.delete(`${BASE_URL}/equipment/${adminId}/${equipmentName}`);
+			setBackgroundColor('forestGreen');
+			setSnackbarMessage('Oprema uspješno obrisana');
+			setSnackbarOpen(true);
+			window.location.reload();
 		}
 	};
 
@@ -34,47 +60,56 @@ export default function PricingTable({ equipment }) {
 	});
 
 	return (
-		<TableContainer component={Paper}>
-			<Table
-				sx={{ minWidth: 250 }}
-				size="small"
-				aria-label="a dense table"
-			>
-				<TableHead>
-					<TableRow>
-						<TableCell sx={{ fontFamily: 'nunito', fontSize: '16px' }}>Naziv opreme</TableCell>
-						<TableCell></TableCell>
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{rows.map((row) => (
-						<TableRow
-							key={row.equipmentName}
-							sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-						>
-							<TableCell
-								component="th"
-								scope="row"
-								className="capitalize"
-								sx={{ fontFamily: 'nunito' }}
-							>
-								<HighlightOffIcon
-									className="cursor-pointer"
-									fontSize="small"
-									onClick={() => handleDeleteEquipment(row.equipmentName)}
-								/>{' '}
-								{row.equipmentName}
-							</TableCell>
-							<TableCell align="right">
-								<PriceListDialog
-									equipment={equipment}
-									singleEquipmentName={row.equipmentName}
-								></PriceListDialog>
-							</TableCell>
+		<>
+			<TableContainer component={Paper}>
+				<Table
+					sx={{ minWidth: 250 }}
+					size="small"
+					aria-label="a dense table"
+				>
+					<TableHead>
+						<TableRow>
+							<TableCell sx={{ fontFamily: 'nunito', fontSize: '16px' }}>Naziv opreme</TableCell>
+							<TableCell></TableCell>
 						</TableRow>
-					))}
-				</TableBody>
-			</Table>
-		</TableContainer>
+					</TableHead>
+					<TableBody>
+						{rows.map((row) => (
+							<TableRow
+								key={row.equipmentName}
+								sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+							>
+								<TableCell
+									component="th"
+									scope="row"
+									className="capitalize"
+									sx={{ fontFamily: 'nunito' }}
+								>
+									<HighlightOffIcon
+										className="cursor-pointer"
+										fontSize="small"
+										onClick={() => handleDeleteEquipment(row.equipmentName)}
+									/>{' '}
+									{row.equipmentName}
+								</TableCell>
+								<TableCell align="right">
+									<PriceListDialog
+										equipment={equipment}
+										singleEquipmentName={row.equipmentName}
+									></PriceListDialog>
+								</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</TableContainer>
+			<AuthSnackbar
+				open={snackbarOpen}
+				autoHideDuration={3000}
+				handleClose={handleClose}
+				message={snackbarMessage}
+				backgroundColor={backgroundColor}
+			/>
+		</>
 	);
 }

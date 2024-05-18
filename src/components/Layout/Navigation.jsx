@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,6 +16,8 @@ import NavigationDrawer from './NavigationDrawer';
 import Logo from '../../assets/LogoCropped.jpeg';
 
 export default function Navigation() {
+	const location = useLocation();
+	const isUserSelectRoute = location.pathname === '/userSelect';
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 	const [open, setOpen] = React.useState(false);
@@ -127,7 +130,7 @@ export default function Navigation() {
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar
-				position="fixed"
+				position={isUserSelectRoute ? 'fixed' : 'sticky'}
 				sx={{ bgcolor: 'white', color: 'black' }}
 			>
 				<Toolbar>

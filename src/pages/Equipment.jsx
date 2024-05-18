@@ -32,10 +32,7 @@ export default function Equipment() {
 	return (
 		<>
 			{exists === true && (
-				<div
-					className="flex justify-center"
-					style={{ marginTop: '100px', marginBottom: '50px' }}
-				>
+				<div className="flex justify-center my-6">
 					<Paper className="py-4 px-8 flex-column justify-center">
 						<p className="text-4xl font-nunito">Popis Opreme</p>
 						<EquipmentDialog />

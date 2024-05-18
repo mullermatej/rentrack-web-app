@@ -23,7 +23,7 @@ export default function Admin() {
 		};
 		getProfiles();
 		getEquipment();
-	}, [adminId, equipment]);
+	}, [adminId]);
 
 	return (
 		<>
@@ -34,10 +34,13 @@ export default function Admin() {
 					<p className="font-nunito text-lg">Tvoj Admin ID: {adminId}</p>
 				</Paper>
 			</div>
-			<Container sx={{ marginBottom: '25px' }}>
+			<Container
+				sx={{ marginBottom: '25px' }}
+				maxWidth="sm"
+			>
 				<WorkersTable profiles={profiles} />
 			</Container>
-			<Container>
+			<Container maxWidth="sm">
 				<PricingTable equipment={equipment} />
 			</Container>
 		</>

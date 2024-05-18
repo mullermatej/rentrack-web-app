@@ -55,22 +55,29 @@ function Row(props) {
 
 	const deleteAddedEquipment = async (name, id) => {
 		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
-		try {
-			const response = await axios.delete(`${BASE_URL}/equipment/${adminId}/${name}/${id}`);
-			if (response.status === 200) {
-				console.log('Status 200 deleted equipment');
-				setBackgroundColor('forestGreen');
-				setSnackbarMessage('Oprema uspješno izbrisana.');
+		// Check if the equipment is available
+		if (row.availability === 'available') {
+			try {
+				const response = await axios.delete(`${BASE_URL}/equipment/${adminId}/${name}/${id}`);
+				if (response.status === 200) {
+					console.log('Status 200 deleted equipment');
+					setBackgroundColor('forestGreen');
+					setSnackbarMessage('Oprema uspješno izbrisana.');
+					setSnackbarOpen(true);
+					setTimeout(() => {
+						window.location.reload();
+					}, 1200);
+				}
+			} catch (error) {
+				setBackgroundColor('fireBrick');
+				setSnackbarMessage('Greška! Pokušaj ponovno.');
 				setSnackbarOpen(true);
-				setTimeout(() => {
-					window.location.reload();
-				}, 1200);
+				console.error(error);
 			}
-		} catch (error) {
+		} else {
 			setBackgroundColor('fireBrick');
-			setSnackbarMessage('Greška! Pokušaj ponovno.');
+			setSnackbarMessage('Greška! Oprema je još u najmu.');
 			setSnackbarOpen(true);
-			console.error(error);
 		}
 	};
 
