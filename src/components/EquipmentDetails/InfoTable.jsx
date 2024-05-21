@@ -15,6 +15,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Button from '@mui/material/Button';
 import HandlePayment from './Dialogs/HandlePayment';
+import CeaseConfirm from './Dialogs/CeaseConfirm';
 import AuthSnackbar from '../Snackbars/AuthSnackbar';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
@@ -34,6 +35,7 @@ function Row(props) {
 	const { row, equipment } = props;
 	const [open, setOpen] = useState(false);
 	const [openPayment, setOpenPayment] = useState(false);
+	const [openCeaseConfirm, setOpenCeaseConfirm] = useState(false);
 	const [equipmentId, setEquipmentId] = useState('');
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
 	const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -43,6 +45,9 @@ function Row(props) {
 		if (row.availability === 'available') {
 			setOpenPayment(true);
 			setEquipmentId(row.id);
+		} else {
+			setEquipmentId(row.id);
+			setOpenCeaseConfirm(true);
 		}
 	};
 
@@ -196,6 +201,12 @@ function Row(props) {
 			<HandlePayment
 				openPayment={openPayment}
 				setOpenPayment={setOpenPayment}
+				equipment={equipment}
+				equipmentId={equipmentId}
+			/>
+			<CeaseConfirm
+				openCeaseConfirm={openCeaseConfirm}
+				setOpenCeaseConfirm={setOpenCeaseConfirm}
 				equipment={equipment}
 				equipmentId={equipmentId}
 			/>
