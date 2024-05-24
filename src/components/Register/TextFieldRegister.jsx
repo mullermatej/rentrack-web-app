@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import PinOutlinedIcon from '@mui/icons-material/PinOutlined';
 
 export default function TextFieldRegister({ label, type = 'text', setUserInfo, field }) {
 	const handleChange = (e) => {
@@ -24,9 +24,8 @@ export default function TextFieldRegister({ label, type = 'text', setUserInfo, f
 				InputProps={{
 					startAdornment: (
 						<InputAdornment position="start">
-							{label === '* Ime' && <PersonOutlineOutlinedIcon />}
-							{label === '* Prezime' && <PersonOutlineOutlinedIcon />}
-							{label === '* Email' && <EmailOutlinedIcon />}
+							{label === '* Naziv obrta' && <HomeOutlinedIcon />}
+							{label === '* OIB obrta' && <PinOutlinedIcon />}
 							{label === '* Lozinka' && <LockOutlinedIcon />}
 						</InputAdornment>
 					),

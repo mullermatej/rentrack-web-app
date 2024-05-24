@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import InputField from './InputField';
 import Box from '@mui/material/Box';
-import PasswordField from '../../Login/PasswordField';
 import AuthSnackbar from '../../Snackbars/AuthSnackbar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -18,8 +17,6 @@ function SimpleDialog({ onClose, open }) {
 	const [newUser, setNewUser] = useState({
 		name: '',
 		surname: '',
-		password: '',
-		repeatPassword: '',
 	});
 
 	const handleClose = () => {
@@ -34,12 +31,11 @@ function SimpleDialog({ onClose, open }) {
 	};
 
 	const handleCreateUser = async () => {
-		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+		const businessId = JSON.parse(localStorage.getItem('user')).businessId;
 		const doc = {
-			adminId,
+			businessId,
 			name: newUser.name,
 			surname: newUser.surname,
-			password: newUser.password,
 		};
 
 		if (newUser.name === '' || newUser.surname === '') {
@@ -47,19 +43,9 @@ function SimpleDialog({ onClose, open }) {
 			setSnackbarMessage('Greška! Polja sa * su obavezna.');
 			setSnackbarOpen(true);
 			return;
-		} else if (newUser.password.length < 6) {
-			setBackgroundColor('fireBrick');
-			setSnackbarMessage('Greška! Lozinka mora imati najmanje 6 znakova.');
-			setSnackbarOpen(true);
-			return;
-		} else if (newUser.password !== newUser.repeatPassword) {
-			setBackgroundColor('fireBrick');
-			setSnackbarMessage('Greška! Lozinke se ne podudaraju.');
-			setSnackbarOpen(true);
-			return;
 		}
 		try {
-			const response = await axios.post(`${BASE_URL}/users/${adminId}/profiles`, doc);
+			const response = await axios.post(`${BASE_URL}/users/${businessId}/profiles`, doc);
 			console.log('Success, response is: ', response);
 			setBackgroundColor('forestGreen');
 			setSnackbarMessage('Uspješno si napravio profil!');
@@ -96,18 +82,6 @@ function SimpleDialog({ onClose, open }) {
 					value="* Prezime"
 					setNewUser={setNewUser}
 					field="surname"
-				/>
-				<PasswordField
-					label="* Lozinka"
-					setUserInfo={setNewUser}
-					field="password"
-					widthRecieve="25ch"
-				/>
-				<PasswordField
-					label="* Ponovi lozinku"
-					setUserInfo={setNewUser}
-					field="repeatPassword"
-					widthRecieve="25ch"
 				/>
 				<Box
 					sx={{

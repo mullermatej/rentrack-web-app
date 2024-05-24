@@ -10,7 +10,7 @@ import Logo from '../assets/LogoCropped.jpeg';
 import '../App.css';
 
 export default function Login() {
-	const [userInfo, setUserInfo] = useState({ email: '', password: '' });
+	const [userInfo, setUserInfo] = useState({ oib: '', password: '' });
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
 	const [snackbarMessage, setSnackbarMessage] = useState('');
 	const [backgroundColor, setBackgroundColor] = useState('fireBrick');
@@ -20,11 +20,11 @@ export default function Login() {
 	};
 
 	const handleLogin = async () => {
-		const doc = { email: userInfo.email, password: userInfo.password };
+		const doc = { oib: userInfo.oib, password: userInfo.password };
 		console.log('doc', doc);
 
 		try {
-			if (userInfo.email === '' || userInfo.password === '') {
+			if (userInfo.oib === '' || userInfo.password === '') {
 				setBackgroundColor('fireBrick');
 				setSnackbarMessage('Greška! Polja označena sa * su obavezna.');
 				setSnackbarOpen(true);
@@ -76,9 +76,9 @@ export default function Login() {
 				/>
 				<p className="text-3xl mb-5 font-nunito">Prijava </p>
 				<TextFieldLogin
-					label="* Email"
+					label="* OIB obrta"
 					setUserInfo={setUserInfo}
-					field="email"
+					field="oib"
 				/>
 				<PasswordField
 					setUserInfo={setUserInfo}

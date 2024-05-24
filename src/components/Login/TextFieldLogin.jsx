@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import PinOutlinedIcon from '@mui/icons-material/PinOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 export default function TextFieldLogin({ label, type = 'text', setUserInfo, field }) {
@@ -22,7 +22,7 @@ export default function TextFieldLogin({ label, type = 'text', setUserInfo, fiel
 				InputProps={{
 					startAdornment: (
 						<InputAdornment position="start">
-							{label === '* Email' && <EmailOutlinedIcon />}
+							{label === '* OIB obrta' && <PinOutlinedIcon />}
 							{label === '* Lozinka' && <LockOutlinedIcon />}
 						</InputAdornment>
 					),

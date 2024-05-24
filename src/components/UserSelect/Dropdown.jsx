@@ -16,7 +16,7 @@ export default function Dropdown({ setProfile }) {
 
 			if (user) {
 				try {
-					const response = await axios.get(`api/users/${user.adminId}/profiles`);
+					const response = await axios.get(`api/users/${user.businessId}/profiles`);
 					setData(response.data);
 				} catch (error) {
 					console.log(error);
@@ -31,9 +31,9 @@ export default function Dropdown({ setProfile }) {
 
 	const handleChange = (event) => {
 		const [name, surname] = event.target.value.split(' ');
-		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+		const businessId = JSON.parse(localStorage.getItem('user')).businessId;
 		setUsername(event.target.value);
-		setProfile({ name, surname, adminId });
+		setProfile({ name, surname, businessId });
 	};
 
 	return (

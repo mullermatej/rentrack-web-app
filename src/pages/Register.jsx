@@ -13,8 +13,7 @@ import TextFieldRegister from '../components/Register/TextFieldRegister';
 export default function Register() {
 	const [userInfo, setUserInfo] = useState({
 		name: '',
-		surname: '',
-		email: '',
+		oib: '',
 		password: '',
 	});
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -27,7 +26,7 @@ export default function Register() {
 
 	const handleClick = async () => {
 		try {
-			if (!userInfo.name || !userInfo.surname || !userInfo.email || !userInfo.password) {
+			if (!userInfo.name || !userInfo.oib || !userInfo.password) {
 				setBackgroundColor('fireBrick');
 				setSnackbarMessage('Greška! Polja označena sa * su obavezna.');
 				setSnackbarOpen(true);
@@ -74,18 +73,13 @@ export default function Register() {
 				/>
 				<p className="text-3xl mb-5 font-nunito">Registracija</p>
 				<TextFieldRegister
-					label="* Ime"
+					label="* Naziv obrta"
 					field="name"
 					setUserInfo={setUserInfo}
 				/>
 				<TextFieldRegister
-					label="* Prezime"
-					field="surname"
-					setUserInfo={setUserInfo}
-				/>
-				<TextFieldRegister
-					label="* Email"
-					field="email"
+					label="* OIB obrta"
+					field="oib"
 					setUserInfo={setUserInfo}
 				/>
 				<PasswordField

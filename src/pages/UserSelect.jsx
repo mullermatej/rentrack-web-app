@@ -4,13 +4,12 @@ import Button from '@mui/material/Button';
 import Dropdown from '../components/UserSelect/Dropdown';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import TextFieldUserSelect from '../components/UserSelect/TextFieldUserSelect';
 import NewProfileDialog from '../components/UserSelect/NewProfileDialog/NewProfileDialog';
 import AuthSnackbar from '../components/Snackbars/AuthSnackbar';
 
 export default function UserSelect() {
 	const [open, setOpen] = useState(false);
-	const [profile, setProfile] = useState({ adminId: '', name: '', surname: '', password: '' });
+	const [profile, setProfile] = useState({ businessId: '', name: '', surname: '' });
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
 	const [snackbarMessage, setSnackbarMessage] = useState('');
 	const [backgroundColor, setBackgroundColor] = useState('');
@@ -32,6 +31,7 @@ export default function UserSelect() {
 
 	const handleProfileLogin = async () => {
 		try {
+			console.log(profile);
 			const response = await axios.post('/api/authProfile', profile);
 			if (response.status === 200) {
 				localStorage.setItem('profile', JSON.stringify(response.data));
@@ -65,12 +65,6 @@ export default function UserSelect() {
 				<p className="text-3xl font-nunito">Odaberi svoj profil </p>
 				<p className="text-sm mb-5 font-nunito">Preporučuje se da svaki radnik ima svoj profil</p>
 				<Dropdown setProfile={setProfile} />
-				<TextFieldUserSelect
-					label="* Lozinka"
-					type="password"
-					field="password"
-					setProfile={setProfile}
-				/>
 				<Box sx={{ '& > :not(style)': { width: '30ch' } }}>
 					<Button
 						variant="contained"
