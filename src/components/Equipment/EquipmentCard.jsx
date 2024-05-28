@@ -17,9 +17,9 @@ export default function EquipmentCard({ equipment }) {
 
 	useEffect(() => {
 		const getProfit = async () => {
-			const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+			const businessId = JSON.parse(localStorage.getItem('user')).businessId;
 			try {
-				const response = await axios.get(`${BASE_URL}/equipment/${adminId}/${equipment.name}/profit`);
+				const response = await axios.get(`${BASE_URL}/equipment/${businessId}/${equipment.name}/profit`);
 				setProfit(response.data.profit);
 			} catch (error) {
 				console.error('Error getting profit: ', error);
@@ -29,8 +29,8 @@ export default function EquipmentCard({ equipment }) {
 	}, [equipment.name]);
 
 	const handleClick = () => {
-		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
-		navigate(`/equipment/${adminId}/${equipment.name}`);
+		const businessId = JSON.parse(localStorage.getItem('user')).businessId;
+		navigate(`/equipment/${businessId}/${equipment.name}`);
 	};
 
 	const card = (

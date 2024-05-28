@@ -11,12 +11,13 @@ const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 export default function Equipment() {
 	const [equipment, setEquipment] = useState([]);
 	const [exists, setExists] = useState(false);
-	const adminId = JSON.parse(localStorage.getItem('user')).adminId;
 
 	useEffect(() => {
+		const businessId = JSON.parse(localStorage.getItem('user')).businessId;
+
 		const getEquipment = async () => {
 			try {
-				const response = await axios.get(`${BASE_URL}/equipment/${adminId}`);
+				const response = await axios.get(`${BASE_URL}/equipment/${businessId}`);
 				setEquipment(response.data);
 				if (response.data.length > 0) {
 					setExists(true);
@@ -27,7 +28,7 @@ export default function Equipment() {
 		};
 
 		getEquipment();
-	}, [adminId]);
+	}, []);
 
 	return (
 		<>
@@ -67,7 +68,7 @@ export default function Equipment() {
 							<Paper className="flex-column justify-center p-6 max-w-sm">
 								<WavingHandOutlinedIcon style={{ fontSize: '6rem', marginBottom: '15px' }} />
 								<p className="font-nunito text-3xl">Započni praćenje najma</p>
-								<p className="font-nunito">
+								<p className="font-nunito py-3">
 									Čini se malo praznim ovdje. Započni praćenje najma dodavanjem svoje prve opreme.
 								</p>
 								<EquipmentDialog />

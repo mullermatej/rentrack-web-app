@@ -17,10 +17,9 @@ function SimpleDialog(props) {
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
 	const [snackbarMessage, setSnackbarMessage] = useState('');
 	const [backgroundColor, setBackgroundColor] = useState('forestGreen');
-	const [user, setUser] = useState({ username: '' });
 	const [newEquipment, setNewEquipment] = useState({
 		name: '',
-		adminId: '',
+		businessId: '',
 		prices: {},
 		features: {
 			color: false,
@@ -38,14 +37,9 @@ function SimpleDialog(props) {
 
 	useEffect(() => {
 		const user = JSON.parse(localStorage.getItem('user'));
-		if (user) {
-			setUser({
-				username: user.username,
-			});
-		}
 		setNewEquipment((prevState) => ({
 			...prevState,
-			adminId: user.adminId,
+			businessId: user.businessId,
 		}));
 	}, []);
 
@@ -64,8 +58,11 @@ function SimpleDialog(props) {
 		setSnackbarOpen(false);
 	};
 
+	const pricesIsEmpty = (prices) => {
+		return Object.keys(prices).length === 0;
+	};
+
 	const checkSelectedFeatures = () => {
-		// loop trough features object and check if any of the values is true
 		for (const [, value] of Object.entries(newEquipment.features)) {
 			if (value === true) {
 				return true;
@@ -75,7 +72,7 @@ function SimpleDialog(props) {
 	};
 
 	const handleAddPricing = () => {
-		if (hours < 1 || hours > 24 || price === 0) {
+		if (hours < 1 || hours > 24 || price < 1 || price > 3000) {
 			setBackgroundColor('fireBrick');
 			setSnackbarMessage('Greška! Provjeri unesene informacije.');
 			setSnackbarOpen(true);
@@ -88,7 +85,6 @@ function SimpleDialog(props) {
 					[hours]: parseInt(price),
 				},
 			}));
-			console.log('Added pricing: ', hours, 'h = ', price, '€');
 			setSnackbarMessage('Dodano: ' + hours + 'sati ' + price + '€');
 			setSnackbarOpen(true);
 			setHours(0);
@@ -97,11 +93,11 @@ function SimpleDialog(props) {
 	};
 
 	const handleAddEquipment = async () => {
-		// console.log(newEquipment);
-		if (newEquipment.name === '' || user.password === '') {
+		if (newEquipment.name === '' || pricesIsEmpty(newEquipment.prices) === true) {
 			setBackgroundColor('fireBrick');
 			setSnackbarMessage('Greška! Polja označena sa * su obavezna.');
 			setSnackbarOpen(true);
+			return;
 		}
 		try {
 			const response = await axios.post('/api/equipment', newEquipment);
@@ -236,10 +232,9 @@ export default function UserSelectDialog() {
 					textTransform: 'none',
 					backgroundColor: '#2463EB',
 					color: 'white',
-					marginTop: '15px',
 				}}
 			>
-				Dodaj Opremu
+				Dodaj opremu
 			</Button>
 			<SimpleDialog
 				open={open}

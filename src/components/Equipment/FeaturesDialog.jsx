@@ -14,9 +14,19 @@ function SimpleDialog(props) {
 	const [backgroundColor, setBackgroundColor] = useState('forestGreen');
 
 	const handleAddEquipment = async () => {
+		// Jer ako je true onda ništa nije upisano u taj input field
+		const hasEmptyField = Object.values(newEquipment.features).some((value) => value === true);
+
+		if (hasEmptyField) {
+			setBackgroundColor('fireBrick');
+			setSnackbarMessage('Greška! Provjeri unesene vrijednosti.');
+			setSnackbarOpen(true);
+			return;
+		}
 		try {
 			const response = await axios.post('/api/equipment', newEquipment);
 			console.log(response);
+			setBackgroundColor('forestGreen');
 			setSnackbarMessage('Uspješno dodana nova oprema!');
 			setSnackbarOpen(true);
 			setTimeout(() => {
@@ -76,7 +86,6 @@ function SimpleDialog(props) {
 				/>
 			</div>
 			<div className="items-center text-center p-4">
-				{/* Loop trough newEquipment.features and create a paragraph for each features whose value is true */}
 				{Object.entries(newEquipment.features).map(([key, value]) => {
 					if (value) {
 						return (
