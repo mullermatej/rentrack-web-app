@@ -25,13 +25,15 @@ function SimpleDialog(props) {
 	};
 
 	const handleStopRent = async () => {
-		// make an axios call to stop the rent
-		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+		const businessId = JSON.parse(localStorage.getItem('user')).businessId;
 		const equipmentName = equipment.name;
 		const doc = { availability: 'available', endTime: '/' };
 
 		try {
-			let response = await axios.patch(`${BASE_URL}/equipment/${adminId}/${equipmentName}/${equipmentId}`, doc);
+			let response = await axios.patch(
+				`${BASE_URL}/equipment/${businessId}/${equipmentName}/${equipmentId}`,
+				doc
+			);
 			if (response.status === 200) {
 				console.log('Status 200 stopped rent');
 				setSnackbarMessage('Najam opreme uspješno zaustavljen.');

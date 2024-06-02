@@ -31,7 +31,7 @@ export default function EquipmentDetails() {
 	const [exists, setExists] = useState(false);
 
 	useEffect(() => {
-		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+		const businessId = JSON.parse(localStorage.getItem('user')).businessId;
 
 		const checkAvailableEquipment = (addedEquipment) => {
 			for (const object of addedEquipment) {
@@ -49,7 +49,7 @@ export default function EquipmentDetails() {
 				if (equipment.endTime < currentDate && equipment.endTime !== '/') {
 					try {
 						const response = await axios.patch(
-							`${baseUrl}/equipment/${adminId}/${equipmentName}/${equipment.id}`,
+							`${baseUrl}/equipment/${businessId}/${equipmentName}/${equipment.id}`,
 							doc
 						);
 						console.log(response);
@@ -62,7 +62,7 @@ export default function EquipmentDetails() {
 
 		const getEquipment = async () => {
 			try {
-				const response = await axios.get(`${baseUrl}/equipment/${adminId}/${equipmentName}`);
+				const response = await axios.get(`${baseUrl}/equipment/${businessId}/${equipmentName}`);
 				const addedEquipment = response.data[0].addedEquipment;
 
 				updateEquipment(addedEquipment);
@@ -76,7 +76,7 @@ export default function EquipmentDetails() {
 
 		const getFeatures = async () => {
 			try {
-				const response = await axios.get(`${baseUrl}/equipment/${adminId}/${equipmentName}/features`);
+				const response = await axios.get(`${baseUrl}/equipment/${businessId}/${equipmentName}/features`);
 				setFeatures(response.data);
 			} catch (error) {
 				console.error(error);

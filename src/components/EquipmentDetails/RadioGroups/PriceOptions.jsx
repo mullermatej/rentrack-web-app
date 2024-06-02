@@ -14,7 +14,7 @@ export default function PriceOptions({ equipment, equipmentId }) {
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
 	const [snackbarMessage, setSnackbarMessage] = useState('');
 	const [backgroundColor, setBackgroundColor] = useState('fireBrick');
-	const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+	const businessId = JSON.parse(localStorage.getItem('user')).businessId;
 	const profileId = JSON.parse(localStorage.getItem('profile')).profileId;
 	const equipmentName = equipment.name;
 	const worker =
@@ -39,7 +39,7 @@ export default function PriceOptions({ equipment, equipmentId }) {
 
 	const handleConfirm = async () => {
 		try {
-			const response = await axios.patch(`${BASE_URL}/equipment/${adminId}/${equipmentName}`, choice);
+			const response = await axios.patch(`${BASE_URL}/equipment/${businessId}/${equipmentName}`, choice);
 			console.log(response);
 			if (response.status === 200) {
 				setBackgroundColor('forestGreen');
@@ -47,7 +47,7 @@ export default function PriceOptions({ equipment, equipmentId }) {
 				setSnackbarOpen(true);
 				try {
 					const income = parseInt(choice.price);
-					const response = await axios.patch(`${BASE_URL}/users/${adminId}/profiles/${profileId}`, {
+					const response = await axios.patch(`${BASE_URL}/users/${businessId}/profiles/${profileId}`, {
 						income,
 					});
 					console.log(response);

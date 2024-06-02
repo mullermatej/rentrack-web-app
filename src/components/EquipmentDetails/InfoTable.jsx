@@ -59,11 +59,10 @@ function Row(props) {
 	};
 
 	const deleteAddedEquipment = async (name, id) => {
-		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
-		// Check if the equipment is available
+		const businessId = JSON.parse(localStorage.getItem('user')).businessId;
 		if (row.availability === 'available') {
 			try {
-				const response = await axios.delete(`${BASE_URL}/equipment/${adminId}/${name}/${id}`);
+				const response = await axios.delete(`${BASE_URL}/equipment/${businessId}/${name}/${id}`);
 				if (response.status === 200) {
 					console.log('Status 200 deleted equipment');
 					setBackgroundColor('forestGreen');

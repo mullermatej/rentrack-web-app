@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import EquipmentInput from '../InputFields/EquipmentInput';
-import PasswordInput from '../InputFields/PasswordInput';
 import AuthSnackbar from '../../Snackbars/AuthSnackbar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -13,7 +12,6 @@ const baseUrl = import.meta.env.VITE_SERVER_BASE_URL;
 function SimpleDialog(props) {
 	const { onClose, selectedValue, open, equipmentName } = props;
 	const [newEquipmentId, setNewEquipmentId] = useState('');
-	const [adminPassword, setAdminPassword] = useState('');
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
 	const [snackbarMessage, setSnackbarMessage] = useState('');
 	const [backgroundColor, setBackgroundColor] = useState('fireBrick');
@@ -30,8 +28,7 @@ function SimpleDialog(props) {
 	};
 
 	const handleAddEquipment = async () => {
-		const username = JSON.parse(localStorage.getItem('user')).username;
-		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+		const businessId = JSON.parse(localStorage.getItem('user')).businessId;
 		const doc = {
 			id: parseInt(newEquipmentId),
 			availability: 'available',
@@ -40,36 +37,37 @@ function SimpleDialog(props) {
 			profitMonth: '0',
 			history: [],
 		};
-		const user = {
-			username,
-			password: adminPassword,
-		};
 
-		if (newEquipmentId === '' || adminPassword === '') {
+		if (newEquipmentId === '') {
 			setSnackbarMessage('Greška! Polja označena sa * su obavezna.');
 			setSnackbarOpen(true);
 		}
-
 		try {
-			const authenticate = await axios.post('/api/auth/equipment', user);
-			if (authenticate.status === 200) {
-				try {
-					const response = await axios.post(`${baseUrl}/equipment/${adminId}/${equipmentName}`, doc);
-					console.log(response);
-					setBackgroundColor('forestGreen');
-					setSnackbarMessage('Oprema uspješno dodana.');
-					setSnackbarOpen(true);
-					setTimeout(() => {
-						window.location.reload();
-					}, 1000);
-				} catch (error) {
-					console.error(error);
+			// TO DO: api poziv koji provjerava postoji li oprema s tim ID-em
+			const response = await axios.get(`${baseUrl}/equipment/${businessId}/${equipmentName}`);
+			const addedEquipment = response.data[0].addedEquipment;
+			for (const equipment of addedEquipment) {
+				if (equipment.id === parseInt(newEquipmentId)) {
+					throw new Error('Equipment already exists');
 				}
 			}
+			try {
+				const response = await axios.post(`${baseUrl}/equipment/${businessId}/${equipmentName}`, doc);
+				console.log(response);
+				setBackgroundColor('forestGreen');
+				setSnackbarMessage('Oprema uspješno dodana.');
+				setSnackbarOpen(true);
+				setTimeout(() => {
+					window.location.reload();
+				}, 1200);
+			} catch (error) {
+				console.error(error);
+			}
 		} catch (error) {
-			setSnackbarMessage('Greška! Pokušaj ponovno.');
-			setSnackbarOpen(true);
 			console.error(error);
+			setBackgroundColor('fireBrick');
+			setSnackbarMessage('Greška! ID opreme već postoji.');
+			setSnackbarOpen(true);
 		}
 	};
 
@@ -88,11 +86,6 @@ function SimpleDialog(props) {
 				<EquipmentInput
 					value="* ID opreme"
 					setNewEquipmentId={setNewEquipmentId}
-				/>
-				<PasswordInput
-					value="* Admin lozinka"
-					setAdminPassword={setAdminPassword}
-					type="password"
 				/>
 				<Button
 					variant="contained"

@@ -12,7 +12,7 @@ function SimpleDialog(props) {
 	const { onClose, selectedValue, open, equipment } = props;
 	const [dateRange, setDateRange] = useState([]);
 	const [profit, setProfit] = useState(0);
-	const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+	const businessId = JSON.parse(localStorage.getItem('user')).businessId;
 	const equipmentName = equipment.name;
 
 	useEffect(() => {
@@ -21,7 +21,7 @@ function SimpleDialog(props) {
 			const endingDate = dateRange[1];
 
 			try {
-				const response = await axios.get(`${BASE_URL}/equipment/${adminId}/${equipmentName}`);
+				const response = await axios.get(`${BASE_URL}/equipment/${businessId}/${equipmentName}`);
 				const addedEquipment = response.data[0].addedEquipment;
 
 				for (const object of addedEquipment) {
@@ -38,7 +38,7 @@ function SimpleDialog(props) {
 		{
 			dateRange[1] && calculateProfit();
 		}
-	}, [dateRange, adminId, equipmentName]);
+	}, [dateRange, businessId, equipmentName]);
 
 	const handleClose = () => {
 		onClose(selectedValue);
