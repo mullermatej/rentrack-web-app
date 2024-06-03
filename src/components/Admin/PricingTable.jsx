@@ -32,10 +32,10 @@ export default function PricingTable({ equipment }) {
 	};
 
 	const createSnackbarLink = (equipmentName) => {
-		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+		const businessId = JSON.parse(localStorage.getItem('user')).businessId;
 		return (
 			<a
-				href={`/equipment/${adminId}/${equipmentName}`}
+				href={`/equipment/${businessId}/${equipmentName}`}
 				className="underline"
 			>
 				Vidi opremu
@@ -45,8 +45,8 @@ export default function PricingTable({ equipment }) {
 
 	const handleDeleteEquipment = async (equipmentName) => {
 		let deleteable = true;
-		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
-		const response = await axios.get(`${BASE_URL}/equipment/${adminId}/${equipmentName}`);
+		const businessId = JSON.parse(localStorage.getItem('user')).businessId;
+		const response = await axios.get(`${BASE_URL}/equipment/${businessId}/${equipmentName}`);
 		const addedEquipment = response.data[0].addedEquipment;
 		if (addedEquipment.length > 0) {
 			for (let i = 0; i < addedEquipment.length; i++) {
@@ -61,7 +61,7 @@ export default function PricingTable({ equipment }) {
 			}
 		}
 		if (deleteable) {
-			let response = await axios.delete(`${BASE_URL}/equipment/${adminId}/${equipmentName}`);
+			let response = await axios.delete(`${BASE_URL}/equipment/${businessId}/${equipmentName}`);
 			if (response.status === 200) {
 				setBackgroundColor('forestGreen');
 				setSnackbarMessage('Oprema uspješno obrisana');

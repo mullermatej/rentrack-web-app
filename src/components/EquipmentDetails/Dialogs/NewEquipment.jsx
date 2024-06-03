@@ -43,7 +43,6 @@ function SimpleDialog(props) {
 			setSnackbarOpen(true);
 		}
 		try {
-			// TO DO: api poziv koji provjerava postoji li oprema s tim ID-em
 			const response = await axios.get(`${baseUrl}/equipment/${businessId}/${equipmentName}`);
 			const addedEquipment = response.data[0].addedEquipment;
 			for (const equipment of addedEquipment) {

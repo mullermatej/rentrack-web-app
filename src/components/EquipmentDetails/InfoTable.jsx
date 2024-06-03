@@ -267,6 +267,21 @@ export default function InfoTable({ equipment }) {
 		return profit;
 	};
 
+	const checkHistory = (history) => {
+		if (history.length === 0) {
+			return [
+				{
+					date: 'Nema vrijednosti',
+					worker: 'Nema vrijednosti',
+					hours: 'Nema vrijednosti',
+					price: 'Nema vrijednosti',
+				},
+			];
+		} else {
+			return history;
+		}
+	};
+
 	useEffect(() => {
 		setAddedEquipment(equipment.addedEquipment);
 
@@ -278,7 +293,7 @@ export default function InfoTable({ equipment }) {
 					addedEquipment[key].endTime,
 					getTodaysProfit(addedEquipment[key].history),
 					getMonthlyProfit(addedEquipment[key].history),
-					addedEquipment[key].history
+					checkHistory(addedEquipment[key].history)
 				);
 
 				if (!rows.find((row) => row.id === newRow.id)) {
