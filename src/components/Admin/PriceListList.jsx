@@ -16,7 +16,7 @@ const Demo = styled('div')(({ theme }) => ({
 }));
 
 export default function PriceListList({ hour, price, singleEquipmentName }) {
-	const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+	const businessId = JSON.parse(localStorage.getItem('user')).businessId;
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
 	const [snackbarMessage, setSnackbarMessage] = useState('');
 	const [backgroundColor, setBackgroundColor] = useState('');
@@ -30,8 +30,7 @@ export default function PriceListList({ hour, price, singleEquipmentName }) {
 
 	const handleDeletePrice = async () => {
 		try {
-			console.log(adminId, singleEquipmentName, hour);
-			let response = await axios.delete(`${BASE_URL}/equipment/${adminId}/${singleEquipmentName}/prices`, {
+			let response = await axios.delete(`${BASE_URL}/equipment/${businessId}/${singleEquipmentName}/prices`, {
 				data: {
 					hours: hour,
 				},

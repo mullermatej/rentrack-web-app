@@ -62,6 +62,7 @@ export default function PricingTable({ equipment }) {
 		}
 		if (deleteable) {
 			let response = await axios.delete(`${BASE_URL}/equipment/${businessId}/${equipmentName}`);
+			console.log(equipmentName, businessId);
 			if (response.status === 200) {
 				setBackgroundColor('forestGreen');
 				setSnackbarMessage('Oprema uspješno obrisana');

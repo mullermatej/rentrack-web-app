@@ -31,7 +31,7 @@ export default function Admin() {
 				<Paper className="p-4">
 					<p className="font-nunito text-3xl">Profil vlasnika</p>
 					<p className="font-nunito text-lg">Ulogiran kao: {businessName}</p>
-					<p className="font-nunito text-lg">Tvoj business ID: {businessId}</p>
+					<p className="font-nunito text-lg">Tvoj ID obrta: {businessId}</p>
 				</Paper>
 			</div>
 			<Container

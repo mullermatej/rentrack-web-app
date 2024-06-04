@@ -27,7 +27,7 @@ function SimpleDialog(props) {
 	};
 
 	const handleAddNewPrice = async () => {
-		const adminId = JSON.parse(localStorage.getItem('user')).adminId;
+		const businessId = JSON.parse(localStorage.getItem('user')).businessId;
 		priceInfo.price = parseInt(priceInfo.price);
 
 		if (priceInfo.hours < 1 || priceInfo.hours > 24 || priceInfo.price < 1 || priceInfo.price > 5000) {
@@ -37,7 +37,7 @@ function SimpleDialog(props) {
 		}
 
 		try {
-			const response = await axios.post(`${BASE_URL}/equipment/${adminId}/${singleEquipmentName}/prices`, {
+			const response = await axios.post(`${BASE_URL}/equipment/${businessId}/${singleEquipmentName}/prices`, {
 				hours: priceInfo.hours,
 				price: priceInfo.price,
 			});
