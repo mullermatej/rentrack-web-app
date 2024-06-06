@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 
 export default function NavigationDrawer({ open, toggleDrawer }) {
 	const handleClick = (event) => {
-		if (event.currentTarget.innerText === 'Admin') {
+		if (event.currentTarget.innerText === 'Postavke') {
 			window.location.href = '/admin';
 		} else if (event.currentTarget.innerText === 'Odjavi se: Profil') {
 			localStorage.removeItem('profile');
@@ -45,7 +45,7 @@ export default function NavigationDrawer({ open, toggleDrawer }) {
 							variant="body1"
 							style={{ fontFamily: 'nunito' }}
 						>
-							Admin
+							Postavke
 						</Typography>
 					</ListItemButton>
 				</ListItem>

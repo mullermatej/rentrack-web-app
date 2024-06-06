@@ -28,7 +28,7 @@ export default function EquipmentDetails() {
 	const [equipment, setEquipment] = useState({});
 	const [features, setFeatures] = useState({});
 	const [counter, setCounter] = useState(0);
-	const [exists, setExists] = useState(false);
+	const [exists, setExists] = useState(null);
 
 	useEffect(() => {
 		const businessId = JSON.parse(localStorage.getItem('user')).businessId;
@@ -69,6 +69,7 @@ export default function EquipmentDetails() {
 				setEquipment(response.data[0]);
 				checkAvailableEquipment(addedEquipment);
 				if (response.data[0].addedEquipment.length > 0) setExists(true);
+				else setExists(false);
 			} catch (error) {
 				console.error(error);
 			}

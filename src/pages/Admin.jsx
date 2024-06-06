@@ -29,7 +29,7 @@ export default function Admin() {
 		<>
 			<div className="flex justify-center my-6">
 				<Paper className="p-4">
-					<p className="font-nunito text-3xl">Profil vlasnika</p>
+					<p className="font-nunito text-3xl">Postavke</p>
 					<p className="font-nunito text-lg">Ulogiran kao: {businessName}</p>
 					<p className="font-nunito text-lg">Tvoj ID obrta: {businessId}</p>
 				</Paper>

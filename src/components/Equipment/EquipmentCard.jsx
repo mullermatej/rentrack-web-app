@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import 'ldrs/bouncy';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -11,8 +12,9 @@ import Divider from '@mui/material/Divider';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
-export default function EquipmentCard({ equipment }) {
+export default function EquipmentCard({ equipment, imageLoaded }) {
 	const [profit, setProfit] = useState(0);
+
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -35,11 +37,26 @@ export default function EquipmentCard({ equipment }) {
 
 	const card = (
 		<>
-			<CardContent>
+			<CardContent sx={{ padding: 0 }}>
+				{imageLoaded === true && (
+					<img
+						src={equipment.imageUrl}
+						alt=""
+						className="w-full h-40 object-cover"
+					/>
+				)}
+				{imageLoaded === false && (
+					<l-bouncy
+						size="45"
+						speed="1.75"
+						color="#2463EB"
+						style={{ height: '10rem', width: '100%', paddingTop: '4rem' }}
+					></l-bouncy>
+				)}
 				<Typography
 					variant="h5"
 					component="div"
-					className="capitalize"
+					className="capitalize py-4"
 				>
 					<span className="font-nunito">{equipment.name}</span>
 				</Typography>

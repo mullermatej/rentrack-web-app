@@ -225,10 +225,11 @@ export default function UserSelectDialog() {
 		<>
 			<Button
 				variant="contained"
+				size="small"
 				onClick={handleClickOpen}
 				sx={{
 					fontFamily: 'nunito',
-					fontSize: '16px',
+					fontSize: '14px',
 					textTransform: 'none',
 					backgroundColor: '#2463EB',
 					color: 'white',

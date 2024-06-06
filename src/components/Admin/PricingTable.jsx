@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import axios from 'axios';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../../firebase';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,6 +12,8 @@ import Paper from '@mui/material/Paper';
 import PriceListDialog from './PriceListDialog';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import AuthSnackbar from '../Snackbars/AuthSnackbar';
+import Button from '@mui/material/Button';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -22,13 +26,60 @@ export default function PricingTable({ equipment }) {
 	const [snackbarMessage, setSnackbarMessage] = useState('');
 	const [backgroundColor, setBackgroundColor] = useState('fireBrick');
 	const [snackbarLink, setSnackbarLink] = useState('');
-	const rows = [];
+	const [image, setImage] = useState(null);
+	const [imageUrl, setImageUrl] = useState([]);
+	const [imageEquipmentName, setImageEquipmentName] = useState('');
+	const fileInputRef = useRef(null);
 
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
 			return;
 		}
 		setSnackbarOpen(false);
+	};
+
+	const addNewImageUrl = async (imageUrl, equipmentName) => {
+		const businessId = JSON.parse(localStorage.getItem('user')).businessId;
+		try {
+			let response = await axios.patch(`${BASE_URL}/equipment/${businessId}/${equipmentName}/newImage`, {
+				imageUrl: imageUrl,
+			});
+			console.log(response);
+		} catch (error) {
+			console.error('Error adding image URL: ', error);
+		}
+		console.log(image);
+	};
+
+	const handleChangeImage = async (event) => {
+		const selectedImage = event.target.files[0];
+		setImage(selectedImage);
+
+		console.log('Equipment name', imageEquipmentName);
+
+		if (selectedImage) {
+			const imageRef = ref(storage, `images/${selectedImage.name}`);
+			try {
+				const snapshot = await uploadBytes(imageRef, selectedImage);
+				console.log('Uploaded a blob or file!', snapshot);
+				const url = await getDownloadURL(snapshot.ref);
+				setImageUrl((prev) => [...prev, url]);
+				addNewImageUrl(url, imageEquipmentName);
+				console.log('URL', imageUrl);
+				setBackgroundColor('forestGreen');
+				setSnackbarMessage('Slika uspješno promijenjena.');
+				setSnackbarOpen(true);
+			} catch (error) {
+				setSnackbarMessage('Greška! Pokušaj ponovno.');
+				setSnackbarOpen(true);
+				console.error('Error uploading image: ', error);
+			}
+		}
+	};
+
+	const handleImageButton = (equipmentName) => {
+		fileInputRef.current.click();
+		setImageEquipmentName(equipmentName);
 	};
 
 	const createSnackbarLink = (equipmentName) => {
@@ -71,16 +122,13 @@ export default function PricingTable({ equipment }) {
 					window.location.reload();
 				}, 1300);
 			} else {
-				setBackgroundColor('fireBrick');
 				setSnackbarMessage('Greška! Pokušaj ponovno.');
 				setSnackbarOpen(true);
 			}
 		}
 	};
 
-	equipment.forEach((object) => {
-		rows.push(createData(object.name, 'Uredi'));
-	});
+	const rows = equipment.map((object) => createData(object.name, 'Uredi'));
 
 	return (
 		<>
@@ -115,11 +163,38 @@ export default function PricingTable({ equipment }) {
 									/>{' '}
 									{row.equipmentName}
 								</TableCell>
-								<TableCell align="right">
+								<TableCell
+									align="right"
+									sx={{ display: 'flex', gap: '10px' }}
+								>
 									<PriceListDialog
 										equipment={equipment}
 										singleEquipmentName={row.equipmentName}
-									></PriceListDialog>
+									/>
+									<Button
+										size="small"
+										variant="contained"
+										onClick={() => handleImageButton(row.equipmentName)}
+										style={{
+											textTransform: 'none',
+											fontFamily: 'nunito',
+											backgroundColor: '#2463EB',
+											fontSize: '13px',
+										}}
+									>
+										<PhotoCameraIcon
+											fontSize="inherit"
+											className="mr-2"
+										/>
+										Promijeni sliku
+									</Button>
+									<input
+										type="file"
+										ref={fileInputRef}
+										accept=".jpg,.jpeg,.png"
+										style={{ display: 'none' }}
+										onChange={handleChangeImage}
+									/>
 								</TableCell>
 							</TableRow>
 						))}
