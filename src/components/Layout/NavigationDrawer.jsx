@@ -4,27 +4,24 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import LogoutIcon from '@mui/icons-material/Logout';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SellIcon from '@mui/icons-material/Sell';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import Typography from '@mui/material/Typography';
 
 export default function NavigationDrawer({ open, toggleDrawer }) {
 	const handleClick = (event) => {
 		if (event.currentTarget.innerText === 'Postavke') {
 			window.location.href = '/admin';
-		} else if (event.currentTarget.innerText === 'Odjavi se: Profil') {
+		} else if (event.currentTarget.innerText === 'Promijeni djelatnika') {
 			localStorage.removeItem('profile');
 			window.location.href = '/userSelect';
-		} else if (event.currentTarget.innerText === 'Odjavi se: Admin') {
-			let profile = JSON.parse(localStorage.getItem('profile'));
-			if (profile) {
-				alert('Potrebno je odjaviti se sa računa radnika prvo!');
-			} else {
-				localStorage.removeItem('user');
-				window.location.href = '/login';
-			}
-		} else if (event.currentTarget.innerText === 'Oprema') {
+		} else if (event.currentTarget.innerText === 'Izađi iz aplikacije') {
+			localStorage.removeItem('profile');
+			localStorage.removeItem('user');
+			window.location.href = '/login';
+		} else if (event.currentTarget.innerText === 'Popis opreme') {
 			window.location.href = '/equipment';
 		}
 	};
@@ -39,7 +36,20 @@ export default function NavigationDrawer({ open, toggleDrawer }) {
 				<ListItem disablePadding>
 					<ListItemButton onClick={handleClick}>
 						<ListItemIcon>
-							<PersonOutlineOutlinedIcon />
+							<SellIcon />
+						</ListItemIcon>
+						<Typography
+							variant="body1"
+							style={{ fontFamily: 'nunito' }}
+						>
+							Popis opreme
+						</Typography>
+					</ListItemButton>
+				</ListItem>
+				<ListItem disablePadding>
+					<ListItemButton onClick={handleClick}>
+						<ListItemIcon>
+							<SettingsIcon />
 						</ListItemIcon>
 						<Typography
 							variant="body1"
@@ -52,39 +62,26 @@ export default function NavigationDrawer({ open, toggleDrawer }) {
 				<ListItem disablePadding>
 					<ListItemButton onClick={handleClick}>
 						<ListItemIcon>
-							<LocalOfferOutlinedIcon />
+							<AutorenewIcon />
 						</ListItemIcon>
 						<Typography
 							variant="body1"
 							style={{ fontFamily: 'nunito' }}
 						>
-							Oprema
+							Promijeni djelatnika
 						</Typography>
 					</ListItemButton>
 				</ListItem>
 				<ListItem disablePadding>
 					<ListItemButton onClick={handleClick}>
 						<ListItemIcon>
-							<LogoutIcon />
+							<PowerSettingsNewIcon />
 						</ListItemIcon>
 						<Typography
 							variant="body1"
 							style={{ fontFamily: 'nunito' }}
 						>
-							Odjavi se: Profil
-						</Typography>
-					</ListItemButton>
-				</ListItem>
-				<ListItem disablePadding>
-					<ListItemButton onClick={handleClick}>
-						<ListItemIcon>
-							<LogoutIcon />
-						</ListItemIcon>
-						<Typography
-							variant="body1"
-							style={{ fontFamily: 'nunito' }}
-						>
-							Odjavi se: Admin
+							Izađi iz aplikacije
 						</Typography>
 					</ListItemButton>
 				</ListItem>

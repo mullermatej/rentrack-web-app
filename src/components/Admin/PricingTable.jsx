@@ -56,6 +56,9 @@ export default function PricingTable({ equipment }) {
 		setImage(selectedImage);
 
 		console.log('Equipment name', imageEquipmentName);
+		setBackgroundColor('gray');
+		setSnackbarMessage('Pričekajte trenutak...');
+		setSnackbarOpen(true);
 
 		if (selectedImage) {
 			const imageRef = ref(storage, `images/${selectedImage.name}`);
@@ -120,7 +123,7 @@ export default function PricingTable({ equipment }) {
 				setSnackbarOpen(true);
 				setTimeout(() => {
 					window.location.reload();
-				}, 1300);
+				}, 1000);
 			} else {
 				setSnackbarMessage('Greška! Pokušaj ponovno.');
 				setSnackbarOpen(true);

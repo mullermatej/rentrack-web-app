@@ -156,7 +156,7 @@ export default function Navigation() {
 					<Box sx={{ flexGrow: 1 }} />
 					<Box sx={{ display: { md: 'flex' } }}>
 						<Typography sx={{ fontFamily: 'nunito' }}>
-							{profile ? 'Radnik: ' : ''} {profile && profile.name + ' ' + profile.surname}
+							{profile ? 'Djelatnik: ' : ''} {profile && profile.name + ' ' + profile.surname}
 						</Typography>
 					</Box>
 				</Toolbar>

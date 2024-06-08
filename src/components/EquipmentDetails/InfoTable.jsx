@@ -70,7 +70,7 @@ function Row(props) {
 					setSnackbarOpen(true);
 					setTimeout(() => {
 						window.location.reload();
-					}, 1200);
+					}, 1000);
 				}
 			} catch (error) {
 				setBackgroundColor('fireBrick');

@@ -63,7 +63,7 @@ export default function PriceOptions({ equipment, equipmentId }) {
 		}
 		setTimeout(() => {
 			window.location.reload();
-		}, 2000);
+		}, 1000);
 	};
 
 	const handleSnackbarClose = (event, reason) => {
