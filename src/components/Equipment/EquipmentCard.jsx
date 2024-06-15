@@ -80,6 +80,7 @@ export default function EquipmentCard({ equipment, imageLoaded }) {
 				variant="outlined"
 				onClick={handleClick}
 				className="cursor-pointer"
+				style={{ borderRadius: '20px', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }}
 			>
 				{card}
 			</Card>

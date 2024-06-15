@@ -13,6 +13,22 @@ function SimpleDialog(props) {
 	const [snackbarMessage, setSnackbarMessage] = useState('');
 	const [backgroundColor, setBackgroundColor] = useState('forestGreen');
 
+	const checkExistingEquipment = async (name) => {
+		try {
+			const response = await axios.get('/api/equipment');
+			const equipment = response.data;
+			for (const item of equipment) {
+				if (item.name === name) {
+					console.log('Equipment already exists', item.name);
+					return true;
+				}
+			}
+			return false;
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	const handleAddEquipment = async () => {
 		// Jer ako je true onda ništa nije upisano u taj input field
 		const hasEmptyField = Object.values(newEquipment.features).some((value) => value === true);
@@ -20,6 +36,11 @@ function SimpleDialog(props) {
 		if (hasEmptyField) {
 			setBackgroundColor('fireBrick');
 			setSnackbarMessage('Greška! Provjeri unesene vrijednosti.');
+			setSnackbarOpen(true);
+			return;
+		} else if ((await checkExistingEquipment(newEquipment.name)) === true) {
+			setBackgroundColor('fireBrick');
+			setSnackbarMessage('Greška! Oprema već postoji.');
 			setSnackbarOpen(true);
 			return;
 		}

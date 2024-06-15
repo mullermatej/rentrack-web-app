@@ -3,8 +3,8 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import EquipmentInput from '../InputFields/EquipmentInput';
-import AuthSnackbar from '../../Snackbars/AuthSnackbar';
+import EquipmentInput from './InputFields/EquipmentInput';
+import AuthSnackbar from '../Snackbars/AuthSnackbar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const baseUrl = import.meta.env.VITE_SERVER_BASE_URL;
@@ -118,7 +118,7 @@ SimpleDialog.propTypes = {
 	selectedValue: PropTypes.string.isRequired,
 };
 
-export default function NewEquipment({ equipmentName, exists }) {
+export default function NewEquipmentButton({ equipmentName }) {
 	const [open, setOpen] = useState(false);
 	const [selectedValue, setSelectedValue] = useState('');
 
@@ -133,37 +133,20 @@ export default function NewEquipment({ equipmentName, exists }) {
 
 	return (
 		<>
-			{exists !== false && (
-				<Button
-					size="small"
-					variant="contained"
-					onClick={handleClickOpen}
-					style={{
-						textTransform: 'none',
-						fontSize: '14px',
-						backgroundColor: '#2463EB',
-						fontFamily: 'nunito',
-					}}
-				>
-					Novo
-				</Button>
-			)}
-			{exists === false && (
-				<Button
-					size="large"
-					variant="contained"
-					onClick={handleClickOpen}
-					style={{
-						textTransform: 'none',
-						fontSize: '16px',
-						backgroundColor: '#2463EB',
-						fontFamily: 'nunito',
-						marginTop: '10px',
-					}}
-				>
-					Novo
-				</Button>
-			)}
+			<Button
+				size="large"
+				variant="contained"
+				onClick={handleClickOpen}
+				style={{
+					textTransform: 'none',
+					fontSize: '16px',
+					backgroundColor: '#2463EB',
+					fontFamily: 'nunito',
+					marginTop: '10px',
+				}}
+			>
+				Novo
+			</Button>
 			<SimpleDialog
 				selectedValue={selectedValue}
 				open={open}

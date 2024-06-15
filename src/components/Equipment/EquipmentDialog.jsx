@@ -92,8 +92,29 @@ function SimpleDialog(props) {
 		}
 	};
 
+	const checkExistingEquipment = async (name) => {
+		try {
+			const response = await axios.get('/api/equipment');
+			const equipment = response.data;
+			for (const item of equipment) {
+				if (item.name === name) {
+					console.log('Equipment already exists', item.name);
+					return true;
+				}
+			}
+			return false;
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	const handleAddEquipment = async () => {
-		if (newEquipment.name === '' || pricesIsEmpty(newEquipment.prices) === true) {
+		if ((await checkExistingEquipment(newEquipment.name)) === true) {
+			setBackgroundColor('fireBrick');
+			setSnackbarMessage('Greška! Oprema već postoji.');
+			setSnackbarOpen(true);
+			return;
+		} else if (newEquipment.name === '' || pricesIsEmpty(newEquipment.prices) === true) {
 			setBackgroundColor('fireBrick');
 			setSnackbarMessage('Greška! Polja označena sa * su obavezna.');
 			setSnackbarOpen(true);
@@ -225,14 +246,15 @@ export default function UserSelectDialog() {
 		<>
 			<Button
 				variant="contained"
-				size="small"
+				size="large"
 				onClick={handleClickOpen}
 				sx={{
 					fontFamily: 'nunito',
-					fontSize: '14px',
+					fontSize: '16px',
 					textTransform: 'none',
 					backgroundColor: '#2463EB',
 					color: 'white',
+					marginTop: '10px',
 				}}
 			>
 				Dodaj opremu

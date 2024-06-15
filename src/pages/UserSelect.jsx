@@ -63,7 +63,7 @@ export default function UserSelect() {
 				className="p-10"
 			>
 				<p className="text-3xl font-nunito">Odaberi svoj profil </p>
-				<p className="text-sm mb-5 font-nunito">Preporučuje se da svaki radnik ima svoj profil</p>
+				<p className="text-sm mb-5 font-nunito">Preporučuje se da svaki djelatnik ima svoj profil</p>
 				<Dropdown setProfile={setProfile} />
 				<Box sx={{ '& > :not(style)': { width: '30ch' } }}>
 					<Button

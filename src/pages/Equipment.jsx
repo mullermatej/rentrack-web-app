@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-// import { storage } from '../firebase';
-// import { getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage';
 import EquipmentDialog from '../components/Equipment/EquipmentDialog';
 import EquipmentCard from '../components/Equipment/EquipmentCard';
 import Container from '@mui/material/Container';
@@ -14,33 +12,9 @@ export default function Equipment() {
 	const [equipment, setEquipment] = useState([]);
 	const [exists, setExists] = useState(null);
 	const [imageLoaded, setImageLoaded] = useState(false);
-	// const [image, setImage] = useState('');
-	// const [imageUrl, setImageUrl] = useState([]);
-	// const renderedUrls = new Set();
-
-	// const uploadImage = async () => {
-	// 	if (image !== null) {
-	// 		const imageRef = ref(storage, `images/${image.name}`);
-	// 		uploadBytes(imageRef, image).then((snapshot) => {
-	// 			console.log('Uploaded a blob or file!', snapshot);
-	// 			getDownloadURL(snapshot.ref).then((url) => {
-	// 				setImageUrl((prev) => [...prev, url]);
-	// 			});
-	// 		});
-	// 	}
-	// };
 
 	useEffect(() => {
 		const businessId = JSON.parse(localStorage.getItem('user')).businessId;
-
-		// listAll(ref(storage, 'images')).then((res) => {
-		// 	res.items.forEach((itemRef) => {
-		// 		getDownloadURL(itemRef).then((url) => {
-		// 			setImageUrl((prev) => [...prev, url]);
-		// 		});
-		// 	});
-		// });
-
 		const getEquipment = async () => {
 			try {
 				const response = await axios.get(`${BASE_URL}/equipment/${businessId}`);
@@ -75,7 +49,7 @@ export default function Equipment() {
 						{equipment.map((item) => (
 							<div
 								key={item._id}
-								className="flex justify-center my-2"
+								className="flex justify-center my-4"
 							>
 								<EquipmentCard
 									equipment={item}
@@ -84,30 +58,6 @@ export default function Equipment() {
 							</div>
 						))}
 					</div>
-					{/* <div>
-						<input
-							type="file"
-							onChange={(e) => setImage(e.target.files[0])}
-						/>
-						<button onClick={uploadImage}>Upload</button>
-					</div>
-					<div>
-						{imageUrl.map((url) => {
-							if (!renderedUrls.has(url)) {
-								renderedUrls.add(url);
-								return (
-									<div key={url}>
-										<img
-											src={url}
-											height="200px"
-											width="200px"
-										/>
-									</div>
-								);
-							}
-							return null;
-						})}
-					</div> */}
 				</Container>
 			)}
 			{exists === false && (

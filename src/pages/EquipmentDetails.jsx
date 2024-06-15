@@ -216,10 +216,13 @@ export default function EquipmentDetails() {
 							<Paper className="flex-column justify-center p-6 max-w-sm">
 								<CelebrationOutlinedIcon style={{ fontSize: '6rem', marginBottom: '15px' }} />
 								<p className="font-nunito text-3xl">Kreiraj pojedinu opremu</p>
-								<p className="font-nunito mb-4">
+								<p className="font-nunito my-2">
 									Super! Uspješno si kreirao opremu. Sada možeš dodati pojedini komad te opreme.
 								</p>
-								<NewEquipment equipmentName={equipmentName} />
+								<NewEquipment
+									equipmentName={equipmentName}
+									exists={exists}
+								/>
 							</Paper>
 						</div>
 					</Container>
