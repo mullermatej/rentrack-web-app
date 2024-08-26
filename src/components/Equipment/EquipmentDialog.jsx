@@ -10,6 +10,8 @@ import AuthSnackbar from '../Snackbars/AuthSnackbar';
 import CheckList from './CheckList';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import FeaturesDialog from './FeaturesDialog';
+import AddIcon from '@mui/icons-material/Add';
+import IconButton from '@mui/material/IconButton';
 
 function SimpleDialog(props) {
 	const { onClose, selectedValue, open } = props;
@@ -141,13 +143,13 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<div className="py-2 px-2">
+			<div className="py-2 px-2 bg-main-yellow">
 				<ArrowBackIcon
 					onClick={handleClose}
 					sx={{ cursor: 'pointer' }}
 				/>
 			</div>
-			<div className="text-center px-5 pb-5">
+			<div className="text-center px-5 pb-5 bg-main-yellow">
 				<EquipmentInputField
 					value="* Naziv"
 					field="name"
@@ -172,7 +174,7 @@ function SimpleDialog(props) {
 						fontSize: '14px',
 						marginTop: '10px',
 						marginBottom: '10px',
-						backgroundColor: '#2463EB',
+						backgroundColor: '#F07B3F',
 					}}
 				>
 					Dodaj u cjenik
@@ -185,7 +187,7 @@ function SimpleDialog(props) {
 							textTransform: 'none',
 							fontSize: '14px',
 							marginTop: '10px',
-							backgroundColor: '#2463EB',
+							backgroundColor: '#EA5455',
 							width: '32ch',
 						}}
 						onClick={handleAddEquipment}
@@ -200,7 +202,9 @@ function SimpleDialog(props) {
 							fontSize: '14px',
 							marginTop: '10px',
 							width: '32ch',
-							color: '#2463EB',
+							color: '#EA5455',
+							borderColor: '#EA5455',
+							fontWeight: 'bold',
 						}}
 						onClick={handleFeatureDialogOpen}
 					>
@@ -244,21 +248,15 @@ export default function UserSelectDialog() {
 
 	return (
 		<>
-			<Button
-				variant="contained"
-				size="large"
-				onClick={handleClickOpen}
-				sx={{
-					fontFamily: 'nunito',
-					fontSize: '16px',
-					textTransform: 'none',
-					backgroundColor: '#2463EB',
-					color: 'white',
-					marginTop: '10px',
-				}}
-			>
-				Dodaj opremu
-			</Button>
+			<div className="flex justify-center items-center my-4">
+				<IconButton>
+					<AddIcon
+						onClick={handleClickOpen}
+						variant="contained"
+						sx={{ fontSize: 50, color: '#EA5455' }}
+					/>
+				</IconButton>
+			</div>
 			<SimpleDialog
 				open={open}
 				onClose={handleClose}

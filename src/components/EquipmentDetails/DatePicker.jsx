@@ -13,9 +13,19 @@ export default function BasicDatePicker({ label, setDateRange }) {
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<DemoContainer components={['DatePicker']}>
 				<DatePicker
-					label={<Typography style={{ fontFamily: 'nunito' }}>{label}</Typography>}
+					label={<Typography style={{ fontFamily: 'nunito', color: 'black' }}>{label}</Typography>}
 					onChange={handleChange}
 					format="DD/MM/YYYY"
+					sx={{
+						'& .MuiOutlinedInput-root': {
+							'&:hover fieldset': {
+								borderColor: '#EA5455',
+							},
+							'&.Mui-focused fieldset': {
+								borderColor: '#EA5455',
+							},
+						},
+					}}
 				/>
 			</DemoContainer>
 		</LocalizationProvider>

@@ -17,7 +17,7 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<div className="py-2 px-2">
+			<div className="py-2 px-2 bg-main-yellow">
 				<ArrowIconBack
 					onClick={handleClose}
 					sx={{ cursor: 'pointer' }}
@@ -53,7 +53,7 @@ export default function Pricing({ equipment }) {
 				size="small"
 				variant="contained"
 				onClick={handleClickOpen}
-				style={{ textTransform: 'none', fontSize: '14px', backgroundColor: '#2463EB', fontFamily: 'nunito' }}
+				style={{ textTransform: 'none', fontSize: '14px', backgroundColor: '#EA5455', fontFamily: 'nunito' }}
 			>
 				Cjenik
 			</Button>

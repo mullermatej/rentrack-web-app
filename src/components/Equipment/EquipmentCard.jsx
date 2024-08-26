@@ -37,7 +37,7 @@ export default function EquipmentCard({ equipment, imageLoaded }) {
 
 	const card = (
 		<>
-			<CardContent sx={{ padding: 0 }}>
+			<CardContent sx={{ padding: 0, backgroundColor: '#FFD460', outline: '1px solid black' }}>
 				{imageLoaded === true && (
 					<img
 						src={equipment.imageUrl}
@@ -62,11 +62,15 @@ export default function EquipmentCard({ equipment, imageLoaded }) {
 				</Typography>
 			</CardContent>
 			<Divider />
-			<CardActions className="flex justify-between">
+			<CardActions
+				className="flex justify-between"
+				sx={{ backgroundColor: '#FFD460' }}
+			>
 				<p className="text-sm font-nunito">Ovaj mjesec</p>
 				<Button
 					size="small"
-					variant="outlined"
+					variant="contained"
+					sx={{ color: 'white', backgroundColor: '#EA5455' }}
 				>
 					<span className="font-nunito">{profit}€</span>
 				</Button>
@@ -80,7 +84,11 @@ export default function EquipmentCard({ equipment, imageLoaded }) {
 				variant="outlined"
 				onClick={handleClick}
 				className="cursor-pointer"
-				style={{ borderRadius: '20px', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)' }}
+				style={{
+					borderRadius: '10px',
+					boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+					backgroundColor: '#FFD460',
+				}}
 			>
 				{card}
 			</Card>

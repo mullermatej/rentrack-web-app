@@ -26,10 +26,10 @@ function SimpleDialog(props) {
 					marginLeft: '25px',
 				}}
 			/>
-			<div className="text-center px-10 py-4">
+			<div className="text-center px-10 py-4 bg-main-yellow">
 				<p className="font-nunito text-lg ">Iznajmi opremu</p>
 			</div>
-			<div className="px-10 pb-4 text-center">
+			<div className="px-10 pb-4 text-center bg-main-yellow">
 				<PriceOptions
 					equipment={equipment}
 					equipmentId={equipmentId}

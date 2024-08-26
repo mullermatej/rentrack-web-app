@@ -51,13 +51,13 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<div className="py-2 px-2">
+			<div className="py-2 px-2 bg-main-yellow">
 				<ArrowBackIcon
 					onClick={handleClose}
 					sx={{ cursor: 'pointer' }}
 				/>
 			</div>
-			<div className="px-4 pb-4">
+			<div className="px-4 pb-4 bg-main-yellow">
 				<div className=" flex gap-4">
 					<BasicDateRangePicker
 						label="Od kada"
@@ -69,7 +69,9 @@ function SimpleDialog(props) {
 					/>
 				</div>
 				<div className="mt-4">
-					<p className="text-lg text-center font-nunito">Zarada u ovom periodu iznosi: {profit}€</p>
+					<p className="text-lg text-center font-nunito">
+						Zarada u ovom periodu iznosi: <span className="text-light-red font-bold">{profit}€</span>
+					</p>
 				</div>
 			</div>
 		</Dialog>
@@ -101,7 +103,7 @@ export default function Profit({ equipment }) {
 				size="small"
 				variant="contained"
 				onClick={handleClickOpen}
-				style={{ textTransform: 'none', fontSize: '14px', backgroundColor: '#2463EB', fontFamily: 'nunito' }}
+				style={{ textTransform: 'none', fontSize: '14px', backgroundColor: '#EA5455', fontFamily: 'nunito' }}
 			>
 				Zarada
 			</Button>

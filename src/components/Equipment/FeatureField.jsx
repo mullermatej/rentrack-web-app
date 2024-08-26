@@ -29,6 +29,17 @@ export default function FeatureField({ value, type = 'text', setNewEquipment, fi
 				type={type}
 				size="small"
 				onChange={handleChange}
+				InputLabelProps={{ style: { fontFamily: 'nunito', color: 'black' } }}
+				sx={{
+					'& .MuiOutlinedInput-root': {
+						'&:hover fieldset': {
+							borderColor: '#EA5455',
+						},
+						'&.Mui-focused fieldset': {
+							borderColor: '#EA5455',
+						},
+					},
+				}}
 			/>
 		</Box>
 	);

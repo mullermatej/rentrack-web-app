@@ -32,7 +32,7 @@ export default function PasswordField({ label, setUserInfo, field, widthRecieve 
 				InputProps={{
 					startAdornment: (
 						<InputAdornment position="start">
-							<LockOutlinedIcon />
+							<LockOutlinedIcon sx={{ color: 'black' }} />
 						</InputAdornment>
 					),
 					endAdornment: (
@@ -43,13 +43,27 @@ export default function PasswordField({ label, setUserInfo, field, widthRecieve 
 								onMouseDown={handleMouseDownPassword}
 								edge="end"
 							>
-								{showPassword ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}
+								{showPassword ? (
+									<VisibilityOffOutlinedIcon sx={{ color: 'black' }} />
+								) : (
+									<VisibilityOutlinedIcon sx={{ color: 'black' }} />
+								)}
 							</IconButton>
 						</InputAdornment>
 					),
 					style: { fontFamily: 'nunito' },
 				}}
-				InputLabelProps={{ style: { fontFamily: 'nunito' } }}
+				InputLabelProps={{ style: { fontFamily: 'nunito', color: 'black' } }}
+				sx={{
+					'& .MuiOutlinedInput-root': {
+						'&:hover fieldset': {
+							borderColor: '#EA5455',
+						},
+						'&.Mui-focused fieldset': {
+							borderColor: '#EA5455',
+						},
+					},
+				}}
 			/>
 		</Box>
 	);

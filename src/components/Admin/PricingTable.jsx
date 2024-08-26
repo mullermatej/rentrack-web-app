@@ -137,14 +137,16 @@ export default function PricingTable({ equipment }) {
 		<>
 			<TableContainer component={Paper}>
 				<Table
-					sx={{ minWidth: 250 }}
+					sx={{ minWidth: 250, backgroundColor: '#FFD460' }}
 					size="small"
 					aria-label="a dense table"
 				>
 					<TableHead>
 						<TableRow>
-							<TableCell sx={{ fontFamily: 'nunito', fontSize: '16px' }}>Naziv opreme</TableCell>
-							<TableCell></TableCell>
+							<TableCell sx={{ fontFamily: 'nunito', fontSize: '16px', borderBottom: 'none' }}>
+								Naziv opreme
+							</TableCell>
+							<TableCell sx={{ borderBottom: 'none' }}></TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -157,7 +159,7 @@ export default function PricingTable({ equipment }) {
 									component="th"
 									scope="row"
 									className="capitalize"
-									sx={{ fontFamily: 'nunito' }}
+									sx={{ fontFamily: 'nunito', borderBottom: 'none' }}
 								>
 									<HighlightOffIcon
 										className="cursor-pointer"
@@ -168,7 +170,7 @@ export default function PricingTable({ equipment }) {
 								</TableCell>
 								<TableCell
 									align="right"
-									sx={{ display: 'flex', gap: '10px' }}
+									sx={{ display: 'flex', gap: '10px', borderBottom: 'none' }}
 								>
 									<PriceListDialog
 										equipment={equipment}
@@ -181,7 +183,7 @@ export default function PricingTable({ equipment }) {
 										style={{
 											textTransform: 'none',
 											fontFamily: 'nunito',
-											backgroundColor: '#2463EB',
+											backgroundColor: '#EA5455',
 											fontSize: '13px',
 										}}
 									>

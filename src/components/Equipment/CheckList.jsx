@@ -17,44 +17,84 @@ export default function CheckList({ setNewEquipment }) {
 		<div className="flex">
 			<FormGroup>
 				<FormControlLabel
-					control={<Checkbox name="color" />}
+					control={
+						<Checkbox
+							name="color"
+							sx={{ color: '#EA5455', '&.Mui-checked': { color: '#EA5455' } }}
+						/>
+					}
 					label="Boja"
 					onChange={handleChange}
 				/>
 				<FormControlLabel
-					control={<Checkbox name="dimensions" />}
+					control={
+						<Checkbox
+							name="dimensions"
+							sx={{ color: '#EA5455', '&.Mui-checked': { color: '#EA5455' } }}
+						/>
+					}
 					label="Dimenzije"
 					onChange={handleChange}
 				/>
 				<FormControlLabel
-					control={<Checkbox name="material" />}
+					control={
+						<Checkbox
+							name="material"
+							sx={{ color: '#EA5455', '&.Mui-checked': { color: '#EA5455' } }}
+						/>
+					}
 					label="Materijal"
 					onChange={handleChange}
 				/>
 				<FormControlLabel
-					control={<Checkbox name="horsepower" />}
+					control={
+						<Checkbox
+							name="horsepower"
+							sx={{ color: '#EA5455', '&.Mui-checked': { color: '#EA5455' } }}
+						/>
+					}
 					label="Konjska snaga"
 					onChange={handleChange}
 				/>
 			</FormGroup>
 			<FormGroup>
 				<FormControlLabel
-					control={<Checkbox name="license" />}
+					control={
+						<Checkbox
+							name="license"
+							sx={{ color: '#EA5455', '&.Mui-checked': { color: '#EA5455' } }}
+						/>
+					}
 					label="Dozvola"
 					onChange={handleChange}
 				/>
 				<FormControlLabel
-					control={<Checkbox name="wheels" />}
+					control={
+						<Checkbox
+							name="wheels"
+							sx={{ color: '#EA5455', '&.Mui-checked': { color: '#EA5455' } }}
+						/>
+					}
 					label="Kotačići"
 					onChange={handleChange}
 				/>
 				<FormControlLabel
-					control={<Checkbox name="weight" />}
+					control={
+						<Checkbox
+							name="weight"
+							sx={{ color: '#EA5455', '&.Mui-checked': { color: '#EA5455' } }}
+						/>
+					}
 					label="Težina"
 					onChange={handleChange}
 				/>
 				<FormControlLabel
-					control={<Checkbox name="maximumPeople" />}
+					control={
+						<Checkbox
+							name="maximumPeople"
+							sx={{ color: '#EA5455', '&.Mui-checked': { color: '#EA5455' } }}
+						/>
+					}
 					label="Maks. osoba"
 					onChange={handleChange}
 				/>

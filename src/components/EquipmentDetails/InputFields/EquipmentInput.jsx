@@ -22,8 +22,18 @@ export default function EquipmentInput({ value, type = 'text', setNewEquipmentId
 				type={type}
 				size="small"
 				onChange={handleChange}
-				InputProps={{ style: { fontFamily: 'nunito' } }}
-				InputLabelProps={{ style: { fontFamily: 'nunito' } }}
+				InputProps={{ style: { fontFamily: 'nunito', color: 'black' } }}
+				InputLabelProps={{ style: { fontFamily: 'nunito', color: 'black' } }}
+				sx={{
+					'& .MuiOutlinedInput-root': {
+						'&:hover fieldset': {
+							borderColor: '#EA5455',
+						},
+						'&.Mui-focused fieldset': {
+							borderColor: '#EA5455',
+						},
+					},
+				}}
 			/>
 		</Box>
 	);

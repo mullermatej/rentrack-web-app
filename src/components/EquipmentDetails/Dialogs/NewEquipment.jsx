@@ -75,13 +75,19 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<div className="py-2 px-2">
+			<div
+				className="py-2 px-2"
+				style={{ backgroundColor: '#FFD460' }}
+			>
 				<ArrowBackIcon
 					onClick={handleClose}
 					sx={{ cursor: 'pointer' }}
 				/>
 			</div>
-			<div className="text-center px-4 pb-4">
+			<div
+				className="text-center px-4 pb-4"
+				style={{ backgroundColor: '#FFD460' }}
+			>
 				<EquipmentInput
 					value="* ID opreme"
 					setNewEquipmentId={setNewEquipmentId}
@@ -90,7 +96,7 @@ function SimpleDialog(props) {
 					variant="contained"
 					onClick={handleAddEquipment}
 					style={{
-						backgroundColor: '#2463EB',
+						backgroundColor: '#EA5455',
 						color: 'white',
 						fontFamily: 'nunito',
 						width: '30ch',
@@ -141,7 +147,7 @@ export default function NewEquipment({ equipmentName, exists }) {
 					style={{
 						textTransform: 'none',
 						fontSize: '14px',
-						backgroundColor: '#2463EB',
+						backgroundColor: '#EA5455',
 						fontFamily: 'nunito',
 					}}
 				>
@@ -150,13 +156,13 @@ export default function NewEquipment({ equipmentName, exists }) {
 			)}
 			{exists === false && (
 				<Button
-					size="large"
+					size="medium"
 					variant="contained"
 					onClick={handleClickOpen}
 					style={{
 						textTransform: 'none',
 						fontSize: '16px',
-						backgroundColor: '#2463EB',
+						backgroundColor: '#EA5455',
 						fontFamily: 'nunito',
 						marginTop: '10px',
 					}}

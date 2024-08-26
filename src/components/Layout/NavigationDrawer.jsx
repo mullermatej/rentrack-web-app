@@ -17,7 +17,7 @@ export default function NavigationDrawer({ open, toggleDrawer }) {
 		} else if (event.currentTarget.innerText === 'Promijeni djelatnika') {
 			localStorage.removeItem('profile');
 			window.location.href = '/userSelect';
-		} else if (event.currentTarget.innerText === 'Izađi iz aplikacije') {
+		} else if (event.currentTarget.innerText === 'Izlaz') {
 			localStorage.removeItem('profile');
 			localStorage.removeItem('user');
 			window.location.href = '/login';
@@ -36,11 +36,11 @@ export default function NavigationDrawer({ open, toggleDrawer }) {
 				<ListItem disablePadding>
 					<ListItemButton onClick={handleClick}>
 						<ListItemIcon>
-							<SellIcon />
+							<SellIcon sx={{ color: 'black' }} />
 						</ListItemIcon>
 						<Typography
 							variant="body1"
-							style={{ fontFamily: 'nunito' }}
+							style={{ fontFamily: 'nunito', color: 'black' }}
 						>
 							Popis opreme
 						</Typography>
@@ -49,11 +49,11 @@ export default function NavigationDrawer({ open, toggleDrawer }) {
 				<ListItem disablePadding>
 					<ListItemButton onClick={handleClick}>
 						<ListItemIcon>
-							<SettingsIcon />
+							<SettingsIcon sx={{ color: 'black' }} />
 						</ListItemIcon>
 						<Typography
 							variant="body1"
-							style={{ fontFamily: 'nunito' }}
+							style={{ fontFamily: 'nunito', color: 'black' }}
 						>
 							Postavke
 						</Typography>
@@ -62,11 +62,11 @@ export default function NavigationDrawer({ open, toggleDrawer }) {
 				<ListItem disablePadding>
 					<ListItemButton onClick={handleClick}>
 						<ListItemIcon>
-							<AutorenewIcon />
+							<AutorenewIcon sx={{ color: 'black' }} />
 						</ListItemIcon>
 						<Typography
 							variant="body1"
-							style={{ fontFamily: 'nunito' }}
+							style={{ fontFamily: 'nunito', color: 'black' }}
 						>
 							Promijeni djelatnika
 						</Typography>
@@ -75,13 +75,13 @@ export default function NavigationDrawer({ open, toggleDrawer }) {
 				<ListItem disablePadding>
 					<ListItemButton onClick={handleClick}>
 						<ListItemIcon>
-							<PowerSettingsNewIcon />
+							<PowerSettingsNewIcon sx={{ color: 'black' }} />
 						</ListItemIcon>
 						<Typography
 							variant="body1"
-							style={{ fontFamily: 'nunito' }}
+							style={{ fontFamily: 'nunito', color: 'black' }}
 						>
-							Izađi iz aplikacije
+							Izlaz
 						</Typography>
 					</ListItemButton>
 				</ListItem>

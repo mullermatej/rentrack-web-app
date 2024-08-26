@@ -24,14 +24,24 @@ export default function TextFieldRegister({ label, type = 'text', setUserInfo, f
 				InputProps={{
 					startAdornment: (
 						<InputAdornment position="start">
-							{label === '* Naziv obrta' && <HomeOutlinedIcon />}
-							{label === '* OIB obrta' && <PinOutlinedIcon />}
-							{label === '* Lozinka' && <LockOutlinedIcon />}
+							{label === '* Naziv obrta' && <HomeOutlinedIcon sx={{ color: 'black' }} />}
+							{label === '* OIB obrta' && <PinOutlinedIcon sx={{ color: 'black' }} />}
+							{label === '* Lozinka' && <LockOutlinedIcon sx={{ color: 'black' }} />}
 						</InputAdornment>
 					),
-					style: { fontFamily: 'nunito' },
+					style: { fontFamily: 'nunito', color: 'black' },
 				}}
-				InputLabelProps={{ style: { fontFamily: 'nunito' } }}
+				InputLabelProps={{ style: { fontFamily: 'nunito', color: 'black' } }}
+				sx={{
+					'& .MuiOutlinedInput-root': {
+						'&:hover fieldset': {
+							borderColor: '#EA5455',
+						},
+						'&.Mui-focused fieldset': {
+							borderColor: '#EA5455',
+						},
+					},
+				}}
 			/>
 		</Box>
 	);

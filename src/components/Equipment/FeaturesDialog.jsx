@@ -100,13 +100,13 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<div className="pt-2 px-2">
+			<div className="pt-2 px-2 bg-main-yellow">
 				<ArrowBackIcon
 					onClick={handleClose}
 					sx={{ cursor: 'pointer' }}
 				/>
 			</div>
-			<div className="items-center text-center p-4">
+			<div className="items-center text-center p-4 bg-main-yellow">
 				{Object.entries(newEquipment.features).map(([key, value]) => {
 					if (value) {
 						return (
@@ -126,7 +126,7 @@ function SimpleDialog(props) {
 						textTransform: 'none',
 						fontSize: '14px',
 						marginTop: '10px',
-						backgroundColor: '#2463EB',
+						backgroundColor: '#EA5455',
 						width: '32ch',
 					}}
 					onClick={handleAddEquipment}

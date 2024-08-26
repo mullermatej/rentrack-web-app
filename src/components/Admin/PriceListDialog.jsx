@@ -39,15 +39,15 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<div className="py-2 px-2">
+			<div className="py-2 px-2 bg-main-yellow">
 				<ArrowBackIcon
 					onClick={handleClose}
 					sx={{ cursor: 'pointer' }}
 				/>
 			</div>
-			<div className="text-center">
+			<div className="text-center bg-main-yellow">
 				{getPriceList()}
-				<div className="flex gap-4 justify-center mb-2">
+				<div className="flex gap-4 justify-center mb-2 ">
 					<NewPriceDialog singleEquipmentName={singleEquipmentName} />
 				</div>
 			</div>
@@ -80,7 +80,7 @@ export default function Pricing({ equipment, singleEquipmentName }) {
 				size="small"
 				variant="contained"
 				onClick={handleClickOpen}
-				style={{ textTransform: 'none', fontFamily: 'nunito', backgroundColor: '#2463EB', fontSize: '13px' }}
+				style={{ textTransform: 'none', fontFamily: 'nunito', backgroundColor: '#F07B3F', fontSize: '13px' }}
 			>
 				<EditIcon
 					fontSize="inherit"

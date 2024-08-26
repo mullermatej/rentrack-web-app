@@ -38,13 +38,26 @@ export default function Dropdown({ setProfile }) {
 
 	return (
 		<Box sx={{ '& > :not(style)': { m: 1, mb: 3, width: '30ch' } }}>
-			<FormControl style={{ minWidth: 250, marginTop: '20px' }}>
+			<FormControl
+				sx={{
+					minWidth: 250,
+					marginTop: '20px',
+					'& .MuiOutlinedInput-root': {
+						'&:hover fieldset': {
+							borderColor: '#EA5455',
+						},
+						'&.Mui-focused fieldset': {
+							borderColor: '#EA5455',
+						},
+					},
+				}}
+			>
 				<InputLabel
 					id="demo-simple-select-label"
 					size="small"
-					style={{ fontFamily: 'nunito' }}
+					style={{ fontFamily: 'nunito', color: 'black' }}
 				>
-					* Korisnik
+					Djelatnik
 				</InputLabel>
 				<Select
 					labelId="demo-simple-select-label"

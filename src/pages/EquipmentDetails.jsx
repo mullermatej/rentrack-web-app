@@ -18,7 +18,7 @@ const baseUrl = import.meta.env.VITE_SERVER_BASE_URL;
 const theme = createTheme({
 	palette: {
 		primary: {
-			main: '#2463EB',
+			main: '#F07B3F',
 		},
 	},
 });
@@ -91,7 +91,10 @@ export default function EquipmentDetails() {
 		<div className="mx-auto">
 			{exists === true && (
 				<div className="flex justify-center my-6">
-					<Paper className="justify-center p-4">
+					<Paper
+						className="justify-center p-4"
+						sx={{ backgroundColor: '#FFD460' }}
+					>
 						<p className="text-4xl capitalize font-nunito">{equipmentName}</p>
 						<div className="my-4 space-x-4">
 							<NewEquipment equipmentName={equipmentName} />
@@ -99,11 +102,11 @@ export default function EquipmentDetails() {
 							<Profit equipment={equipment} />
 							<Button
 								size="small"
-								variant="outlined"
+								variant="contained"
 								style={{
 									textTransform: 'none',
 									fontSize: '14px',
-									backgroundColor: '#2463EB',
+									backgroundColor: '#EA5455',
 									color: 'white',
 									fontFamily: 'nunito',
 								}}
@@ -115,28 +118,38 @@ export default function EquipmentDetails() {
 						<div className="flex justify-center gap-4">
 							<ThemeProvider theme={theme}>
 								<Button
-									variant="outlined"
+									variant="contained"
 									size="small"
-									color="primary"
 									style={{
 										textTransform: 'none',
 										fontFamily: 'nunito',
+										color: 'white',
+										backgroundColor: '#F07B3F',
 									}}
 									onClick={() => (window.location.href = '/equipment')}
 								>
-									<ArrowBackOutlinedIcon fontSize="inherit" /> Natrag
+									<ArrowBackOutlinedIcon
+										fontSize="inherit"
+										className="mr-1"
+									/>{' '}
+									Natrag
 								</Button>
 								<Button
-									variant="outlined"
+									variant="contained"
 									size="small"
 									color="primary"
 									style={{
 										textTransform: 'none',
 										fontFamily: 'nunito',
+										color: 'white',
+										backgroundColor: '#F07B3F',
 									}}
 									onClick={() => window.location.reload()}
 								>
-									<RefreshIcon fontSize="inherit" />
+									<RefreshIcon
+										fontSize="inherit"
+										className="mr-1"
+									/>{' '}
 									Osvježi
 								</Button>
 							</ThemeProvider>
@@ -146,7 +159,7 @@ export default function EquipmentDetails() {
 			)}
 			{exists === true && (
 				<Container maxWidth="lg">
-					<Paper>
+					<Paper sx={{ backgroundColor: '#FFD460' }}>
 						{(features.color ||
 							features.dimensions ||
 							features.material ||
@@ -158,42 +171,45 @@ export default function EquipmentDetails() {
 							<div className="md:flex lg:flex xl:flex gap-4 justify-center p-4 mb-6">
 								{features.color && (
 									<p className="text-lg font-nunito">
-										Boja: <span className="text-main-blue">{features.color}</span>
+										Boja: <span className="text-light-red font-bold">{features.color}</span>
 									</p>
 								)}
 								{features.dimensions && (
 									<p className="text-lg font-nunito">
-										Dimenzije: <span className="text-main-blue">{features.dimensions}</span>
+										Dimenzije:{' '}
+										<span className="text-light-red font-bold">{features.dimensions}</span>
 									</p>
 								)}
 								{features.material && (
 									<p className="text-lg font-nunito">
-										Materijal: <span className="text-main-blue">{features.material}</span>
+										Materijal: <span className="text-light-red font-bold">{features.material}</span>
 									</p>
 								)}
 								{features.horsepower && (
 									<p className="text-lg font-nunito">
-										Konjska snaga: <span className="text-main-blue">{features.horsepower}</span>
+										Konjska snaga:{' '}
+										<span className="text-light-red font-bold">{features.horsepower}</span>
 									</p>
 								)}
 								{features.license && (
 									<p className="text-lg font-nunito">
-										Dozvola: <span className="text-main-blue">{features.license}</span>
+										Dozvola: <span className="text-light-red font-bold">{features.license}</span>
 									</p>
 								)}
 								{features.wheels && (
 									<p className="text-lg font-nunito">
-										Kotačići: <span className="text-main-blue">{features.wheels}</span>
+										Kotačići: <span className="text-light-red font-bold">{features.wheels}</span>
 									</p>
 								)}
 								{features.weight && (
 									<p className="text-lg font-nunito">
-										Težina: <span className="text-main-blue">{features.weight}</span>
+										Težina: <span className="text-light-red font-bold">{features.weight}</span>
 									</p>
 								)}
 								{features.maximumPeople && (
 									<p className="text-lg font-nunito">
-										Maks. osoba: <span className="text-main-blue">{features.maximumPeople}</span>
+										Maks. osoba:{' '}
+										<span className="text-light-red font-bold">{features.maximumPeople}</span>
 									</p>
 								)}
 							</div>
@@ -213,7 +229,10 @@ export default function EquipmentDetails() {
 				>
 					<Container>
 						<div className="flex justify-center">
-							<Paper className="flex-column justify-center p-6 max-w-sm">
+							<Paper
+								className="flex-column justify-center p-6 max-w-sm"
+								sx={{ backgroundColor: '#FFD460' }}
+							>
 								<CelebrationOutlinedIcon style={{ fontSize: '6rem', marginBottom: '15px' }} />
 								<p className="font-nunito text-3xl">Kreiraj pojedinu opremu</p>
 								<p className="font-nunito my-2">

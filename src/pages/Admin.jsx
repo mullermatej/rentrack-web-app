@@ -28,7 +28,10 @@ export default function Admin() {
 	return (
 		<>
 			<div className="flex justify-center my-6">
-				<Paper className="p-4">
+				<Paper
+					className="p-4"
+					sx={{ backgroundColor: '#FFD460' }}
+				>
 					<p className="font-nunito text-3xl">Postavke</p>
 					<p className="font-nunito text-lg">Ulogiran kao: {businessName}</p>
 					<p className="font-nunito text-lg">Tvoj ID obrta: {businessId}</p>

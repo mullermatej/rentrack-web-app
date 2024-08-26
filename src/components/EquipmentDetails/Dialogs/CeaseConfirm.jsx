@@ -63,7 +63,7 @@ function SimpleDialog(props) {
 						style={{
 							textTransform: 'none',
 							fontSize: '14px',
-							backgroundColor: '#D3302F',
+							backgroundColor: '#2F7D31',
 							color: 'white',
 							fontFamily: 'nunito',
 						}}
@@ -77,7 +77,7 @@ function SimpleDialog(props) {
 							textTransform: 'none',
 							fontSize: '14px',
 							fontFamily: 'nunito',
-							backgroundColor: '#2463EB',
+							backgroundColor: '#D3302F',
 						}}
 						onClick={handleClose}
 					>

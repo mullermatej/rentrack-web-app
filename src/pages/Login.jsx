@@ -6,7 +6,7 @@ import AuthSnackbar from '../components/Snackbars/AuthSnackbar';
 import Box from '@mui/material/Box';
 import TextFieldLogin from '../components/Login/TextFieldLogin';
 import PasswordField from '../components/Login/PasswordField';
-import Logo from '../assets/LogoCropped.jpeg';
+import Logo from '../assets/LogoUpdated.png';
 import '../App.css';
 
 export default function Login() {
@@ -68,13 +68,13 @@ export default function Login() {
 			<Paper
 				elevation={3}
 				className="p-10"
+				sx={{ backgroundColor: '#FFD460' }}
 			>
 				<img
 					src={Logo}
 					alt="Logo"
 					className="h-20 mb-5 mx-auto"
 				/>
-				<p className="text-3xl mb-5 font-nunito">Prijava </p>
 				<TextFieldLogin
 					label="* OIB obrta"
 					setUserInfo={setUserInfo}
@@ -85,15 +85,16 @@ export default function Login() {
 					label="* Lozinka"
 					field="password"
 				/>
-				<Box sx={{ '& > :not(style)': { width: '30ch' } }}>
+				<Box sx={{ '& > :not(style)': { width: '29ch' } }}>
 					<Button
 						variant="contained"
 						onClick={handleLogin}
 						style={{
 							textTransform: 'none',
 							fontSize: '17.5px',
-							backgroundColor: '#2463EB',
+							backgroundColor: '#EA5455',
 							fontFamily: 'nunito',
+							marginTop: '10px',
 						}}
 					>
 						Prijavi se
@@ -102,7 +103,7 @@ export default function Login() {
 				<p className="mt-2 text-sm font-nunito">
 					Nemaš kreiran račun?{' '}
 					<span
-						className="text-main-blue font-semibold cursor-pointer"
+						className="text-light-red cursor-pointer font-bold"
 						onClick={navigateToRegister}
 					>
 						Registriraj se

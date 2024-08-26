@@ -61,18 +61,19 @@ export default function UserSelect() {
 			<Paper
 				elevation={3}
 				className="p-10"
+				style={{ backgroundColor: '#FFD460' }}
 			>
 				<p className="text-3xl font-nunito">Odaberi svoj profil </p>
-				<p className="text-sm mb-5 font-nunito">Preporučuje se da svaki djelatnik ima svoj profil</p>
+				<p className="text-sm mb-5 font-nunito">* Preporučuje se da svaki djelatnik ima svoj profil</p>
 				<Dropdown setProfile={setProfile} />
-				<Box sx={{ '& > :not(style)': { width: '30ch' } }}>
+				<Box sx={{ '& > :not(style)': { width: '29ch' } }}>
 					<Button
 						variant="contained"
 						onClick={handleProfileLogin}
 						style={{
 							textTransform: 'none',
 							fontSize: '17.5px',
-							backgroundColor: '#2463EB',
+							backgroundColor: '#EA5455',
 							fontFamily: 'nunito',
 						}}
 					>
@@ -82,7 +83,7 @@ export default function UserSelect() {
 				<p className="mt-2 text-sm font-nunito">
 					Ne vidiš se na popisu?{' '}
 					<span
-						className="text-main-blue font-semibold"
+						className="text-light-red font-bold"
 						style={{ cursor: 'pointer' }}
 						onClick={handleClickOpen}
 					>

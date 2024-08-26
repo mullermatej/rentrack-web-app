@@ -26,6 +26,17 @@ export default function PricesInputField({ type = 'number', setPrice, value }) {
 				InputProps={{
 					startAdornment: <InputAdornment position="start">€</InputAdornment>,
 				}}
+				InputLabelProps={{ style: { fontFamily: 'nunito', color: 'black' } }}
+				sx={{
+					'& .MuiOutlinedInput-root': {
+						'&:hover fieldset': {
+							borderColor: '#EA5455',
+						},
+						'&.Mui-focused fieldset': {
+							borderColor: '#EA5455',
+						},
+					},
+				}}
 			/>
 		</Box>
 	);

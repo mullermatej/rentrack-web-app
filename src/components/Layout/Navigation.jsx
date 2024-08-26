@@ -9,11 +9,12 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NavigationDrawer from './NavigationDrawer';
-import Logo from '../../assets/LogoCropped.jpeg';
+import Logo from '../../assets/LogoUpdated.png';
 
 export default function Navigation() {
 	const location = useLocation();
@@ -64,6 +65,19 @@ export default function Navigation() {
 			<MenuItem onClick={handleMenuClose}>My account</MenuItem>
 		</Menu>
 	);
+
+	const handleLogout = () => {
+		localStorage.removeItem('profile');
+		localStorage.removeItem('user');
+		window.location.href = '/login';
+	};
+
+	const checkScreenSize = () => {
+		if (window.innerWidth < 600) {
+			return false;
+		}
+		return true;
+	};
 
 	const mobileMenuId = 'primary-search-account-menu-mobile';
 	const renderMobileMenu = (
@@ -131,7 +145,7 @@ export default function Navigation() {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar
 				position={isUserSelectRoute ? 'fixed' : 'sticky'}
-				sx={{ bgcolor: 'white', color: 'black' }}
+				sx={{ bgcolor: '#FFD460', color: 'black' }}
 			>
 				<Toolbar>
 					<IconButton
@@ -144,19 +158,34 @@ export default function Navigation() {
 					>
 						<MenuIcon />
 					</IconButton>
-					<img
-						src={Logo}
-						alt="Logo"
-						style={{ height: '40px' }}
-					/>
+					{checkScreenSize() && (
+						<img
+							src={Logo}
+							alt="Logo"
+							style={{ height: '40px' }}
+						/>
+					)}
 					<NavigationDrawer
 						open={open}
 						toggleDrawer={toggleDrawer}
 					/>
 					<Box sx={{ flexGrow: 1 }} />
 					<Box sx={{ display: { md: 'flex' } }}>
-						<Typography sx={{ fontFamily: 'nunito' }}>
+						<Typography
+							sx={{
+								fontFamily: 'nunito',
+								color: 'black',
+								fontWeight: '600',
+								fontSize: '18px',
+							}}
+						>
 							{profile ? 'Djelatnik: ' : ''} {profile && profile.name + ' ' + profile.surname}
+							<IconButton
+								color="inherit"
+								sx={{ marginBottom: '3px', marginLeft: '10px' }}
+							>
+								<PowerSettingsNewIcon onClick={handleLogout}></PowerSettingsNewIcon>
+							</IconButton>
 						</Typography>
 					</Box>
 				</Toolbar>

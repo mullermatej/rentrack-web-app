@@ -19,7 +19,10 @@ export default function DenseTable({ equipment }) {
 	});
 
 	return (
-		<TableContainer component={Paper}>
+		<TableContainer
+			component={Paper}
+			sx={{ backgroundColor: '#FFD460' }}
+		>
 			<Table
 				sx={{ minWidth: 250 }}
 				size="small"
@@ -27,10 +30,12 @@ export default function DenseTable({ equipment }) {
 			>
 				<TableHead>
 					<TableRow>
-						<TableCell style={{ fontFamily: 'nunito', fontSize: '16px' }}>Broj sati</TableCell>
+						<TableCell style={{ fontFamily: 'nunito', fontSize: '16px', borderBottom: 'none' }}>
+							Broj sati
+						</TableCell>
 						<TableCell
 							align="left"
-							style={{ fontFamily: 'nunito', fontSize: '16px' }}
+							style={{ fontFamily: 'nunito', fontSize: '16px', borderBottom: 'none' }}
 						>
 							Cijena
 						</TableCell>
@@ -45,13 +50,13 @@ export default function DenseTable({ equipment }) {
 							<TableCell
 								component="th"
 								scope="row"
-								style={{ fontFamily: 'nunito' }}
+								style={{ fontFamily: 'nunito', borderBottom: 'none' }}
 							>
 								{row.hours}h
 							</TableCell>
 							<TableCell
 								align="left"
-								style={{ fontFamily: 'nunito' }}
+								style={{ fontFamily: 'nunito', borderBottom: 'none' }}
 							>
 								{row.price}€
 							</TableCell>

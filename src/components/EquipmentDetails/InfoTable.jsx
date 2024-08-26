@@ -87,8 +87,8 @@ function Row(props) {
 
 	return (
 		<>
-			<TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-				<TableCell>
+			<TableRow sx={{ '& > *': { borderBottom: 'unset' }, borderBottom: 'none' }}>
+				<TableCell sx={{ borderBottom: 'none' }}>
 					<IconButton
 						aria-label="expand row"
 						size="small"
@@ -100,19 +100,23 @@ function Row(props) {
 				<TableCell
 					component="th"
 					scope="row"
-					sx={{ fontFamily: 'nunito' }}
+					sx={{ fontFamily: 'nunito', borderBottom: 'none' }}
 				>
 					{row.id}
 				</TableCell>
-				<TableCell align="right">
+				<TableCell
+					align="right"
+					sx={{ borderBottom: 'none' }}
+				>
 					<Button
-						variant={row.availability === 'available' ? 'outlined' : 'default'}
+						variant={row.availability === 'available' ? 'default' : 'default'}
 						size="small"
 						onClick={handlePayment}
 						style={{
 							textTransform: 'none',
 							fontSize: '14px',
-							color: row.availability === 'available' ? '#2463EB' : '#D3302F',
+							color: row.availability === 'available' ? 'white' : 'white',
+							backgroundColor: row.availability === 'available' ? '#2F7D31' : '#D3302F',
 							fontFamily: 'nunito',
 						}}
 					>
@@ -121,27 +125,36 @@ function Row(props) {
 				</TableCell>
 				<TableCell
 					align="right"
-					sx={{ fontFamily: 'nunito' }}
+					sx={{ fontFamily: 'nunito', borderBottom: 'none' }}
 				>
 					{row.endTime}
 				</TableCell>
 				<TableCell
 					align="right"
-					sx={{ fontFamily: 'nunito' }}
+					sx={{ fontFamily: 'nunito', borderBottom: 'none' }}
 				>
 					{row.profitDay}€
 				</TableCell>
 				<TableCell
 					align="right"
-					sx={{ fontFamily: 'nunito' }}
+					sx={{ fontFamily: 'nunito', borderBottom: 'none' }}
 				>
 					{row.profitMonth}€
 				</TableCell>
-				<TableCell align="right">
+				<TableCell
+					align="right"
+					sx={{ borderBottom: 'none' }}
+				>
 					{' '}
 					<Button
 						onClick={() => deleteAddedEquipment(equipment.name, row.id)}
-						style={{ textTransform: 'none', fontSize: '14px', color: '#2463EB', fontFamily: 'nunito' }}
+						style={{
+							textTransform: 'none',
+							fontSize: '14px',
+							color: '#EA5455',
+							fontFamily: 'nunito',
+							fontWeight: 'bold',
+						}}
 					>
 						Ukloni
 					</Button>
@@ -149,7 +162,7 @@ function Row(props) {
 			</TableRow>
 			<TableRow>
 				<TableCell
-					style={{ paddingBottom: 0, paddingTop: 0 }}
+					style={{ paddingBottom: 0, paddingTop: 0, borderBottom: 'none' }}
 					colSpan={6}
 				>
 					<Collapse
@@ -172,9 +185,13 @@ function Row(props) {
 							>
 								<TableHead>
 									<TableRow>
-										<TableCell sx={{ fontFamily: 'nunito' }}>Datum</TableCell>
-										<TableCell sx={{ fontFamily: 'nunito' }}>Radnik</TableCell>
-										<TableCell sx={{ fontFamily: 'nunito' }}>Sati izdano</TableCell>
+										<TableCell sx={{ fontFamily: 'nunito', borderBottom: 'none' }}>Datum</TableCell>
+										<TableCell sx={{ fontFamily: 'nunito', borderBottom: 'none' }}>
+											Radnik
+										</TableCell>
+										<TableCell sx={{ fontFamily: 'nunito', borderBottom: 'none' }}>
+											Sati izdano
+										</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
@@ -183,12 +200,16 @@ function Row(props) {
 											<TableCell
 												component="th"
 												scope="row"
-												sx={{ fontFamily: 'nunito' }}
+												sx={{ fontFamily: 'nunito', borderBottom: 'none' }}
 											>
 												{historyRow.date}
 											</TableCell>
-											<TableCell sx={{ fontFamily: 'nunito' }}>{historyRow.worker}</TableCell>
-											<TableCell sx={{ fontFamily: 'nunito' }}>{historyRow.hours}</TableCell>
+											<TableCell sx={{ fontFamily: 'nunito', borderBottom: 'none' }}>
+												{historyRow.worker}
+											</TableCell>
+											<TableCell sx={{ fontFamily: 'nunito', borderBottom: 'none' }}>
+												{historyRow.hours}
+											</TableCell>
 										</TableRow>
 									))}
 								</TableBody>
@@ -304,37 +325,43 @@ export default function InfoTable({ equipment }) {
 	}, [equipment, addedEquipment]);
 
 	return (
-		<TableContainer component={Paper}>
+		<TableContainer
+			component={Paper}
+			sx={{ backgroundColor: '#FFD460' }}
+		>
 			<Table aria-label="collapsible table">
 				<TableHead>
 					<TableRow>
-						<TableCell />
-						<TableCell sx={{ fontFamily: 'nunito' }}>Identifikacijski broj</TableCell>
+						<TableCell sx={{ borderBottom: 'none' }} />
+						<TableCell sx={{ fontFamily: 'nunito', borderBottom: 'none' }}>Identifikacijski broj</TableCell>
 						<TableCell
 							align="right"
-							sx={{ fontFamily: 'nunito' }}
+							sx={{ fontFamily: 'nunito', borderBottom: 'none' }}
 						>
 							Stanje
 						</TableCell>
 						<TableCell
 							align="right"
-							sx={{ fontFamily: 'nunito' }}
+							sx={{ fontFamily: 'nunito', borderBottom: 'none' }}
 						>
 							Ističe
 						</TableCell>
 						<TableCell
 							align="right"
-							sx={{ fontFamily: 'nunito' }}
+							sx={{ fontFamily: 'nunito', borderBottom: 'none' }}
 						>
 							Današnji prihod
 						</TableCell>
 						<TableCell
 							align="right"
-							sx={{ fontFamily: 'nunito' }}
+							sx={{ fontFamily: 'nunito', borderBottom: 'none' }}
 						>
 							Mjesečni prihod
 						</TableCell>
-						<TableCell align="right"></TableCell>
+						<TableCell
+							align="right"
+							sx={{ borderBottom: 'none' }}
+						></TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>

@@ -66,13 +66,19 @@ function SimpleDialog({ onClose, open }) {
 			onClose={handleClose}
 			open={open}
 		>
-			<div className="py-2 px-2">
+			<div
+				className="py-2 px-2"
+				style={{ backgroundColor: '#FFD460' }}
+			>
 				<ArrowBackIcon
 					onClick={handleClose}
 					sx={{ cursor: 'pointer' }}
 				/>
 			</div>
-			<div className="flex-column text-center justify-center items-center px-5 pb-5">
+			<div
+				className="flex-column text-center justify-center items-center px-5 pb-5"
+				style={{ backgroundColor: '#FFD460' }}
+			>
 				<InputField
 					value="* Ime"
 					setNewUser={setNewUser}
@@ -96,7 +102,7 @@ function SimpleDialog({ onClose, open }) {
 						style={{
 							textTransform: 'none',
 							fontSize: '17.5px',
-							backgroundColor: '#2463EB',
+							backgroundColor: '#EA5455',
 							fontFamily: 'nunito',
 						}}
 						onClick={handleCreateUser}

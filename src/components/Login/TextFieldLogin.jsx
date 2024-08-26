@@ -22,13 +22,23 @@ export default function TextFieldLogin({ label, type = 'text', setUserInfo, fiel
 				InputProps={{
 					startAdornment: (
 						<InputAdornment position="start">
-							{label === '* OIB obrta' && <PinOutlinedIcon />}
-							{label === '* Lozinka' && <LockOutlinedIcon />}
+							{label === '* OIB obrta' && <PinOutlinedIcon sx={{ color: 'black' }} />}
+							{label === '* Lozinka' && <LockOutlinedIcon sx={{ color: 'black' }} />}
 						</InputAdornment>
 					),
-					style: { fontFamily: 'nunito' },
+					style: { fontFamily: 'nunito', color: 'black' },
 				}}
-				InputLabelProps={{ style: { fontFamily: 'nunito' } }}
+				InputLabelProps={{ style: { fontFamily: 'nunito', color: 'black' } }}
+				sx={{
+					'& .MuiOutlinedInput-root': {
+						'&:hover fieldset': {
+							borderColor: '#EA5455',
+						},
+						'&.Mui-focused fieldset': {
+							borderColor: '#EA5455',
+						},
+					},
+				}}
 			/>
 		</Box>
 	);

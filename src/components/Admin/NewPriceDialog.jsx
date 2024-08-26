@@ -64,13 +64,13 @@ function SimpleDialog(props) {
 			onClose={handleClose}
 			open={open}
 		>
-			<div className="pt-2 px-2">
+			<div className="pt-2 px-2 bg-main-yellow">
 				<ArrowBackIcon
 					onClick={handleClose}
 					sx={{ cursor: 'pointer' }}
 				/>
 			</div>
-			<div className="text-center py-4 px-6">
+			<div className="text-center py-4 px-6 bg-main-yellow">
 				<NewPriceInput
 					setPriceInfo={setPriceInfo}
 					label="* Sati"
@@ -81,15 +81,15 @@ function SimpleDialog(props) {
 				/>
 				<div className="mt-4">
 					<Button
-						variant="contained"
 						size="small"
 						onClick={handleAddNewPrice}
-						sx={{
+						style={{
 							fontFamily: 'nunito',
-							backgroundColor: '#2463EB',
+							backgroundColor: '#EA5455',
 							fontSize: '14px',
 							textTransform: 'none',
 							width: '13ch',
+							color: 'white',
 						}}
 					>
 						Spremi
@@ -130,18 +130,18 @@ export default function Pricing({ singleEquipmentName }) {
 		<>
 			<Button
 				size="small"
-				variant="contained"
 				onClick={handleClickOpen}
-				sx={{
+				style={{
 					fontFamily: 'nunito',
 					fontSize: '14px',
-					backgroundColor: '#2463EB',
+					backgroundColor: '#EA5455',
 					textTransform: 'none',
 					width: '15ch',
 					marginTop: '10px',
+					color: 'white',
 				}}
 			>
-				Novo
+				Kreiraj
 			</Button>
 			<SimpleDialog
 				selectedValue={selectedValue}

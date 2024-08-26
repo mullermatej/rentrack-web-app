@@ -52,20 +52,24 @@ export default function PriceListList({ hour, price, singleEquipmentName }) {
 	};
 
 	return (
-		<Box sx={{ flexGrow: 1, maxWidth: 752, marginLeft: 2, marginRight: 2 }}>
+		<Box sx={{ flexGrow: 1, maxWidth: 752, marginLeft: 2, marginRight: 2, backgroundColor: '#FFD460' }}>
 			<Grid
 				item
 				xs={12}
 				md={6}
 			>
 				<Demo>
-					<List dense={true}>
+					<List
+						dense={true}
+						sx={{ backgroundColor: '#FFD460' }}
+					>
 						<ListItem
 							secondaryAction={
 								<IconButton
 									edge="end"
 									aria-label="delete"
 									onClick={handleDeletePrice}
+									style={{ color: 'black' }}
 								>
 									<HighlightOffIcon />
 								</IconButton>

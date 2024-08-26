@@ -30,13 +30,25 @@ export default function InputField({ value, type = 'text', setNewUser, field }) 
 				InputProps={{
 					startAdornment: (
 						<InputAdornment position="start">
-							{(field === 'name' || field === 'surname') && <PersonOutlineOutlinedIcon />}
+							{(field === 'name' || field === 'surname') && (
+								<PersonOutlineOutlinedIcon sx={{ color: 'black' }} />
+							)}
 							{(field === 'password' || field === 'repeatPassword') && <LockOutlinedIcon />}
 						</InputAdornment>
 					),
-					style: { fontFamily: 'nunito' },
+					style: { fontFamily: 'nunito', color: 'black' },
 				}}
-				InputLabelProps={{ style: { fontFamily: 'nunito' } }}
+				InputLabelProps={{ style: { fontFamily: 'nunito', color: 'black' } }}
+				sx={{
+					'& .MuiOutlinedInput-root': {
+						'&:hover fieldset': {
+							borderColor: '#EA5455',
+						},
+						'&.Mui-focused fieldset': {
+							borderColor: '#EA5455',
+						},
+					},
+				}}
 			/>
 		</Box>
 	);

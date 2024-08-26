@@ -20,22 +20,24 @@ export default function WorkersTable({ profiles }) {
 	return (
 		<TableContainer component={Paper}>
 			<Table
-				sx={{ minWidth: 250 }}
+				sx={{ minWidth: 250, backgroundColor: '#FFD460' }}
 				size="small"
 				aria-label="a dense table"
 			>
 				<TableHead>
 					<TableRow>
-						<TableCell sx={{ fontFamily: 'nunito', fontSize: '16px' }}>Ime djelatnika</TableCell>
+						<TableCell sx={{ fontFamily: 'nunito', fontSize: '16px', borderBottom: 'none' }}>
+							Ime djelatnika
+						</TableCell>
 						<TableCell
 							align="left"
-							sx={{ fontFamily: 'nunito', fontSize: '16px' }}
+							sx={{ fontFamily: 'nunito', fontSize: '16px', borderBottom: 'none' }}
 						>
 							Prezime djelatnika
 						</TableCell>
 						<TableCell
 							align="right"
-							sx={{ fontFamily: 'nunito', fontSize: '16px' }}
+							sx={{ fontFamily: 'nunito', fontSize: '16px', borderBottom: 'none' }}
 						>
 							Ukupni prihod
 						</TableCell>
@@ -50,19 +52,19 @@ export default function WorkersTable({ profiles }) {
 							<TableCell
 								component="th"
 								scope="row"
-								sx={{ fontFamily: 'nunito' }}
+								sx={{ fontFamily: 'nunito', borderBottom: 'none' }}
 							>
 								{row.workerName}
 							</TableCell>
 							<TableCell
 								align="left"
-								sx={{ fontFamily: 'nunito' }}
+								sx={{ fontFamily: 'nunito', borderBottom: 'none' }}
 							>
 								{row.workerSurname}
 							</TableCell>
 							<TableCell
 								align="right"
-								sx={{ fontFamily: 'nunito' }}
+								sx={{ fontFamily: 'nunito', borderBottom: 'none' }}
 							>
 								{row.workerIncome}€
 							</TableCell>

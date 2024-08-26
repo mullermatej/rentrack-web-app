@@ -84,7 +84,16 @@ export default function PriceOptions({ equipment, equipmentId }) {
 					<FormControlLabel
 						key={hours}
 						value={`${hours},${prices[hours]}`}
-						control={<Radio />}
+						control={
+							<Radio
+								sx={{
+									color: '#EA5455',
+									'&.Mui-checked': {
+										color: '#EA5455', // Change this to the desired checked color
+									},
+								}}
+							/>
+						}
 						label={
 							<Typography
 								variant="body1"
@@ -102,7 +111,7 @@ export default function PriceOptions({ equipment, equipmentId }) {
 				color="primary"
 				onClick={handleConfirm}
 				style={{
-					backgroundColor: '#2463EB',
+					backgroundColor: '#2F7D31',
 					color: 'white',
 					fontFamily: 'nunito',
 					textTransform: 'none',
