@@ -54,10 +54,16 @@ function SimpleDialog(props) {
 				onClose={handleClose}
 				open={openCeaseConfirm}
 			>
-				<div className="text-center px-10 py-4">
+				<div
+					className="text-center px-10 py-4"
+					style={{ backgroundColor: '#FFD460' }}
+				>
 					<p className="font-nunito text-lg ">Zaustaviti najam opreme?</p>
 				</div>
-				<div className="px-10 pb-4 flex gap-5 justify-center">
+				<div
+					className="px-10 pb-4 flex gap-5 justify-center"
+					style={{ backgroundColor: '#FFD460' }}
+				>
 					<Button
 						variant="contained"
 						style={{

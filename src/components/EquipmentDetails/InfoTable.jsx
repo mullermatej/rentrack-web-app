@@ -118,9 +118,10 @@ function Row(props) {
 							color: row.availability === 'available' ? 'white' : 'white',
 							backgroundColor: row.availability === 'available' ? '#2F7D31' : '#D3302F',
 							fontFamily: 'nunito',
+							width: '100px',
 						}}
 					>
-						{row.availability === 'available' ? 'Dostupno' : 'Zaustavi'}
+						{row.availability === 'available' ? 'Dostupno' : 'Nedostupno'}
 					</Button>
 				</TableCell>
 				<TableCell
