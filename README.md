@@ -6,6 +6,6 @@ Mentor: doc.dr.sc. Tihomir Orehovački
 
 ## Tehnologije
 
-- React (Javascript, Vite)
-- Tailwind
-- Material UI
+- [React (Javascript, Vite)](https://vitejs.dev/)
+- [Tailwind](https://tailwindcss.com/)
+- [Material UI](https://mui.com/)
