@@ -1,8 +1,11 @@
-# React + Vite
+# RenTrack - frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Fakultet informatike u Puli](https://fipu.unipu.hr/) <br>
+Završni rad <br>
+Mentor: doc.dr.sc. Tihomir Orehovački
 
-Currently, two official plugins are available:
+## Tehnologije
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React (Javascript, Vite)
+- Tailwind
+- Material UI
